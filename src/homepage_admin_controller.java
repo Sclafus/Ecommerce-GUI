@@ -7,7 +7,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class homepage_adminController {
+public class homepage_admin_controller {
 
     @FXML
     private AnchorPane rootPane;

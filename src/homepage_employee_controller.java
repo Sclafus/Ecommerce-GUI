@@ -8,7 +8,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class homepage_employeeController {
+public class homepage_employee_controller {
 
     @FXML
     private AnchorPane rootPane;
@@ -23,8 +23,9 @@ public class homepage_employeeController {
     private Text employeeName;
 
     @FXML
-    void addWine(ActionEvent event) {
-
+    void addWine(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("./add_wine.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
