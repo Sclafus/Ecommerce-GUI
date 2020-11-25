@@ -15,6 +15,8 @@
             <Image url="@img/wine.png" />
          </image>
       </ImageView>
-      <TreeView fx:id="treeview" layoutX="96.0" layoutY="55.0" prefHeight="266.0" prefWidth="409.0" />
+      <ButtonBar layoutX="355.0" layoutY="281.0" prefHeight="40.0" prefWidth="200.0" />
+      <Button layoutX="529.0" layoutY="361.0" mnemonicParsing="false" onAction="#buy" text="Buy💲" />
+      <TreeView layoutX="96.0" layoutY="55.0" prefHeight="266.0" prefWidth="409.0" />
    </children>
 </AnchorPane>
