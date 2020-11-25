@@ -40,16 +40,28 @@ public class loginController implements Initializable {
         //TODO: DB query
 
         //tmp stuff
-        Boolean isUser = true;
+        Boolean isAdmin = false;
+        Boolean isEmployee = false;
+
         if(mail.length() == 0 || pass.length() == 0){
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("All fields must be filled");
             alert.setHeaderText("Please fill all the fields");
             alert.showAndWait();
         }
+        //~tmp stuff
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-        rootPane.getChildren().setAll(pane);
+
+        if (isAdmin){
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
+            rootPane.getChildren().setAll(pane);
+        } else if(isEmployee){
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
+            rootPane.getChildren().setAll(pane);
+        } else {
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
+            rootPane.getChildren().setAll(pane);
+        }
 
     }
 }
