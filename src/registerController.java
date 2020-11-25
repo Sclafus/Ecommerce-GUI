@@ -1,3 +1,5 @@
+
+// import java.io.IOException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +63,7 @@ public class registerController implements Initializable{
     }
 
     @FXML
-    void newUser(ActionEvent event) {
+    void newUser(ActionEvent event) throws IOException {
 
         String nam = name.getText();
         String sur = surname.getText();
@@ -71,8 +73,8 @@ public class registerController implements Initializable{
         //The flag value is used to not prompt 2 alerts at the same time.
         Boolean flag = true;
 
-        if( nam.length() == 0|| sur.length() == 0 || mail.length() == 0 || pass.length() == 0){
-            flag = !flag;
+        if(nam.length() == 0|| sur.length() == 0 || mail.length() == 0 || pass.length() == 0){
+            flag = false;
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("All fields must be filled");
             alert.setHeaderText("Please fill all the fields");
@@ -87,7 +89,13 @@ public class registerController implements Initializable{
         }
 
         //TODO: add new user to DB
+
         //TODO: login
-        
-    } 
+        Boolean login_flag=true;
+
+        if(login_flag){
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
+            rootPane.getChildren().setAll(pane);
+        }
+    }
 }
