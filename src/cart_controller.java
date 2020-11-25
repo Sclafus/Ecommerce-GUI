@@ -24,7 +24,7 @@ public class cart_controller {
 
     @FXML
     void buy(ActionEvent event) {
-		Alert alert = new Alert(AlertType.CONFIRMATION);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Order submitted!");
 		alert.setHeaderText("Your order has been placed!");
 		alert.showAndWait();
