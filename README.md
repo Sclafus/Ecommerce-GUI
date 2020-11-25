@@ -7,5 +7,7 @@ It's using:
 * FXML files (with [Scene Builder](https://gluonhq.com/products/scene-builder/))
 * Client-Server architecture (with JDBC)
 
-This program is the Client of the architecture (clearly). I'll link the repository for the Server application when it will be available.
+This program is the Client of the architecture (clearly). 
+
+The Server application is available [here](https://github.com/Sclafus/Ecommerce-Server).
 All the images used in this project are taken from [icons8.com](https://www.icons8.com)
