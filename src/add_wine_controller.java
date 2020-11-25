@@ -31,6 +31,7 @@ public class add_wine_controller {
 
     @FXML
     void addWine(ActionEvent event) {
+        int yea;
         String nam = name.getText();
         String yea_tmp = year.getText();
         String pro = producer.getText();
@@ -46,7 +47,7 @@ public class add_wine_controller {
         }
 
         try {
-            int yea = Integer.parseInt(yea_tmp);
+            yea = Integer.parseInt(yea_tmp);
         } catch (NumberFormatException e) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Invalid Year");
