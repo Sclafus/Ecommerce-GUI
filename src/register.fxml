@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #762933;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="registerController">
+   <children>
+      <Button defaultButton="true" layoutX="511.0" layoutY="350.0" mnemonicParsing="false" onAction="#newUser" text="Register">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <TextField fx:id="email" layoutX="229.0" layoutY="177.0" promptText="Email">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="password" layoutX="229.0" layoutY="214.0" promptText="Password">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font>
+      </PasswordField>
+      <TextField fx:id="surname" layoutX="229.0" layoutY="136.0" promptText="Surname">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="name" layoutX="229.0" layoutY="97.0" promptText="Name">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@./img/wine.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="149.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill the form to register">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <Text fx:id="message" layoutX="282.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
