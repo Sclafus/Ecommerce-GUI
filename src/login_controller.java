@@ -40,8 +40,8 @@ public class login_controller implements Initializable {
         //TODO: DB query
 
         //tmp stuff
-        Boolean isAdmin = false;
-        Boolean isEmployee = false;
+        Boolean isAdmin = true;
+        Boolean isEmployee = true;
 
         if(mail.length() == 0 || pass.length() == 0){
             Alert alert = new Alert(AlertType.WARNING);

@@ -88,18 +88,21 @@ public class homepage_user_controller {
     }
 
     @FXML
-    void showCart(ActionEvent event) {
-
+    void showCart(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("./cart.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
-    void showNotifications(ActionEvent event) {
-
+    void showNotifications(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("./notifications.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
-    void showOrders(ActionEvent event) {
-
+    void showOrders(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("./orders.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
 }

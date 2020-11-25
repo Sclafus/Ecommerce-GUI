@@ -5,19 +5,19 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class App extends Application{
-    
+	
 
-    @Override
-    public void start(Stage stage) throws Exception{
+	@Override
+	public void start(Stage stage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
-        
-        Scene scene = new Scene(root);
-        stage.setTitle("Hello world");
-        stage.setScene(scene);
-        stage.show();
-    }
-    public static void main(String[] args){
-        launch(args);
-    }
+		Parent root = FXMLLoader.load(getClass().getResource("./login.fxml"));
+		
+		Scene scene = new Scene(root);
+		stage.setTitle("Hello world");
+		stage.setScene(scene);
+		stage.show();
+	}
+	public static void main(String[] args){
+		launch(args);
+	}
 }
