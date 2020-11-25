@@ -31,7 +31,7 @@ public class add_wine_controller {
 
     @FXML
     void addWine(ActionEvent event) {
-        int yea;
+        int yea = 0;
         String nam = name.getText();
         String yea_tmp = year.getText();
         String pro = producer.getText();
@@ -54,6 +54,8 @@ public class add_wine_controller {
             alert.setHeaderText("Please insert a valid year.");
             alert.showAndWait();
         }
+
+        System.out.println(yea);
     }
 
     @FXML
