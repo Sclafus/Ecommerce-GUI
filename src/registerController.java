@@ -73,7 +73,7 @@ public class registerController implements Initializable{
         //The flag value is used to not prompt 2 alerts at the same time.
         Boolean flag = true;
 
-        if(nam.length() == 0|| sur.length() == 0 || mail.length() == 0 || pass.length() == 0){
+        if(nam.length() == 0 || sur.length() == 0 || mail.length() == 0 || pass.length() == 0){
             flag = false;
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("All fields must be filled");
