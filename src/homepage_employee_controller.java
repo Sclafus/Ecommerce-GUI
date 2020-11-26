@@ -40,8 +40,9 @@ public class homepage_employee_controller {
     }
 
     @FXML
-    void restockWine(ActionEvent event) {
-
+    void restockWine(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("./restock.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
