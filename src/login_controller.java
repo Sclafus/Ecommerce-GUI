@@ -40,8 +40,12 @@ public class login_controller {
 		//socket stuff
 		Socket socket = new Socket("localhost", 4316);
 		PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-		printWriter.println(mail + password);
-
+		printWriter.println(mail);
+		printWriter.println(pass);
+		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		String response = bufferReader.readLine();
+		System.out.println(response);
+		
 
 
 		//tmp stuff
