@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 
 import javafx.event.ActionEvent;
@@ -36,31 +37,42 @@ public class login_controller {
 		//gets the informations
 		String mail = email.getText();
 		String pass = password.getText();
+		Boolean sent_alert = false;
 
 		//socket stuff
-		Socket socket = new Socket("localhost", 4316);
-		PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-		printWriter.println(mail);
-		printWriter.println(pass);
-		BufferedReader bufferReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		String response = bufferReader.readLine();
-		System.out.println(response);
+		try{
+			//client -> server
+			Socket socket = new Socket("localhost", 4316);
+			PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
+			printWriter.println(mail);
+
+			//server -> client
+			BufferedReader bufferReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			String response = bufferReader.readLine();
+			System.out.println(response);
+			socket.close();
+		} catch(ConnectException e){
+			sent_alert = true;
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Cannot connect to server");
+			alert.setHeaderText("Server is unreachable. Try again later.");
+			alert.showAndWait();
+		}
+
 		
-
-
-		//tmp stuff
-		Boolean isAdmin = false;
-		Boolean isEmployee = false;
-
-		if(mail.length() == 0 || pass.length() == 0){
+		if((mail.length() == 0 || pass.length() == 0) && !sent_alert){
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("All fields must be filled");
 			alert.setHeaderText("Please fill all the fields");
 			alert.showAndWait();
 		}
+
+		//tmp stuff
+		Boolean isAdmin = true;
+		Boolean isEmployee = false;
 		//~tmp stuff
-
-
+		
+		
 		if (isAdmin){
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
 			rootPane.getChildren().setAll(pane);
