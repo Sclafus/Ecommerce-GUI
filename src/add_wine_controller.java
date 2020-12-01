@@ -63,7 +63,7 @@ public class Add_wine_controller {
 
                 OutputStream outputStream = socket.getOutputStream();
                 ObjectOutputStream out = new ObjectOutputStream(outputStream);
-                String[] to_be_sent  = {"add_wine", nam, yea_tmp, pro, not};
+                String[] to_be_sent  = {"add_wine", nam, yea_tmp, pro, gra, not};
                 out.writeObject(to_be_sent);
     
                 InputStream inputStream = socket.getInputStream();
