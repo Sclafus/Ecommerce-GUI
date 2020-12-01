@@ -1,4 +1,10 @@
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,7 +36,7 @@ public class Add_wine_controller {
     private TextArea notes;
 
     @FXML
-    void addWine(ActionEvent event) {
+    void addWine(ActionEvent event) throws UnknownHostException, IOException {
         int yea = 0;
         String nam = name.getText();
         String yea_tmp = year.getText();
@@ -44,18 +50,36 @@ public class Add_wine_controller {
             alert.setTitle("All fields must be filled");
             alert.setHeaderText("Please fill all the fields");
             alert.showAndWait();
-        }
+        } else {
+            try{
+                yea = Integer.parseInt(yea_tmp);
+            } catch (NumberFormatException e){
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Invalid Year");
+                alert.setHeaderText("Please insert a valid year.");
+                alert.showAndWait();
+            } finally{
+                Socket socket = new Socket("localhost", 4316);
 
-        try {
-            yea = Integer.parseInt(yea_tmp);
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Invalid Year");
-            alert.setHeaderText("Please insert a valid year.");
-            alert.showAndWait();
+                OutputStream outputStream = socket.getOutputStream();
+                ObjectOutputStream out = new ObjectOutputStream(outputStream);
+                String[] to_be_sent  = {"add_wine", nam, yea_tmp, pro, not};
+                out.writeObject(to_be_sent);
+    
+                InputStream inputStream = socket.getInputStream();
+                ObjectInputStream in = new ObjectInputStream(inputStream);
+    
+                
+                try {
+                    int permission = (int) in.readObject();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                
+                socket.close();
+            }
+            
         }
-        //TODO: add to db
-        System.out.println(yea);
     }
 
     @FXML

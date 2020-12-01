@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 
 public class Add_employee_controller {
@@ -52,7 +53,7 @@ public class Add_employee_controller {
     }
 
     @FXML
-    void addEmployee(ActionEvent event) throws IOException{
+    void addEmployee(ActionEvent event) throws UnknownHostException, IOException{
 
         String nam = name.getText();
         String sur = surname.getText();
@@ -79,13 +80,12 @@ public class Add_employee_controller {
 
             OutputStream outputStream = socket.getOutputStream();
             ObjectOutputStream out = new ObjectOutputStream(outputStream);
-            String[] to_be_sent = { "register", nam, sur, mail, pass };
+            String[] to_be_sent = {"register", nam, sur, mail, pass};
             out.writeObject(to_be_sent);
 
             InputStream inputStream = socket.getInputStream();
             ObjectInputStream in = new ObjectInputStream(inputStream);
 
-            
             try {
                 int permission = (int) in.readObject();
             } catch (ClassNotFoundException e) {

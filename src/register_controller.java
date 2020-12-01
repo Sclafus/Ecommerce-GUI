@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -66,7 +67,7 @@ public class Register_controller implements Initializable {
     }
 
     @FXML
-    void newUser(ActionEvent event) throws IOException {
+    void newUser(ActionEvent event) throws UnknownHostException, IOException {
 
         String nam = name.getText();
         String sur = surname.getText();
