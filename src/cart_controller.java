@@ -8,7 +8,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
-public class cart_controller {
+public class Cart_controller {
 
     @FXML
 	private AnchorPane rootPane;

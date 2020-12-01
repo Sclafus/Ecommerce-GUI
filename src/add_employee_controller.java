@@ -8,9 +8,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import java.util.regex.Pattern;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.regex.Matcher;
 
-public class add_employee_controller {
+public class Add_employee_controller {
 
     @FXML
     private AnchorPane rootPane;
@@ -54,35 +59,51 @@ public class add_employee_controller {
         String mail = email.getText();
         String pass = password.getText();
         
-        //The flag value is used to not prompt 2 alerts at the same time.
-        Boolean flag = true;
-    
         if(nam.length() == 0 || sur.length() == 0 || mail.length() == 0 || pass.length() == 0){
-            flag = false;
+
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("All fields must be filled");
             alert.setHeaderText("Please fill all the fields");
             alert.showAndWait();
-        }
-    
-        if(!isMail(mail) && flag){
-            flag = false;
+
+        } else if(!isMail(mail)){
+
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Email not valid");
             alert.setHeaderText("The provided email is not valid, please retry.");
             alert.showAndWait();
-        }
 
-        if(flag) {
+        } else {
+            
+            Socket socket = new Socket("localhost", 4316);
+
+            OutputStream outputStream = socket.getOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(outputStream);
+            String[] to_be_sent = { "register", nam, sur, mail, pass };
+            out.writeObject(to_be_sent);
+
+            InputStream inputStream = socket.getInputStream();
+            ObjectInputStream in = new ObjectInputStream(inputStream);
+
+            
+            try {
+                int permission = (int) in.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            
+            socket.close();
+
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("New Employee added");
             alert.setHeaderText("The new employee has been registered.");
             alert.showAndWait();
+
             AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
             rootPane.getChildren().setAll(pane);
+
         }
 		
-        //TODO: add new employee to DB
 
     }
     

@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 
-public class notifications_controller {
+public class Notifications_controller {
 
 	@FXML
 	private AnchorPane rootPane;

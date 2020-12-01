@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.AnchorPane;
 
-public class restock_controller {
+public class Restock_controller {
 
 	@FXML
 	private AnchorPane rootPane;

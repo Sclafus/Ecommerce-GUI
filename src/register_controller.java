@@ -22,7 +22,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class register_controller implements Initializable {
+public class Register_controller implements Initializable {
 
     @FXML
     private AnchorPane rootPane;

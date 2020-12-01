@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
-public class add_wine_controller {
+public class Add_wine_controller {
 
     @FXML
     private AnchorPane rootPane;
@@ -54,7 +54,7 @@ public class add_wine_controller {
             alert.setHeaderText("Please insert a valid year.");
             alert.showAndWait();
         }
-
+        //TODO: add to db
         System.out.println(yea);
     }
 

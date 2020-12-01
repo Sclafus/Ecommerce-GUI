@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 
-public class orders_controller {
+public class Orders_controller {
 
 	@FXML
 	private AnchorPane rootPane;

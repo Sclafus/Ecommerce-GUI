@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class homepage_user_controller {
+public class Homepage_user_controller {
     
     @FXML
     private AnchorPane rootPane;
