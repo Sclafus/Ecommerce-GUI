@@ -10,91 +10,97 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" fx:controller="Homepage_user_controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane gridLinesVisible="true" layoutX="92.0" layoutY="64.0" prefHeight="286.0" prefWidth="416.0" style="-fx-background-color: #FFFFFF;">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Homepage_user_controller">
+	<children>
+		<GridPane gridLinesVisible="true" layoutX="92.0" layoutY="64.0" prefHeight="286.0" prefWidth="416.0" style="-fx-background-color: #FFFFFF;">
+		  <columnConstraints>
+			 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+		  </columnConstraints>
+		  <rowConstraints>
+			 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+		  </rowConstraints>
+			<children>
+				<ImageView>
+					<image>
+						<Image url="@./img/wine.png" />
+					</image>
+				</ImageView>
+				<ImageView GridPane.columnIndex="1">
+					<image>
+						<Image url="@./img/wine.png" />
+					</image>
+				</ImageView>
+				<ImageView GridPane.columnIndex="1" GridPane.rowIndex="1">
+					<image>
+						<Image url="@./img/wine.png" />
+					</image>
+				</ImageView>
+				<ImageView GridPane.rowIndex="1">
+					<image>
+						<Image url="@./img/wine.png" />
+					</image>
+				</ImageView>
+				<ImageView GridPane.rowIndex="2">
+					<image>
+						<Image url="@./img/wine.png" />
+					</image>
+				</ImageView>
+				<ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
+					<image>
+						<Image url="@./img/wine.png" />
+					</image>
+				</ImageView>
+				<Text fx:id="name1" layoutX="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" />
+				<Text fx:id="year1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" />
+				<Text fx:id="notes1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" />
+				<Text fx:id="name3" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.rowIndex="1" />
+				<Text fx:id="year3" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.rowIndex="1" />
+				<Text fx:id="notes3" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.rowIndex="1" />
+				<Text fx:id="name2" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.columnIndex="1" />
+				<Text fx:id="year2" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.columnIndex="1" />
+				<Text fx:id="notes2" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.columnIndex="1" />
+				<Text fx:id="name4" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<Text fx:id="year4" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<Text fx:id="notes4" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+				<Text fx:id="name6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<Text fx:id="year6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<Text fx:id="notes6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+				<Text fx:id="name5" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.rowIndex="2" />
+				<Text fx:id="year5" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.rowIndex="2" />
+				<Text fx:id="notes5" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.rowIndex="2" />
+			</children>
+		</GridPane>
+      <HBox layoutX="37.0" layoutY="25.0" spacing="20.0">
          <children>
-            <ImageView>
-               <image>
-                  <Image url="@./img/wine.png" />
-               </image>
-            </ImageView>
-            <ImageView GridPane.columnIndex="1">
-               <image>
-                  <Image url="@./img/wine.png" />
-               </image>
-            </ImageView>
-            <ImageView GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@./img/wine.png" />
-               </image>
-            </ImageView>
-            <ImageView GridPane.rowIndex="1">
-               <image>
-                  <Image url="@./img/wine.png" />
-               </image>
-            </ImageView>
-            <ImageView GridPane.rowIndex="2">
-               <image>
-                  <Image url="@./img/wine.png" />
-               </image>
-            </ImageView>
-            <ImageView GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <image>
-                  <Image url="@./img/wine.png" />
-               </image>
-            </ImageView>
-            <Text fx:id="name1" layoutX="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" />
-            <Text fx:id="year1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" />
-            <Text fx:id="notes1" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" />
-            <Text fx:id="name3" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.rowIndex="1" />
-            <Text fx:id="year3" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.rowIndex="1" />
-            <Text fx:id="notes3" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.rowIndex="1" />
-            <Text fx:id="name2" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.columnIndex="1" />
-            <Text fx:id="year2" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.columnIndex="1" />
-            <Text fx:id="notes2" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.columnIndex="1" />
-            <Text fx:id="name4" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text fx:id="year4" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text fx:id="notes4" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text fx:id="name6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text fx:id="year6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text fx:id="notes6" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Text fx:id="name5" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -30;" text="TEXT1" x="1000.0" GridPane.rowIndex="2" />
-            <Text fx:id="year5" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: -10;" text="TEXT2" x="1000.0" GridPane.rowIndex="2" />
-            <Text fx:id="notes5" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-translate-x: 100; -fx-translate-y: 10;" text="TEXT3" x="1000.0" GridPane.rowIndex="2" />
+      		<TextField fx:id="searchboxName" prefHeight="25.0" prefWidth="110.0" promptText="Name" />
+            <TextField fx:id="yearboxName" prefHeight="25.0" prefWidth="110.0" promptText="Year" />
+      		<Button defaultButton="true" mnemonicParsing="false" onAction="#search" text="Search 🔎">
+      			<cursor>
+      				<Cursor fx:constant="HAND" />
+      			</cursor>
+      		</Button>
+      		<Button mnemonicParsing="false" onAction="#showCart" text="Cart 🛒">
+      			<cursor>
+      				<Cursor fx:constant="HAND" />
+      			</cursor>
+      		</Button>
+      		<MenuButton mnemonicParsing="false" text="My Profile 🙍‍♂️">
+      		  <items>
+      			 <MenuItem mnemonicParsing="false" onAction="#showOrders" text="My Orders" />
+      				<MenuItem mnemonicParsing="false" onAction="#showNotifications" text="Notification Settings" />
+      			 <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+      		  </items>
+      		</MenuButton>
          </children>
-      </GridPane>
-      <TextField layoutX="46.0" layoutY="25.0" prefHeight="25.0" prefWidth="216.0" promptText="Search by name, year or both" />
-      <Button layoutX="272.0" layoutY="25.0" mnemonicParsing="false" onAction="#search" text="Search 🔎">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="352.0" layoutY="25.0" mnemonicParsing="false" onAction="#showCart" text="Cart 🛒">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="456.0" layoutY="361.0" mnemonicParsing="false" onAction="#nextPage"  text="Next &gt;" />
-      <Button layoutX="92.0" layoutY="361.0" mnemonicParsing="false" onAction="#previousPage" text="&lt; Previous" />
-      <MenuButton layoutX="466.0" layoutY="25.0" mnemonicParsing="false" text="My Profile 🙍‍♂️">
-        <items>
-          <MenuItem mnemonicParsing="false" onAction="#showOrders" text="My Orders" />
-            <MenuItem mnemonicParsing="false" onAction="#showNotifications" text="Notification Settings" />
-          <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
-        </items>
-      </MenuButton>
-   </children>
+      </HBox>
+		<Button layoutX="456.0" layoutY="361.0" mnemonicParsing="false" onAction="#nextPage" text="Next &gt;" />
+		<Button layoutX="92.0" layoutY="361.0" mnemonicParsing="false" onAction="#previousPage" text="&lt; Previous" />
+	</children>
 </AnchorPane>

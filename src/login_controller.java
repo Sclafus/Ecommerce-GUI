@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 public class Login_controller {
-	
+
 	@FXML
 	private AnchorPane rootPane;
 
@@ -29,55 +31,79 @@ public class Login_controller {
 	@FXML
 	private PasswordField password;
 
-
 	@FXML
-	private void loadRegister(ActionEvent event) throws IOException{
+	private void loadRegister(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./register.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * Checks if the provided String is an email or not. This method uses RegEx.
+	 * 
+	 * @param mail the mail when need to check. [String]
+	 * @return true if the string is an email, else false. [Boolean]
+	 * 
+	 * @see java.util.regex.Pattern
+	 * @see java.util.regex.Matcher
+	 */
+	public Boolean isMail(String mail) {
+		String mail_regex = "\\w+@\\w+\\.\\w+";
+		Pattern mail_validator = Pattern.compile(mail_regex);
+		Matcher mail_matcher = mail_validator.matcher(mail);
+		return mail_matcher.matches();
+	}
+
 	@FXML
-	private void login(ActionEvent event) throws IOException{
-		//gets the informations
+	private void login(ActionEvent event) throws IOException {
+		// gets the informations
 		String mail = email.getText();
 		String pass = password.getText();
 
-		//socket stuff
-		try{
+		// socket stuff
+		try {
 
-			//client -> server
+			// client -> server
 			Socket socket = new Socket("localhost", 4316);
-			if(mail.length() > 0 && pass.length() > 0){
-				OutputStream outputStream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(outputStream);
-				String[] to_be_sent = {"login", mail, pass};
-				out.writeObject(to_be_sent);
+			if (mail.length() > 0 && pass.length() > 0) {
 
-				//server -> client
-				InputStream inputStream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(inputStream);
-				int permission = (int) in.readObject();
+				if (isMail(mail)) {
 
-				switch (permission) {
-					case 1:
-						AnchorPane pane1 = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-						rootPane.getChildren().setAll(pane1);
-						break;
-					case 2:
-						AnchorPane pane2 = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
-						rootPane.getChildren().setAll(pane2);
-						break;
-					case 3:
-						AnchorPane pane3 = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
-						rootPane.getChildren().setAll(pane3);
-						break;
-					default:
-						AnchorPane pane_default = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-						rootPane.getChildren().setAll(pane_default);
-						break;
+					OutputStream outputStream = socket.getOutputStream();
+					ObjectOutputStream out = new ObjectOutputStream(outputStream);
+					String[] to_be_sent = {"login", mail, pass };
+					out.writeObject(to_be_sent);
+
+					// server -> client
+					InputStream inputStream = socket.getInputStream();
+					ObjectInputStream in = new ObjectInputStream(inputStream);
+					int permission = (int) in.readObject();
+
+					switch (permission) {
+						case 1:
+							AnchorPane pane1 = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
+							rootPane.getChildren().setAll(pane1);
+							break;
+						case 2:
+							AnchorPane pane2 = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
+							rootPane.getChildren().setAll(pane2);
+							break;
+						case 3:
+							AnchorPane pane3 = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
+							rootPane.getChildren().setAll(pane3);
+							break;
+						default:
+							AnchorPane pane_default = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
+							rootPane.getChildren().setAll(pane_default);
+							break;
+					}
+
+					socket.close();
+				} else {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Email not valid");
+					alert.setHeaderText("The provided email is not valid, please retry.");
+					alert.showAndWait();
 				}
-
-				socket.close();
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("All fields must be filled");
@@ -85,8 +111,7 @@ public class Login_controller {
 				alert.showAndWait();
 			}
 
-
-		} catch(ConnectException e){
+		} catch (ConnectException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Cannot connect to server");
 			alert.setHeaderText("Server is unreachable. Try again later.");

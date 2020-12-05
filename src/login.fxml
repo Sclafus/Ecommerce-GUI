@@ -11,40 +11,40 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="rootPane" fx:controller="Login_controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button defaultButton="true" layoutX="277.0" layoutY="283.0" mnemonicParsing="false" onAction="#login" text="Login" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="277.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <Button layoutX="270.0" layoutY="355.0" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#loadRegister" text="Register" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <TextField fx:id="email" layoutX="227.0" layoutY="188.0" promptText="Email" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="230.0">
-         <font>
-            <Font name="Calibri" size="12.0" />
-         </font>
-      </TextField>
-   
-      <PasswordField fx:id="password" layoutX="227.0" layoutY="237.0" promptText="Password" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="230.0">
-         <font>
-            <Font name="Calibri" size="12.0" />
-         </font>
-      </PasswordField>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="253.0">
-         <image>
-            <Image url="@./img/wine.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="253.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROSECCO GANG" wrappingWidth="200.13671875" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="146.86328125">
-         <font>
-            <Font name="Calibri Bold" size="19.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="221.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you are not registered" textAlignment="CENTER" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="220.140625" AnchorPane.rightAnchor="221.859375">
-         <font>
-            <Font name="Calibri" size="16.0" />
-         </font>
-      </Text>
-   </children>
+	<children>
+		<Button defaultButton="true" layoutX="277.0" layoutY="283.0" mnemonicParsing="false" onAction="#login" text="Login" AnchorPane.leftAnchor="277.0" AnchorPane.rightAnchor="277.0">
+			<cursor>
+				<Cursor fx:constant="HAND" />
+			</cursor></Button>
+		<Button layoutX="270.0" layoutY="355.0" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#loadRegister" text="Register" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0">
+			<cursor>
+				<Cursor fx:constant="HAND" />
+			</cursor></Button>
+		<TextField fx:id="email" layoutX="227.0" layoutY="188.0" promptText="Email" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="230.0">
+			<font>
+				<Font name="Calibri" size="12.0" />
+			</font>
+		</TextField>
+	
+		<PasswordField fx:id="password" layoutX="227.0" layoutY="237.0" promptText="Password" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="230.0">
+			<font>
+				<Font name="Calibri" size="12.0" />
+			</font>
+		</PasswordField>
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="197.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="253.0">
+			<image>
+				<Image url="@./img/wine.png" />
+			</image>
+		</ImageView>
+		<Text layoutX="253.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PROSECCO GANG" wrappingWidth="200.13671875" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="146.86328125">
+			<font>
+				<Font name="Calibri Bold" size="19.0" />
+			</font>
+		</Text>
+		<Text fill="WHITE" layoutX="221.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="If you are not registered" textAlignment="CENTER" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="220.140625" AnchorPane.rightAnchor="221.859375">
+			<font>
+				<Font name="Calibri" size="16.0" />
+			</font>
+		</Text>
+	</children>
 </AnchorPane>

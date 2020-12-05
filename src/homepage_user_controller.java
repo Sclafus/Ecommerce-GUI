@@ -1,14 +1,20 @@
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class Homepage_user_controller {
-    
-    @FXML
+
+	@FXML
     private AnchorPane rootPane;
 
     @FXML
@@ -19,17 +25,17 @@ public class Homepage_user_controller {
 
     @FXML
     private Text notes1;
-    
+
     @FXML
     private Text name2;
-
+	
     @FXML
     private Text year2;
-
+	
     @FXML
     private Text notes2;
-
-    @FXML
+	
+	@FXML
     private Text name3;
 
     @FXML
@@ -46,7 +52,7 @@ public class Homepage_user_controller {
 
     @FXML
     private Text notes4;
-
+	
     @FXML
     private Text name5;
 
@@ -54,8 +60,8 @@ public class Homepage_user_controller {
     private Text year5;
 
     @FXML
-    private Text notes5;
-
+	private Text notes5;
+	
     @FXML
     private Text name6;
 
@@ -65,44 +71,60 @@ public class Homepage_user_controller {
     @FXML
     private Text notes6;
 
+    @FXML
+    private TextField searchboxName;
 
     @FXML
-    void logout(ActionEvent event) throws IOException{
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-        rootPane.getChildren().setAll(pane);
-    }
+    private TextField yearboxName;
 
-    @FXML
-    void nextPage(ActionEvent event) {
 
-    }
+	@FXML
+	void logout(ActionEvent event) throws IOException{
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
+		rootPane.getChildren().setAll(pane);
+	}
 
-    @FXML
-    void previousPage(ActionEvent event) {
+	@FXML
+	void nextPage(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void search(ActionEvent event) {
+	@FXML
+	void previousPage(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void showCart(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./cart.fxml"));
-        rootPane.getChildren().setAll(pane);
-    }
+	@FXML
+	void search(ActionEvent event) throws IOException {
+		Socket socket = new Socket("localhost", 4316);
 
-    @FXML
-    void showNotifications(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./notifications.fxml"));
-        rootPane.getChildren().setAll(pane);
-    }
+		OutputStream outputStream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		String[] to_be_sent = {"search", searchboxName.getText(), yearboxName.getText()};
+		out.writeObject(to_be_sent);
 
-    @FXML
-    void showOrders(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("./orders.fxml"));
-        rootPane.getChildren().setAll(pane);
-    }
+		InputStream inputStream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(inputStream);
+		socket.close();
+
+	}
+
+	@FXML
+	void showCart(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./cart.fxml"));
+		rootPane.getChildren().setAll(pane);
+	}
+
+	@FXML
+	void showNotifications(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./notifications.fxml"));
+		rootPane.getChildren().setAll(pane);
+	}
+
+	@FXML
+	void showOrders(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./orders.fxml"));
+		rootPane.getChildren().setAll(pane);
+	}
 
 }

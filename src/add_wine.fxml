@@ -12,26 +12,26 @@
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Add_wine_controller">
    <children>
-      <Text fill="WHITE" layoutX="108.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill the form to add a new wine">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Text>
-      <VBox alignment="CENTER" layoutX="225.0" layoutY="96.0" prefHeight="278.0" prefWidth="149.0" spacing="15.0">
-         <children>
-            <TextField fx:id="name" promptText="Name" />
-            <TextField fx:id="year" promptText="Year" />
-            <TextField fx:id="producer" promptText="Producer" />
-            <TextField fx:id="grapes" promptText="GrapeWines" />
-            <TextArea fx:id="notes" prefHeight="67.0" prefWidth="149.0" promptText="Notes" wrapText="true" />
-            <Button mnemonicParsing="false" onAction="#addWine" text="Add" />
-         </children>
-      </VBox>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/wine.png" />
-         </image>
-      </ImageView>
+	  <Text fill="WHITE" layoutX="108.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill the form to add a new wine">
+		 <font>
+			<Font name="Calibri" size="25.0" />
+		 </font>
+	  </Text>
+	  <VBox alignment="CENTER" layoutX="225.0" layoutY="96.0" prefHeight="278.0" prefWidth="149.0" spacing="15.0">
+		 <children>
+			<TextField fx:id="name" promptText="Name" />
+			<TextField fx:id="year" promptText="Year" />
+			<TextField fx:id="producer" promptText="Producer" />
+			<TextField fx:id="grapes" promptText="GrapeWines" />
+			<TextArea fx:id="notes" prefHeight="67.0" prefWidth="149.0" promptText="Notes" wrapText="true" />
+			<Button mnemonicParsing="false" onAction="#addWine" text="Add" />
+		 </children>
+	  </VBox>
+	  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
+	  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+		 <image>
+			<Image url="@img/wine.png" />
+		 </image>
+	  </ImageView>
    </children>
 </AnchorPane>

@@ -13,37 +13,37 @@
 
 <AnchorPane fx:id="rootPane" fx:controller="Homepage_admin_controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
-      <TreeView fx:id="treeView" layoutX="333.0" layoutY="10.0" prefHeight="381.0" prefWidth="240.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="27.0" />
-      <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="16.0" layoutY="10.0">
-         <image>
-            <Image url="@img/wine.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="45.0" fitWidth="45.0" layoutY="355.0">
-         <image>
-            <Image url="@img/avatar.png" />
-         </image>
-      </ImageView>
-      <Text fx:id="name" layoutX="45.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
-         <font>
-            <Font name="Cambria" size="15.0" />
-         </font>
-      </Text>
-      <Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-      <MenuButton layoutX="17.0" layoutY="120.0" mnemonicParsing="false" text="View">
-        <items>
-          <MenuItem mnemonicParsing="false" onAction="#displayOrders" text="Orders" />
-          <MenuItem mnemonicParsing="false" onAction="#displayEmployees" text="Employees" />
-            <MenuItem mnemonicParsing="false" onAction="#displayWines" text="Wines" />
-            <MenuItem mnemonicParsing="false" onAction="#displayUsers" text="Users" />
-        </items>
-      </MenuButton>
-      <VBox alignment="CENTER" layoutX="135.0" layoutY="27.0" prefHeight="313.0" prefWidth="101.0" spacing="40.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#addEmployee" text="New Employee" />
-            <Button mnemonicParsing="false" onAction="#loadShop" text="Go to Shop" />
-            <Button mnemonicParsing="false" onAction="#loadEmployee" text="Go to Employee" />
-         </children>
-      </VBox>
+	  <TreeView fx:id="treeView" layoutX="333.0" layoutY="10.0" prefHeight="381.0" prefWidth="240.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="27.0" />
+	  <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="16.0" layoutY="10.0">
+		 <image>
+			<Image url="@img/wine.png" />
+		 </image>
+	  </ImageView>
+	  <ImageView fitHeight="45.0" fitWidth="45.0" layoutY="355.0">
+		 <image>
+			<Image url="@img/avatar.png" />
+		 </image>
+	  </ImageView>
+	  <Text fx:id="name" layoutX="45.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+		 <font>
+			<Font name="Cambria" size="15.0" />
+		 </font>
+	  </Text>
+	  <Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+	  <MenuButton layoutX="17.0" layoutY="120.0" mnemonicParsing="false" text="View">
+		<items>
+		  <MenuItem mnemonicParsing="false" onAction="#displayOrders" text="Orders" />
+		  <MenuItem mnemonicParsing="false" onAction="#displayEmployees" text="Employees" />
+			<MenuItem mnemonicParsing="false" onAction="#displayWines" text="Wines" />
+			<MenuItem mnemonicParsing="false" onAction="#displayUsers" text="Users" />
+		</items>
+	  </MenuButton>
+	  <VBox alignment="CENTER" layoutX="135.0" layoutY="27.0" prefHeight="313.0" prefWidth="101.0" spacing="40.0">
+		 <children>
+			<Button mnemonicParsing="false" onAction="#addEmployee" text="New Employee" />
+			<Button mnemonicParsing="false" onAction="#loadShop" text="Go to Shop" />
+			<Button mnemonicParsing="false" onAction="#loadEmployee" text="Go to Employee" />
+		 </children>
+	  </VBox>
    </children>
 </AnchorPane>

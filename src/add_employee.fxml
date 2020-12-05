@@ -11,26 +11,26 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="rootPane" fx:controller="Add_employee_controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox alignment="CENTER" layoutX="223.0" layoutY="143.0" prefHeight="133.0" prefWidth="154.0" spacing="15.0">
-         <children>
-            <TextField fx:id="name" promptText="Name" />
-            <TextField fx:id="surname" promptText="Surname" />
-            <TextField fx:id="email" promptText="Email" />
-            <PasswordField fx:id="password" prefHeight="70.0" prefWidth="194.0" promptText="Password" />
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#addEmployee" text="Add" />
-         </children>
-      </VBox>
-      <Text fill="WHITE" layoutX="63.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill the form to register a new employee">
-         <font>
-            <Font name="Calibri" size="25.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/wine.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
-   </children>
+	<children>
+		<VBox alignment="CENTER" layoutX="223.0" layoutY="143.0" prefHeight="133.0" prefWidth="154.0" spacing="15.0">
+			<children>
+				<TextField fx:id="name" promptText="Name" />
+				<TextField fx:id="surname" promptText="Surname" />
+				<TextField fx:id="email" promptText="Email" />
+				<PasswordField fx:id="password" prefHeight="70.0" prefWidth="194.0" promptText="Password" />
+				<Button defaultButton="true" mnemonicParsing="false" onAction="#addEmployee" text="Add" />
+			</children>
+		</VBox>
+		<Text fill="WHITE" layoutX="63.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill the form to register a new employee">
+			<font>
+				<Font name="Calibri" size="25.0" />
+			</font>
+		</Text>
+		<ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@img/wine.png" />
+			</image>
+		</ImageView>
+		<Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
+	</children>
 </AnchorPane>
