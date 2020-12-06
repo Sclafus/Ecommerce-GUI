@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class Homepage_user_controller {
+
+	private User current_user;
 
 	@FXML
     private AnchorPane rootPane;
@@ -77,6 +80,10 @@ public class Homepage_user_controller {
     @FXML
     private TextField yearboxName;
 
+	public void initData(User user){
+		current_user = user;
+		System.out.println(current_user.getEmail() + current_user.getPermission());
+	}
 
 	@FXML
 	void logout(ActionEvent event) throws IOException{
@@ -95,7 +102,7 @@ public class Homepage_user_controller {
 	}
 
 	@FXML
-	void search(ActionEvent event) throws IOException {
+	void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
 
 		OutputStream outputStream = socket.getOutputStream();
@@ -105,6 +112,12 @@ public class Homepage_user_controller {
 
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
+		
+		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
+		System.out.println("search result:");
+		for(Wine wine : search_result){
+			System.out.println(wine.getName() + "  " + wine.getYear());
+		}
 		socket.close();
 
 	}

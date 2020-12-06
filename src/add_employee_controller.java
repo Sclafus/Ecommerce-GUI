@@ -61,7 +61,7 @@ public class Add_employee_controller {
 
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("All fields must be filled");
-			alert.setHeaderText("Please fill all the fields");
+			alert.setHeaderText("Please fill all the fields.");
 			alert.showAndWait();
 
 		} else if (!isMail(mail)) {
@@ -77,7 +77,7 @@ public class Add_employee_controller {
 
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = { "register", nam, sur, mail, pass };
+			String[] to_be_sent = {"register", nam, sur, mail, pass};
 			out.writeObject(to_be_sent);
 
 			InputStream inputStream = socket.getInputStream();

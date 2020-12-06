@@ -22,6 +22,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class Login_controller {
 
+	private User current_user;
+
 	@FXML
 	private AnchorPane rootPane;
 
@@ -76,24 +78,26 @@ public class Login_controller {
 					// server -> client
 					InputStream inputStream = socket.getInputStream();
 					ObjectInputStream in = new ObjectInputStream(inputStream);
-					int permission = (int) in.readObject();
-
+					User user = (User) in.readObject();
+					int permission = user.getPermission();
+					current_user = user;
 					switch (permission) {
 						case 1:
-							AnchorPane pane1 = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-							rootPane.getChildren().setAll(pane1);
+							load("homepage_user", rootPane);
 							break;
 						case 2:
-							AnchorPane pane2 = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
-							rootPane.getChildren().setAll(pane2);
+							load("homepage_employee", rootPane);
 							break;
 						case 3:
 							AnchorPane pane3 = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
 							rootPane.getChildren().setAll(pane3);
 							break;
 						default:
-							AnchorPane pane_default = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-							rootPane.getChildren().setAll(pane_default);
+							Alert alert = new Alert(AlertType.WARNING);
+							alert.setTitle("Wrong login");
+							alert.setHeaderText("Email or password are wrong. Please retry.");
+							alert.showAndWait();
+							password.clear();
 							break;
 					}
 
@@ -120,5 +124,15 @@ public class Login_controller {
 			e.printStackTrace();
 		}
 
+	}
+	//TODO generic
+	private void load(String filename, AnchorPane rootPane) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(filename + ".fxml"));
+		AnchorPane parent = loader.load();
+		
+		Homepage_user_controller controller = loader.getController();
+		controller.initData(current_user);
+		rootPane.getChildren().setAll(parent);
 	}
 }

@@ -94,7 +94,7 @@ public class Register_controller implements Initializable {
 
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
-
+			//TODO "in" is a User object 
 			
 			try {
 				int permission = (int) in.readObject();
