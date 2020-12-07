@@ -19,7 +19,7 @@ import java.util.regex.Matcher;
 public class ControllerAddEmployee  implements Controller {
 
 	private User current_user;
-	
+
 	@FXML
 	private AnchorPane rootPane;
 
@@ -34,7 +34,8 @@ public class ControllerAddEmployee  implements Controller {
 
 	@FXML
 	private PasswordField password;
-
+	
+//TODO CHECK IF JAVADOC IS NECESSARY
 	public void initData(User user){
 		current_user = user;
 		System.out.println(current_user.getEmail() + current_user.getPermission());

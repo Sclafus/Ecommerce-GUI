@@ -31,13 +31,25 @@ public class ControllerHomepageAdmin implements Controller {
 		current_user = user;
 	}
 	
-
+	/**
+	 * loads add_employee.fxml
+	 * Adds a new employee to the database:
+	 * @param event button event on the GUI.
+	 * @throws IOException if the client can't open the file.
+	 */
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./add_employee.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * It displays all the employees.
+	 * @param event button event on the GUI.
+	 * @throws IOException if the client can't open a connection with the server.
+	 * @throws UnknownHostException 
+	 * @see User
+	 */
 	// TODO use output
 	@FXML
 	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
@@ -54,17 +66,37 @@ public class ControllerHomepageAdmin implements Controller {
 			socket.close();
 		}
 	
-
+	/**
+	 * It displays all the orders.
+	 * @param event button event on the GUI.
+	 * @throws IOException if the client can't open a connection with the server.
+	 * @throws UnknownHostException 
+	 * @see Order
+	 */
 	@FXML
 	void displayOrders(ActionEvent event) {
 
 	}
 
+	/**
+	 * It displays all the users.
+	 * @param event button event on the GUI.
+	 * @throws IOException if the client can't open a connection with the server.
+	 * @throws UnknownHostException 
+	 * @see User
+	 */
 	@FXML
 	void displayUsers(ActionEvent event) {
 
 	}
 
+	/**
+	 * It displays all the wines.
+	 * @param event button event on the GUI.
+	 * @throws IOException if the client can't open a connection with the server.
+	 * @throws UnknownHostException 
+	 * @see Wine
+	 */
 	@FXML
 	void displayWines(ActionEvent event) {
 

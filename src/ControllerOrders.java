@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 public class ControllerOrders implements Controller {
 
 	private User current_user;
-	
+
 	@FXML
 	private AnchorPane rootPane;
 
@@ -21,7 +21,7 @@ public class ControllerOrders implements Controller {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
         rootPane.getChildren().setAll(pane);
     }
-
+//TODO IF JAVADOC IS NECESSARY
 	public void initData(User user){
 		current_user = user;
 		System.out.println(current_user.getEmail() + current_user.getPermission());

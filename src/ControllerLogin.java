@@ -1,3 +1,4 @@
+//TODO JAVADOC DONE
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -56,7 +57,7 @@ public class ControllerLogin {
 		Matcher mail_matcher = mail_validator.matcher(mail);
 		return mail_matcher.matches();
 	}
-//TODO JAVADOC
+
 	/**
 	 * loads login.fxml
 	 * It receives the email and the password from final user, then checks if the email is appropriate {@see isMail}.
