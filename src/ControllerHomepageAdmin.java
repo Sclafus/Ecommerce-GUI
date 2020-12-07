@@ -48,12 +48,11 @@ public class ControllerHomepageAdmin implements Controller {
 	 * It displays all the employees.
 	 * @param event button event on the GUI.
 	 * @throws IOException if the client can't open a connection with the server.
-	 * @throws UnknownHostException 
 	 * @see User
 	 */
 	// TODO use output
 	@FXML
-	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
+	void displayEmployees(ActionEvent event) throws IOException {
 			Socket socket = new Socket("localhost", 4316);
 
 			OutputStream outputStream = socket.getOutputStream();
@@ -71,7 +70,6 @@ public class ControllerHomepageAdmin implements Controller {
 	 * It displays all the orders.
 	 * @param event button event on the GUI.
 	 * @throws IOException if the client can't open a connection with the server.
-	 * @throws UnknownHostException 
 	 * @see Order
 	 */
 	@FXML
@@ -83,7 +81,6 @@ public class ControllerHomepageAdmin implements Controller {
 	 * It displays all the users.
 	 * @param event button event on the GUI.
 	 * @throws IOException if the client can't open a connection with the server.
-	 * @throws UnknownHostException 
 	 * @see User
 	 */
 	@FXML
@@ -95,7 +92,6 @@ public class ControllerHomepageAdmin implements Controller {
 	 * It displays all the wines.
 	 * @param event button event on the GUI.
 	 * @throws IOException if the client can't open a connection with the server.
-	 * @throws UnknownHostException 
 	 * @see Wine
 	 */
 	@FXML
