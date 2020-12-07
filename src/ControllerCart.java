@@ -8,8 +8,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
-public class ControllerCart {
+public class ControllerCart implements Controller {
 
+	private User current_user;
+	
 	@FXML
 	private AnchorPane rootPane;
 	
@@ -28,6 +30,11 @@ public class ControllerCart {
 		alert.setTitle("Order submitted!");
 		alert.setHeaderText("Your order has been placed!");
 		alert.showAndWait();
+	}
+
+	public void initData(User user){
+		current_user = user;
+		System.out.println(current_user.getEmail() + current_user.getPermission());
 	}
 
 }

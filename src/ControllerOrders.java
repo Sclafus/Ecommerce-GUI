@@ -6,8 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 
-public class ControllerOrders {
+public class ControllerOrders implements Controller {
 
+	private User current_user;
+	
 	@FXML
 	private AnchorPane rootPane;
 
@@ -20,4 +22,8 @@ public class ControllerOrders {
         rootPane.getChildren().setAll(pane);
     }
 
+	public void initData(User user){
+		current_user = user;
+		System.out.println(current_user.getEmail() + current_user.getPermission());
+	}
 }

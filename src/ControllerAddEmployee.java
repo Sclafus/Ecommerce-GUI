@@ -16,8 +16,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 
-public class ControllerAddEmployee {
+public class ControllerAddEmployee  implements Controller {
 
+	private User current_user;
+	
 	@FXML
 	private AnchorPane rootPane;
 
@@ -32,6 +34,11 @@ public class ControllerAddEmployee {
 
 	@FXML
 	private PasswordField password;
+
+	public void initData(User user){
+		current_user = user;
+		System.out.println(current_user.getEmail() + current_user.getPermission());
+	}
 
 	/**
 	 * Checks if the provided String is an email or not. This method uses RegEx.

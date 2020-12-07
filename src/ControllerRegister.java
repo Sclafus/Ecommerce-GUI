@@ -23,7 +23,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
-public class ControllerRegister implements Initializable {
+public class ControllerRegister implements Controller {
+
+	private User current_user;
 
 	@FXML
 	private AnchorPane rootPane;
@@ -43,9 +45,9 @@ public class ControllerRegister implements Initializable {
 	@FXML
 	private Text message;
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
-
+	public void initData(User user){
+		current_user = user;
+		System.out.println(current_user.getEmail() + current_user.getPermission());
 	}
 
 	/**
