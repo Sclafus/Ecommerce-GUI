@@ -136,7 +136,7 @@ public class ControllerHomepageAdmin implements Controller {
 			e.printStackTrace();
 		}
 		socket.close();
-	}
+	}}
 
 	/**
 	 * It displays all the users.
