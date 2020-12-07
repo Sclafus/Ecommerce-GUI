@@ -79,8 +79,8 @@ public class ControllerHomepageAdmin implements Controller {
 				rootEmployee.getChildren().addAll(name, surname);
 				rootItem.getChildren().add(rootEmployee);
 			}
-			rootItem.setExpanded(true);
 			treeView.setRoot(rootItem);
+			treeView.setShowRoot(false);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -96,14 +96,12 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @see Order
 	 */
 	@FXML
-
-	// TODO FIX CONNECTION
 	void displayOrders(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "get_orders" };
+		String[] to_be_sent = {"get_orders"} ;
 		out.writeObject(to_be_sent);
 
 		InputStream inputStream = socket.getInputStream();
@@ -130,8 +128,8 @@ public class ControllerHomepageAdmin implements Controller {
 				rootOrder.getChildren().addAll(id, status, customer);
 				rootItem.getChildren().add(rootOrder);
 			}
-			rootItem.setExpanded(true);
 			treeView.setRoot(rootItem);
+			treeView.setShowRoot(false);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -149,9 +147,6 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @see User
 	 */
 	@FXML
-
-	// TODO FIX CONNECTION
-
 	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -174,8 +169,8 @@ public class ControllerHomepageAdmin implements Controller {
 				rootUser.getChildren().addAll(name, surname);
 				rootItem.getChildren().add(rootUser);
 			}
-			rootItem.setExpanded(true);
 			treeView.setRoot(rootItem);
+			treeView.setShowRoot(false);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -193,15 +188,12 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @see Wine
 	 */
 	@FXML
-
-	// TODO FIX CONNECTION
-
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "get_wines" };
+		String[] to_be_sent = {"get_wines"};
 		out.writeObject(to_be_sent);
 
 		InputStream inputStream = socket.getInputStream();
@@ -223,8 +215,8 @@ public class ControllerHomepageAdmin implements Controller {
 				rootWine.getChildren().addAll(product_id, producer, year, grapes, notes, quantity);
 				rootItem.getChildren().add(rootWine);
 			}
-			rootItem.setExpanded(true);
 			treeView.setRoot(rootItem);
+			treeView.setShowRoot(false);
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
