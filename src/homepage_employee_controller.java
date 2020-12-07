@@ -10,22 +10,29 @@ import javafx.scene.text.Text;
 
 public class Homepage_employee_controller {
 
+	private User current_user;
+
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootpane;
 
 	@FXML
 	private TreeView<String> treeView;
 
 	@FXML
 	private TextField searchID;
-
+	
 	@FXML
-	private Text employeeName;
+	private Text name;
+
+	public void initData(User user){
+		current_user = user;
+		name.setText(user.getName());
+	}
 
 	@FXML
 	void addWine(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./add_wine.fxml"));
-		rootPane.getChildren().setAll(pane);
+		this.rootpane.getChildren().setAll(pane);
 	}
 
 	@FXML
@@ -36,13 +43,13 @@ public class Homepage_employee_controller {
 	@FXML
 	void loadShop(ActionEvent event) throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-		rootPane.getChildren().setAll(pane);
+		this.rootpane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void restockWine(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./restock.fxml"));
-		rootPane.getChildren().setAll(pane);
+		this.rootpane.getChildren().setAll(pane);
 	}
 
 	@FXML
@@ -53,7 +60,6 @@ public class Homepage_employee_controller {
 	@FXML
 	void logout(ActionEvent event) throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-		rootPane.getChildren().setAll(pane);
-
+		this.rootpane.getChildren().setAll(pane);
 	}
 }
