@@ -18,7 +18,7 @@ public class ControllerRestock {
 
 	@FXML
 	void addWine(ActionEvent event) {
-
+//TODO
 	}
 
 	@FXML
@@ -29,7 +29,7 @@ public class ControllerRestock {
 
     @FXML
     void setText(ActionEvent event) {
-
+//TODO FIGURE OUT WHAT THIS IS
     }
 
 	public void initData(User user) {
