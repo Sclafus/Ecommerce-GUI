@@ -30,6 +30,11 @@ public class Login_controller {
 	@FXML
 	private PasswordField password;
 
+	/**
+	 * loads register.fxml
+	 * @param event button event on the GUI.
+	 * @throws IOException if the file "register.fxml" is not present in the current directory.
+	 */
 	@FXML
 	private void loadRegister(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./register.fxml"));
@@ -77,17 +82,21 @@ public class Login_controller {
 					ObjectInputStream in = new ObjectInputStream(inputStream);
 					User user = (User) in.readObject();
 					int permission = user.getPermission();
-					current_user = user;
+					this.current_user = user;
+
 					switch (permission) {
 						case 1:
 							load("homepage_user");
 							break;
+
 						case 2:
 							load("homepage_employee");
 							break;
+
 						case 3:
 							load("homepage_admin");
 							break;
+
 						default:
 							Alert alert = new Alert(AlertType.WARNING);
 							alert.setTitle("Wrong login");
@@ -127,6 +136,7 @@ public class Login_controller {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(filename + ".fxml"));
 		AnchorPane parent = loader.load();
+		
 		Homepage_user_controller controller = loader.getController();
 		controller.initData(current_user);
 		this.rootPane.getChildren().setAll(parent);
