@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="rootPane" fx:controller="ControllerRegister" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button defaultButton="true" layoutX="511.0" layoutY="350.0" mnemonicParsing="false" onAction="#newUser" text="Register">
+      <Button defaultButton="true" layoutX="511.0" layoutY="350.0" mnemonicParsing="false" onAction="#register" text="Register">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

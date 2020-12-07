@@ -28,7 +28,8 @@ public class ControllerHomepageAdmin implements Controller {
 	private Text name;
 	
 	public void initData(User user){
-		current_user = user;
+		this.current_user = user;
+		this.name.setText(this.current_user.getName()); 
 	}
 	
 	/**

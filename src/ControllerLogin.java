@@ -91,18 +91,18 @@ public class ControllerLogin {
 					User user = (User) in.readObject();
 					int permission = user.getPermission();
 					this.current_user = user;
-
+					Loader loader = new Loader(current_user, rootPane);
 					switch (permission) {
 						case 1:
-							load("homepage_user");
+							loader.load("homepage_user");
 							break;
 
 						case 2:
-							load("homepage_employee");
+							loader.load("homepage_employee");
 							break;
 
 						case 3:
-							load("homepage_admin");
+							loader.load("homepage_admin");
 							break;
 
 						default:
@@ -143,16 +143,15 @@ public class ControllerLogin {
 
 	}
 	
-	//TODO IMPORTANT generic
 	//TODO JAVADOC
-	private void load(String filename) throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource(filename + ".fxml"));
-		AnchorPane parent = loader.load();
+	// private void load(String filename) throws IOException {
+	// 	FXMLLoader loader = new FXMLLoader();
+	// 	loader.setLocation(getClass().getResource(filename + ".fxml"));
+	// 	AnchorPane parent = loader.load();
 		
-		Controller controller = loader.getController();
-		controller.initData(current_user);
-		this.rootPane.getChildren().setAll(parent);
-	}
+	// 	Controller controller = loader.getController();
+	// 	controller.initData(current_user);
+	// 	this.rootPane.getChildren().setAll(parent);
+	// }
 }
 
