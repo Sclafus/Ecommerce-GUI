@@ -14,7 +14,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class ControllerHomepageAdmin {
+public class ControllerHomepageAdmin implements Controller {
 	private User current_user;
 	
 	@FXML

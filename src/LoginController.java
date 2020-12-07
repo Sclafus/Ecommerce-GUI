@@ -18,7 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 public class LoginController {
-
+	
 	private User current_user;
 
 	@FXML

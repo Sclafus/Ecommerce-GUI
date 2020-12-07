@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class ControllerHomepageUser {
+public class ControllerHomepageUser implements Controller {
 
 	private User current_user;
 

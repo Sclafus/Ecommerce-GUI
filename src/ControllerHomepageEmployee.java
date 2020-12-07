@@ -8,7 +8,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class ControllerHomepageEmployee {
+public class ControllerHomepageEmployee implements Controller {
 
 	private User current_user;
 
