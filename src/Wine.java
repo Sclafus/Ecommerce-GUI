@@ -1,12 +1,10 @@
 import java.io.Serializable;
 
-//TODO: FIX JAVADOC
+
 /**
  * Abstraction of a determined Wine. Every wine has a name, 
  * a producer, the year of production, some notes that may be useful
- * for the customers, the list of grapes used, the quantity
- * and a list of customers subscribed for notifications upon
- * restock.
+ * for the customers, a string containing all the grapes used in each wine, the quantity in stock of each wine.
  * @see Customer
  */
 public class Wine implements Serializable{
@@ -39,6 +37,7 @@ public class Wine implements Serializable{
 	 * @param producer producer of the wine. [String]
 	 * @param year year of production of the wine. [int]
 	 * @param notes notes for the wine. [String] 
+	 * @param product_id unique id of the wine. [int]
 	 * @param quantity quantity of the wine. [int]
 	 * @param grapes list of the grapes. [String]
 	 */
@@ -103,8 +102,15 @@ public class Wine implements Serializable{
 	}
 
 	/**
+	 * Gets the product id of the {@code Wine}.
+	 * @return the product id of the {@code Wine}. [int]
+	 */
+	public int getProductId(){
+		return this.product_id;
+	}
+
+	/**
 	 * Adds the specified quantity to the selected {@code Wine}.
-	 * Also checks if some customers have to be notified by the restock.
 	 * @param quantity the quantity to add. [int]
 	 */
 	public void addQuantity(int quantity){
