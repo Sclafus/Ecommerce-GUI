@@ -68,7 +68,7 @@ public class ControllerRegister implements Controller {
 	}
 
 	@FXML
-	void register(ActionEvent event) throws UnknownHostException, IOException {
+	void register(ActionEvent event) throws UnknownHostException, IOException, ClassNotFoundException {
 
 		String nam = name.getText();
 		String sur = surname.getText();
@@ -90,18 +90,14 @@ public class ControllerRegister implements Controller {
 
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = {"register", nam, sur, mail, pass};
+			String[] to_be_sent = {"register_user", nam, sur, mail, pass};
 			out.writeObject(to_be_sent);
 
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			
-			User user = new User();
-			try {
-				user = (User) in.readObject();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			current_user = (User) in.readObject();
+			
 			Loader loader = new Loader(current_user, rootPane);
 			loader.load("homepage_user");
 			socket.close();
