@@ -1,12 +1,9 @@
 import java.io.Serializable;
 
-//TODO: JAVADOC CLASS User
 /**
- * Class {@code User} is a class that should never be instantiated.
- * This class is used as a container for Class {@code Customer} and
- * its subclass {@code Employee}.
- * @see Customer
- * @see Employee
+ * Abstraction of a determined User. Every user has a name, a surname,
+ * an email and a password to login and a permission which states whenever
+ * the user is a normal user (permission 1), an employee (permission 2), or an admin (permission 3).
  */
 public class User implements Serializable{
 	
