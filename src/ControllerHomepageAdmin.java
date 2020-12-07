@@ -107,7 +107,36 @@ public class ControllerHomepageAdmin implements Controller {
 	 */
 	@FXML
 	void displayUsers(ActionEvent event) {
+		Socket socket = new Socket("localhost", 4316);
 
+		OutputStream outputStream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		String[] to_be_sent = {"get_users"};
+		out.writeObject(to_be_sent);
+
+		InputStream inputStream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(inputStream);
+
+		try {
+			ArrayList<User> users = (ArrayList<User>) in.readObject();
+			TreeItem rootItem = new TreeItem("Users");
+
+			for (User user : users){
+				TreeItem<String> rootUser = new TreeItem<String> (user.getEmail());
+				TreeItem<String> name = new TreeItem<String> ("Name: " + user.getName());
+				TreeItem<String> surname = new TreeItem<String> ("Surname: " + user.getSurname());
+				rootUser.getChildren().addAll(name,surname);
+				rootItem.getChildren().add(rootUser);
+			}
+			rootItem.setExpanded(true);
+			treeView.setRoot(rootItem);
+
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+			socket.close();
+		}
 	}
 
 	/**
