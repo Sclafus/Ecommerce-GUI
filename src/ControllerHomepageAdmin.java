@@ -98,7 +98,7 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 
 	// TODO FIX CONNECTION
-	void displayOrders(ActionEvent event) {
+	void displayOrders(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		OutputStream outputStream = socket.getOutputStream();
@@ -137,20 +137,22 @@ public class ControllerHomepageAdmin implements Controller {
 			e.printStackTrace();
 		}
 		socket.close();
-	}}
+	}
 
 	/**
 	 * It displays all the users.
 	 * 
 	 * @param event button event on the GUI.
-	 * @throws IOException if the client can't open a connection with the server.
+	 * @throws UnknownHostException
+	 * @throws IOException          if the client can't open a connection with the
+	 *                              server.
 	 * @see User
 	 */
 	@FXML
 
 	// TODO FIX CONNECTION
 
-	void displayUsers(ActionEvent event) {
+	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		OutputStream outputStream = socket.getOutputStream();
@@ -185,14 +187,16 @@ public class ControllerHomepageAdmin implements Controller {
 	 * It displays all the wines.
 	 * 
 	 * @param event button event on the GUI.
-	 * @throws IOException if the client can't open a connection with the server.
+	 * @throws UnknownHostException
+	 * @throws IOException          if the client can't open a connection with the
+	 *                              server.
 	 * @see Wine
 	 */
 	@FXML
 
 	// TODO FIX CONNECTION
 
-	void displayWines(ActionEvent event) {
+	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		OutputStream outputStream = socket.getOutputStream();
