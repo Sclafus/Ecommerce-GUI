@@ -36,7 +36,8 @@ public class ControllerHomepageAdmin implements Controller {
 	}
 
 	/**
-	 * loads add_employee.fxml Adds a new employee to the database:
+	 * loads add_employee.fxml 
+	 * Adds a new employee to the database:
 	 * 
 	 * @param event button event on the GUI.
 	 * @throws IOException if the client can't open the file.
