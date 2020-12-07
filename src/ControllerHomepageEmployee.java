@@ -13,7 +13,7 @@ public class ControllerHomepageEmployee implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootpane;
+	private AnchorPane rootPane;
 
 	@FXML
 	private TreeView<String> treeView;
@@ -32,7 +32,7 @@ public class ControllerHomepageEmployee implements Controller {
 	@FXML
 	void addWine(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./add_wine.fxml"));
-		this.rootpane.getChildren().setAll(pane);
+		this.rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
@@ -43,13 +43,13 @@ public class ControllerHomepageEmployee implements Controller {
 	@FXML
 	void loadShop(ActionEvent event) throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-		this.rootpane.getChildren().setAll(pane);
+		this.rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
 	void restockWine(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./restock.fxml"));
-		this.rootpane.getChildren().setAll(pane);
+		this.rootPane.getChildren().setAll(pane);
 	}
 
 	@FXML
@@ -60,6 +60,6 @@ public class ControllerHomepageEmployee implements Controller {
 	@FXML
 	void logout(ActionEvent event) throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-		this.rootpane.getChildren().setAll(pane);
+		this.rootPane.getChildren().setAll(pane);
 	}
 }

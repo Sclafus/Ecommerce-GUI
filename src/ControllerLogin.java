@@ -16,8 +16,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-public class ControllerLogin {
 
+public class ControllerLogin {
+	
 	private User current_user;
 
 	@FXML
@@ -55,7 +56,14 @@ public class ControllerLogin {
 		Matcher mail_matcher = mail_validator.matcher(mail);
 		return mail_matcher.matches();
 	}
-
+//TODO JAVADOC
+	/**
+	 * loads login.fxml
+	 * It receives the email and the password from final user, then checks if the email is appropriate {@see isMail}.
+	 * If the login doesn't succeed the servers responds with a nullUser.
+	 * @param event button event on the GUI.
+	 * @throws IOException if the client can't open a connection with the server.
+	 */
 	@FXML
 	private void login(ActionEvent event) throws IOException {
 		// gets the informations
@@ -97,6 +105,7 @@ public class ControllerLogin {
 							break;
 
 						default:
+							//notifies the user if a wrong email or password are inserted
 							Alert alert = new Alert(AlertType.WARNING);
 							alert.setTitle("Wrong login");
 							alert.setHeaderText("Email or password are wrong. Please retry.");
@@ -107,12 +116,14 @@ public class ControllerLogin {
 
 					socket.close();
 				} else {
+					//notifies the user if the email is not valid
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle("Email not valid");
 					alert.setHeaderText("The provided email is not valid, please retry.");
 					alert.showAndWait();
 				}
 			} else {
+				//notifies if some fields are not filled
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("All fields must be filled");
 				alert.setHeaderText("Please fill all the fields");
@@ -120,6 +131,7 @@ public class ControllerLogin {
 			}
 
 		} catch (ConnectException e) {
+			//notifies if the server can not be reached
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Cannot connect to server");
 			alert.setHeaderText("Server is unreachable. Try again later.");
@@ -131,13 +143,13 @@ public class ControllerLogin {
 	}
 	
 	//TODO IMPORTANT generic
-	
+	//TODO JAVADOC
 	private void load(String filename) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(filename + ".fxml"));
 		AnchorPane parent = loader.load();
 		
-		ControllerHomepageUser controller = loader.getController();
+		Controller controller = loader.getController();
 		controller.initData(current_user);
 		this.rootPane.getChildren().setAll(parent);
 	}

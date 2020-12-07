@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.MenuButton;
 import javafx.scene.layout.AnchorPane;
 
-public class ControllerRestock {
+public class ControllerRestock implements Controller {
 
 	private User current_user;
 
@@ -16,9 +16,14 @@ public class ControllerRestock {
 	@FXML
 	private MenuButton wine;
 
+	
+	public void initData(User user) {
+		this.current_user = user;
+	}
+
 	@FXML
 	void addWine(ActionEvent event) {
-//TODO
+		//TODO
 	}
 
 	@FXML
@@ -29,12 +34,8 @@ public class ControllerRestock {
 
     @FXML
     void setText(ActionEvent event) {
-//TODO FIGURE OUT WHAT THIS IS
+		//TODO FIGURE OUT WHAT THIS IS
     }
-
-	public void initData(User user) {
-		this.current_user = user;
-	}
 
 }
 
