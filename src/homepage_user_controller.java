@@ -82,7 +82,6 @@ public class Homepage_user_controller {
 
 	public void initData(User user){
 		current_user = user;
-		System.out.println(current_user.getEmail() + current_user.getPermission());
 	}
 
 	@FXML
