@@ -25,14 +25,14 @@ public class ControllerHomepageEmployee implements Controller {
 	private Text name;
 
 	public void initData(User user){
-		current_user = user;
-		name.setText(user.getName());
+		this.current_user = user;
+		name.setText(this.current_user.getName());
 	}
 
 	@FXML
 	void addWine(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./add_wine.fxml"));
-		this.rootPane.getChildren().setAll(pane);
+		Loader loader = new Loader(this.current_user, this.rootPane);
+		loader.load("add_wine");
 	}
 
 	@FXML
