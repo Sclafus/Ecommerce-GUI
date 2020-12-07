@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class ControllerHomepageAdmin implements Controller {
+
 	private User current_user;
 	
 	@FXML
@@ -28,7 +29,6 @@ public class ControllerHomepageAdmin implements Controller {
 	
 	public void initData(User user){
 		current_user = user;
-		System.out.println(current_user.getEmail() + current_user.getPermission());
 	}
 	
 
