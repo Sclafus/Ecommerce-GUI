@@ -8,6 +8,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class Restock_controller {
 
+	private User current_user;
+
 	@FXML
 	private AnchorPane rootPane;
 
@@ -29,6 +31,10 @@ public class Restock_controller {
     void setText(ActionEvent event) {
 
     }
+
+	public void initData(User user) {
+		this.current_user = user;
+	}
 
 }
 

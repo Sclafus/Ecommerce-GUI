@@ -15,7 +15,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class Homepage_admin_controller {
-
+	private User current_user;
+	
 	@FXML
 	private AnchorPane rootPane;
 
@@ -24,6 +25,12 @@ public class Homepage_admin_controller {
 
 	@FXML
 	private Text name;
+	
+	public void initData(User user){
+		current_user = user;
+		System.out.println(current_user.getEmail() + current_user.getPermission());
+	}
+	
 
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException {

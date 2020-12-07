@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 public class Add_wine_controller {
+	private User current_user;
 
 	@FXML
 	private AnchorPane rootPane;
@@ -35,8 +36,12 @@ public class Add_wine_controller {
 	@FXML
 	private TextArea notes;
 
+	public void initData(User user){
+		this.current_user = user;
+	}
+
 	@FXML
-	void addWine(ActionEvent event) throws UnknownHostException, IOException {
+	public void addWine(ActionEvent event) throws UnknownHostException, IOException {
 		int yea = 0;
 		String nam = name.getText();
 		String yea_tmp = year.getText();
@@ -83,7 +88,7 @@ public class Add_wine_controller {
 	}
 
 	@FXML
-	void back(ActionEvent event) throws IOException{
+	public void back(ActionEvent event) throws IOException{
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
