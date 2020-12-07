@@ -32,8 +32,8 @@
 	  <Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
 	  <MenuButton layoutX="17.0" layoutY="120.0" mnemonicParsing="false" text="View">
 		<items>
-		  <MenuItem mnemonicParsing="false" onAction="#displayOrders" text="Orders" />
-		  <MenuItem mnemonicParsing="false" onAction="#displayEmployees" text="Employees" />
+		  	<MenuItem mnemonicParsing="false" onAction="#displayOrders" text="Orders" />
+		  	<MenuItem mnemonicParsing="false" onAction="#displayEmployees" text="Employees" />
 			<MenuItem mnemonicParsing="false" onAction="#displayWines" text="Wines" />
 			<MenuItem mnemonicParsing="false" onAction="#displayUsers" text="Users" />
 		</items>
