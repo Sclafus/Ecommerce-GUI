@@ -12,7 +12,7 @@ public class App extends Application{
 		Parent root = FXMLLoader.load(getClass().getResource("./login.fxml"));
 		
 		Scene scene = new Scene(root);
-		stage.setTitle("Hello world");
+		stage.setTitle("3rd Assignment");
 		stage.setScene(scene);
 		stage.show();
 	}

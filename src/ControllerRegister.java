@@ -46,8 +46,7 @@ public class ControllerRegister implements Controller {
 	private Text message;
 
 	public void initData(User user){
-		current_user = user;
-		System.out.println(current_user.getEmail() + current_user.getPermission());
+		this.current_user = user;
 	}
 
 	/**
@@ -69,7 +68,7 @@ public class ControllerRegister implements Controller {
 	}
 
 	@FXML
-	void newUser(ActionEvent event) throws UnknownHostException, IOException {
+	void register(ActionEvent event) throws UnknownHostException, IOException {
 
 		String nam = name.getText();
 		String sur = surname.getText();
@@ -96,23 +95,17 @@ public class ControllerRegister implements Controller {
 
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
-			//TODO "in" is a User object 
 			
+			User user = new User();
 			try {
-				int permission = (int) in.readObject();
+				user = (User) in.readObject();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			
+			Loader loader = new Loader(current_user, rootPane);
+			loader.load("homepage_user");
 			socket.close();
 		}
 
-		//TODO: login
-		Boolean login_flag=true;
-
-		if(login_flag){
-			AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-			rootPane.getChildren().setAll(pane);
-		}
 	}
 }
