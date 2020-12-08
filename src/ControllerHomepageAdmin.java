@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class ControllerHomepageAdmin implements Controller {
@@ -36,41 +34,31 @@ public class ControllerHomepageAdmin implements Controller {
 	}
 
 	/**
-	 * loads add_employee.fxml 
-	 * Adds a new employee to the database:
+	 * Displays all the employees in the TreeView.
 	 * 
-	 * @param event button event on the GUI.
-	 * @throws IOException if the client can't open the file.
-	 */
-	@FXML
-	void addEmployee(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./add_employee.fxml"));
-		rootPane.getChildren().setAll(pane);
-	}
-
-	/**
-	 * It displays all the employees.
-	 * 
-	 * @param event button event on the GUI.
-	 * @throws IOException if the client can't open a connection with the server.
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
-	// TODO Fix javadoc
 	@FXML
-	void displayEmployees(ActionEvent event) throws IOException {
+	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
+		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
 		String[] to_be_sent = { "get_employees" };
 		out.writeObject(to_be_sent);
 
+		// server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		try {
 			ArrayList<User> employees = (ArrayList<User>) in.readObject();
-			TreeItem rootItem = new TreeItem("Employees");
+			TreeItem<String> rootItem = new TreeItem<String>("Employees");
 
 			for (User employee : employees) {
 				TreeItem<String> rootEmployee = new TreeItem<String>(employee.getEmail());
@@ -89,27 +77,31 @@ public class ControllerHomepageAdmin implements Controller {
 	}
 
 	/**
-	 * It displays all the orders.
+	 * Displays all the employees in the TreeView.
 	 * 
-	 * @param event button event on the GUI.
-	 * @throws IOException if the client can't open a connection with the server.
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Order
 	 */
 	@FXML
 	void displayOrders(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
+		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = {"get_orders"} ;
+		String[] to_be_sent = { "get_orders" };
 		out.writeObject(to_be_sent);
 
+		// server ->client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		try {
 			ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
-			TreeItem rootItem = new TreeItem("Orders");
+			TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
 			for (Order order : orders) {
 				TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
@@ -138,29 +130,31 @@ public class ControllerHomepageAdmin implements Controller {
 	}
 
 	/**
-	 * It displays all the users.
+	 * Displays all the users in the TreeView.
 	 * 
-	 * @param event button event on the GUI.
-	 * @throws UnknownHostException
-	 * @throws IOException          if the client can't open a connection with the
-	 *                              server.
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
 	@FXML
 	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
+		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
 		String[] to_be_sent = { "get_users" };
 		out.writeObject(to_be_sent);
 
+		// server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		try {
 			ArrayList<User> users = (ArrayList<User>) in.readObject();
-			TreeItem rootItem = new TreeItem("Users");
+			TreeItem<String> rootItem = new TreeItem<String>("Users");
 
 			for (User user : users) {
 				TreeItem<String> rootUser = new TreeItem<String>(user.getEmail());
@@ -179,38 +173,41 @@ public class ControllerHomepageAdmin implements Controller {
 	}
 
 	/**
-	 * It displays all the wines.
+	 * Displays all the wines in the TreeView.
 	 * 
-	 * @param event button event on the GUI.
-	 * @throws UnknownHostException
-	 * @throws IOException          if the client can't open a connection with the
-	 *                              server.
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Wine
 	 */
 	@FXML
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
+		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = {"get_wines"};
+		String[] to_be_sent = { "get_wines" };
 		out.writeObject(to_be_sent);
 
+		// server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		try {
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
-			TreeItem rootItem = new TreeItem("Wines");
+			TreeItem<String> rootItem = new TreeItem<String>("Wines");
 
 			for (Wine wine : wines) {
 				TreeItem<String> rootWine = new TreeItem<String>(wine.getName());
-				TreeItem<String> product_id = new TreeItem<String>("Product ID: " + wine.getProductId());
+				TreeItem<String> product_id = new TreeItem<String>(
+						"Product ID: " + Integer.toString(wine.getProductId()));
 				TreeItem<String> producer = new TreeItem<String>("Producer: " + wine.getProducer());
-				TreeItem<String> year = new TreeItem<String>("Year: " + wine.getYear());
+				TreeItem<String> year = new TreeItem<String>("Year: " + Integer.toString(wine.getYear()));
 				TreeItem<String> grapes = new TreeItem<String>("Grapewines: " + wine.getGrapewines());
 				TreeItem<String> notes = new TreeItem<String>("Notes: " + wine.getNotes());
-				TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
+				TreeItem<String> quantity = new TreeItem<String>("Quantity: " + Integer.toString(wine.getQuantity()));
 
 				rootWine.getChildren().addAll(product_id, producer, year, grapes, notes, quantity);
 				rootItem.getChildren().add(rootWine);
@@ -225,20 +222,49 @@ public class ControllerHomepageAdmin implements Controller {
 
 	}
 
-	// TODO: Dynamic button to go back
+	/**
+	 * Goes to the employee homepage.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the filename cannot be read.
+	 */
 	@FXML
 	void loadEmployee(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_employee.fxml"));
-		rootPane.getChildren().setAll(pane);
+		Loader loader = new Loader(this.current_user, this.rootPane);
+		loader.load("homepage_employee");
 	}
 
-	// TODO: Dynamic button to go back
+	/**
+	 * Goes back to the employee homepage.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the filename cannot be read.
+	 */
 	@FXML
-	void loadShop(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_user.fxml"));
-		rootPane.getChildren().setAll(pane);
+	void loadUser(ActionEvent event) throws IOException {
+		Loader loader = new Loader(this.current_user, this.rootPane);
+		loader.load("homepage_user");
+
 	}
 
+	/**
+	 * loads add_employee.fxml Adds a new employee to the database:
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the client can't open the file.
+	 */
+	@FXML
+	void loadAddEmployee(ActionEvent event) throws IOException {
+		Loader loader = new Loader(this.current_user, this.rootPane);
+		loader.load("add_employee");
+	}
+
+	/**
+	 * Goes back to the login page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the filename cannot be read.
+	 */
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
