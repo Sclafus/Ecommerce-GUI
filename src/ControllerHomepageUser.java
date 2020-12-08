@@ -83,22 +83,17 @@ public class ControllerHomepageUser implements Controller {
 
 	public void initData(User user) {
 		this.current_user = user;
-	}
-
-	@FXML
-	void logout(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-		rootPane.getChildren().setAll(pane);
+		// TODO fill frontpage
 	}
 
 	@FXML
 	void nextPage(ActionEvent event) {
-		//TODO
+		// TODO
 	}
 
 	@FXML
 	void previousPage(ActionEvent event) {
-		//TODO
+		// TODO
 	}
 
 	@FXML
@@ -115,7 +110,7 @@ public class ControllerHomepageUser implements Controller {
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
-		//TODO
+		// TODO
 		System.out.println("search result:");
 		for (Wine wine : search_result) {
 			System.out.println(wine.getName() + "  " + wine.getYear());
@@ -124,6 +119,12 @@ public class ControllerHomepageUser implements Controller {
 
 	}
 
+	/**
+	 * Goes back to the cart page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file can't be accessed.
+	 */
 	@FXML
 	void showCart(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.current_user, this.rootPane);
@@ -137,10 +138,27 @@ public class ControllerHomepageUser implements Controller {
 		rootPane.getChildren().setAll(pane);
 	}
 
+	/**
+	 * Goes to the orders page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file can't be accessed.
+	 */
 	@FXML
 	void showOrders(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.current_user, this.rootPane);
 		loader.load("orders");
 	}
 
+	/**
+	 * Goes back to the login page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the filename cannot be read.
+	 */
+	@FXML
+	void logout(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
+		rootPane.getChildren().setAll(pane);
+	}
 }
