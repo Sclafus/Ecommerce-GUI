@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+//TODO javadoc
 public class ControllerHomepageUser implements Controller {
 
 	private User current_user;
@@ -92,12 +93,12 @@ public class ControllerHomepageUser implements Controller {
 
 	@FXML
 	void nextPage(ActionEvent event) {
-
+		//TODO
 	}
 
 	@FXML
 	void previousPage(ActionEvent event) {
-
+		//TODO
 	}
 
 	@FXML
@@ -114,6 +115,7 @@ public class ControllerHomepageUser implements Controller {
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
+		//TODO
 		System.out.println("search result:");
 		for (Wine wine : search_result) {
 			System.out.println(wine.getName() + "  " + wine.getYear());
@@ -137,8 +139,8 @@ public class ControllerHomepageUser implements Controller {
 
 	@FXML
 	void showOrders(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./orders.fxml"));
-		rootPane.getChildren().setAll(pane);
+		Loader loader = new Loader(this.current_user, this.rootPane);
+		loader.load("orders");
 	}
 
 }
