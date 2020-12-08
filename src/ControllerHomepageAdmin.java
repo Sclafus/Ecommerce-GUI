@@ -15,6 +15,9 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for the Admin Homepage.
+ */
 public class ControllerHomepageAdmin implements Controller {
 
 	private User current_user;
@@ -28,6 +31,14 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	private Text name;
 
+	/**
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
+	 * @param user the {@code User} we want to pass. [User]
+	 * @see Loader
+	 */
 	public void initData(User user) {
 		this.current_user = user;
 		this.name.setText(this.current_user.getName());
@@ -42,7 +53,8 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
-	@FXML @SuppressWarnings("unchecked")
+	@FXML
+	@SuppressWarnings("unchecked")
 	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -85,7 +97,8 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Order
 	 */
-	@FXML @SuppressWarnings("unchecked")
+	@FXML
+	@SuppressWarnings("unchecked")
 	void displayOrders(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -138,7 +151,8 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
-	@FXML @SuppressWarnings("unchecked")
+	@FXML
+	@SuppressWarnings("unchecked")
 	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -181,7 +195,8 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Wine
 	 */
-	@FXML @SuppressWarnings("unchecked")
+	@FXML
+	@SuppressWarnings("unchecked")
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
