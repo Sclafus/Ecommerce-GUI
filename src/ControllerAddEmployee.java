@@ -1,6 +1,5 @@
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,7 +15,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 
-//TODO Javadoc
+/**
+ * Controller for Add Employee, page accessible by {@code User} 
+ * with permission > 2 (aka administrators)
+ */
 public class ControllerAddEmployee implements Controller {
 
 	private User current_user;
@@ -36,6 +38,13 @@ public class ControllerAddEmployee implements Controller {
 	@FXML
 	private PasswordField password;
 
+	/**
+	 * Initialize {@code this.current_user} with the passed value.
+	 * This method is made to be called from another controller,
+	 * using the {@code load} method in {@code Loader} class.
+	 * @param user the {@code User} we want to pass. [User]
+	 * @see Loader
+	 */
 	public void initData(User user) {
 		this.current_user = user;
 	}
@@ -56,6 +65,15 @@ public class ControllerAddEmployee implements Controller {
 		return mail_matcher.matches();
 	}
 
+	/**
+	 * Adds new employee to the ecommerce.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 * @see User
+	 */
 	@FXML
 	void addEmployee(ActionEvent event) throws UnknownHostException, IOException {
 		// gets data
@@ -81,64 +99,70 @@ public class ControllerAddEmployee implements Controller {
 			alert.showAndWait();
 
 		} else {
+			// inserted data is ok
 
-			Socket socket = new Socket("localhost", 4316);
+			if (this.current_user.getPermission() > 2) {
+				// user is autorized to perform the action
+				Socket socket = new Socket("localhost", 4316);
 
-			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = { "register", nam, sur, mail, pass };
-			out.writeObject(to_be_sent);
+				// client -> server
+				OutputStream outputStream = socket.getOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(outputStream);
+				String[] to_be_sent = { "register", nam, sur, mail, pass };
+				out.writeObject(to_be_sent);
 
-			// server -> client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+				// server -> client
+				InputStream inputStream = socket.getInputStream();
+				ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			try {
-				User new_employee = (User) in.readObject();
-				int permission = new_employee.getPermission();
+				try {
+					User new_employee = (User) in.readObject();
+					int permission = new_employee.getPermission();
 
-				if (permission < 1) {
-					// permission < 1 = nullUser => user is already registered.
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("Already registered");
-					alert.setHeaderText("There is already an account with this email.");
-					alert.showAndWait();
+					if (permission < 1) {
+						// permission < 1 = nullUser => user is already registered.
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("Already registered");
+						alert.setHeaderText("There is already an account with this email.");
+						alert.showAndWait();
 
-				} else if (permission == 2) {
+					} else {
 
-					// employee registered successfully
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Success");
-					alert.setHeaderText("Employee registered successfully.");
-					alert.showAndWait();
+						// employee registered successfully
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Success");
+						alert.setHeaderText("Employee registered successfully.");
+						alert.showAndWait();
 
-				} else {
+					}
+					socket.close();
 
-					Alert alert = new Alert(AlertType.ERROR);
-					alert.setTitle("Not authorized");
-					alert.setHeaderText("You are not allowed to perform this action.");
-					alert.showAndWait();
-
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 				}
-
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			} else {
+				// user is not authorized to perform the action
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Not authorized");
+				alert.setHeaderText("You are not allowed to perform this action.");
+				alert.showAndWait();
 			}
 
-			socket.close();
-
-			AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
-			rootPane.getChildren().setAll(pane);
-
+			Loader loader = new Loader(this.current_user, this.rootPane);
+			loader.load("homepage_admin");
 		}
 
 	}
 
-	//TODO
+	/**
+	 * Goes back to the administrator homepage.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file cannot be read.
+	 */
 	@FXML
 	void back(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
-		rootPane.getChildren().setAll(pane);
+		Loader loader = new Loader(this.current_user, this.rootPane);
+		loader.load("homepage_admin");
 	}
 }
