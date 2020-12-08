@@ -54,7 +54,7 @@ public class ControllerAddWine implements Controller {
 	 *                              determined.
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 */
-	@FXML
+	@FXML @SuppressWarnings("unused")
 	public void addWine(ActionEvent event) throws UnknownHostException, IOException {
 		int yea = 0;
 		String nam = name.getText();
