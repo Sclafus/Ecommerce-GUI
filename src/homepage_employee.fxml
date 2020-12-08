@@ -15,12 +15,12 @@
 		<TreeView fx:id="treeView" layoutX="333.0" layoutY="10.0" prefHeight="381.0" prefWidth="240.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="27.0" />
 		<VBox alignment="TOP_CENTER" layoutX="115.0" layoutY="47.0" prefHeight="321.0" prefWidth="138.0" spacing="30.0">
 			<children>
-				<Button mnemonicParsing="false" onAction="#restockWine" prefHeight="77.0" prefWidth="134.0" text="Restock Wine">
+				<Button mnemonicParsing="false" onAction="#loadRestockWine" prefHeight="77.0" prefWidth="134.0" text="Restock Wine">
 					<font>
 						<Font name="Cambria" size="15.0" />
 					</font>
 				</Button>
-				<Button mnemonicParsing="false" onAction="#addWine" prefHeight="77.0" prefWidth="134.0" text="Add Wine">
+				<Button mnemonicParsing="false" onAction="#loadAddWine" prefHeight="77.0" prefWidth="134.0" text="Add Wine">
 					<font>
 						<Font name="Cambria" size="15.0" />
 					</font>
