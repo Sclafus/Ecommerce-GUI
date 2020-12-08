@@ -40,8 +40,8 @@
 	  </MenuButton>
 	  <VBox alignment="CENTER" layoutX="135.0" layoutY="27.0" prefHeight="313.0" prefWidth="101.0" spacing="40.0">
 		 <children>
-			<Button mnemonicParsing="false" onAction="#addEmployee" text="New Employee" />
-			<Button mnemonicParsing="false" onAction="#loadShop" text="Go to Shop" />
+			<Button mnemonicParsing="false" onAction="#loadAddEmployee" text="New Employee" />
+			<Button mnemonicParsing="false" onAction="#loadUser" text="Go to Shop" />
 			<Button mnemonicParsing="false" onAction="#loadEmployee" text="Go to Employee" />
 		 </children>
 	  </VBox>
