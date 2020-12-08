@@ -29,13 +29,14 @@ public class Order {
 	}
 
 	/**
-	 * Gets the custumer of the selected {@code Order}.
-	 * @return the custumer of the {@code Order}. [String]
+	 * Gets the email of the customer of the selected {@code Order}.
+	 * @return customer's email. [String]
+	 * @see User
 	 */
 	public String getCustomer(){
 		return this.customer;
-    }
-    
+	}
+	
 	/**
 	 * Gets the id of the selected {@code Order}.
 	 * @return the id of the {@code Order}. [int]
@@ -68,7 +69,5 @@ public class Order {
 	 */
 	public void changeStatus(){
 		this.shipped = true;
-    }
-    
-
+	}
 }
