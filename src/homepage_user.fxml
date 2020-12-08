@@ -94,7 +94,6 @@
       		<MenuButton mnemonicParsing="false" text="My Profile 🙍‍♂️">
       		  <items>
       			 <MenuItem mnemonicParsing="false" onAction="#showOrders" text="My Orders" />
-      				<MenuItem mnemonicParsing="false" onAction="#showNotifications" text="Notification Settings" />
       			 <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
       		  </items>
       		</MenuButton>
