@@ -32,9 +32,10 @@ public class ControllerLogin {
 	private PasswordField password;
 
 	/**
-	 * loads register.fxml
-	 * @param event button event on the GUI.
-	 * @throws IOException if the file "register.fxml" is not present in the current directory.
+	 * Goes to the register page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
 	private void loadRegister(ActionEvent event) throws IOException {
@@ -59,11 +60,11 @@ public class ControllerLogin {
 	}
 
 	/**
-	 * loads login.fxml
-	 * It receives the email and the password from final user, then checks if the email is appropriate {@see isMail}.
-	 * If the login doesn't succeed the servers responds with a nullUser.
-	 * @param event button event on the GUI.
-	 * @throws IOException if the client can't open a connection with the server.
+	 * Login with the data provided by the user. Server responds with the correct 
+	 * {@code User} (permission>=1) else it will respond with {@code nullUser} (permission=0)
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if an I/O error occurs when creating the socket.
+	 * @see User
 	 */
 	@FXML
 	private void login(ActionEvent event) throws IOException {
@@ -142,16 +143,5 @@ public class ControllerLogin {
 		}
 
 	}
-	
-	//TODO JAVADOC
-	// private void load(String filename) throws IOException {
-	// 	FXMLLoader loader = new FXMLLoader();
-	// 	loader.setLocation(getClass().getResource(filename + ".fxml"));
-	// 	AnchorPane parent = loader.load();
-		
-	// 	Controller controller = loader.getController();
-	// 	controller.initData(current_user);
-	// 	this.rootPane.getChildren().setAll(parent);
-	// }
 }
 
