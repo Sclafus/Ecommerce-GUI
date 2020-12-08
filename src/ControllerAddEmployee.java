@@ -158,7 +158,7 @@ public class ControllerAddEmployee implements Controller {
 	 * Goes back to the administrator homepage.
 	 * 
 	 * @param event GUI event. [ActionEvent]
-	 * @throws IOException if the file cannot be read.
+	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
 	void back(ActionEvent event) throws IOException {
