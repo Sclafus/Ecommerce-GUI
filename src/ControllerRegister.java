@@ -18,7 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-
+//TODO javadoc
 public class ControllerRegister implements Controller {
 
 	private User current_user;
@@ -41,6 +41,14 @@ public class ControllerRegister implements Controller {
 	@FXML
 	private Text message;
 
+	/**
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
+	 * @param user the {@code User} we want to pass. [User]
+	 * @see Loader
+	 */
 	public void initData(User user){
 		this.current_user = user;
 	}
@@ -92,9 +100,9 @@ public class ControllerRegister implements Controller {
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			
-			current_user = (User) in.readObject();
+			this.current_user = (User) in.readObject();
 			
-			Loader loader = new Loader(current_user, rootPane);
+			Loader loader = new Loader(this.current_user, this.rootPane);
 			loader.load("homepage_user");
 			socket.close();
 		}
