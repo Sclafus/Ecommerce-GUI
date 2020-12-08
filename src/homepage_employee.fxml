@@ -53,7 +53,7 @@
 				<Font name="Cambria" size="15.0" />
 			</font>
 		</Text>
-		<Button layoutX="259.0" layoutY="343.0" mnemonicParsing="false" onAction="#display" text="🔍" />
+		<Button layoutX="259.0" layoutY="343.0" mnemonicParsing="false" onAction="#search" text="🔍" />
 		<Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
 	</children>
 </AnchorPane>

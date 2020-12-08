@@ -51,8 +51,8 @@ public class ControllerHomepageEmployee implements Controller {
 	}
 
 	@FXML
-	void display(ActionEvent event) {
-		// TODO
+	void search(ActionEvent event) {
+		// TODO (use "search_order" as msg[0]")
 	}
 
 	@FXML
@@ -69,7 +69,7 @@ public class ControllerHomepageEmployee implements Controller {
 
 	@FXML
 	void shipOrder(ActionEvent event) {
-
+		//TODO
 	}
 
 	/**
