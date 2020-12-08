@@ -42,7 +42,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
-	@FXML
+	@FXML @SuppressWarnings("unchecked")
 	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -85,7 +85,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Order
 	 */
-	@FXML
+	@FXML @SuppressWarnings("unchecked")
 	void displayOrders(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -138,7 +138,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
-	@FXML
+	@FXML @SuppressWarnings("unchecked")
 	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -181,7 +181,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Wine
 	 */
-	@FXML
+	@FXML @SuppressWarnings("unchecked")
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 
@@ -226,7 +226,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * Goes to the employee homepage.
 	 * 
 	 * @param event GUI event. [ActionEvent]
-	 * @throws IOException if the filename cannot be read.
+	 * @throws IOException if the file cannot be read.
 	 */
 	@FXML
 	void loadEmployee(ActionEvent event) throws IOException {
