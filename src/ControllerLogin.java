@@ -17,7 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-
+//TODO class javadoc
 public class ControllerLogin {
 	
 	private User current_user;
