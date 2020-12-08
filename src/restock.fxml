@@ -35,7 +35,7 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </TextField>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#addWine" text="Add" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#restockWine" text="Add" />
          </children>
       </VBox>
       <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />

@@ -21,7 +21,7 @@ public class ControllerRestock implements Controller {
 	}
 
 	@FXML
-	void addWine(ActionEvent event) {
+	void restockWine(ActionEvent event) {
 		//TODO
 	}
 
