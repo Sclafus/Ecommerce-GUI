@@ -26,7 +26,7 @@ public class Loader {
 	 * {@code initData} method. The controller needs to implement the
 	 * {@code Controller} interface in order to be used properly.
 	 * @param filename the FXML we want to access.
-	 * @throws IOException if the {@filename} cannot be read.
+	 * @throws IOException if the {@code filename} cannot be read.
 	 * @see Controller
 	 */
 	public void load(String filename) throws IOException {
