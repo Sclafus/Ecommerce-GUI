@@ -38,9 +38,10 @@ public class ControllerAddWine implements Controller {
 	private TextArea notes;
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value.
-	 * This method is made to be called from another controller,
-	 * using the {@code load} method in {@code Loader} class.
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */
@@ -55,7 +56,8 @@ public class ControllerAddWine implements Controller {
 	 *                              determined.
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 */
-	@FXML @SuppressWarnings("unused")
+	@FXML
+	@SuppressWarnings("unused")
 	public void addWine(ActionEvent event) throws UnknownHostException, IOException {
 		int yea = 0;
 		String nam = name.getText();
@@ -78,29 +80,36 @@ public class ControllerAddWine implements Controller {
 				alert.setHeaderText("Please insert a valid year.");
 				alert.showAndWait();
 			} finally {
-				if (this.current_user.getPermission() > 1){
-					//user is authorized to perform the action
+				if (this.current_user.getPermission() > 1) {
+					// user is authorized to perform the action
 					Socket socket = new Socket("localhost", 4316);
-	
+
 					OutputStream outputStream = socket.getOutputStream();
 					ObjectOutputStream out = new ObjectOutputStream(outputStream);
 					String[] to_be_sent = { "add_wine", nam, yea_tmp, pro, gra, not };
 					out.writeObject(to_be_sent);
-	
+
 					InputStream inputStream = socket.getInputStream();
 					ObjectInputStream in = new ObjectInputStream(inputStream);
-	
+
 					try {
 						Wine new_wine = (Wine) in.readObject();
 						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Wine added!");
-						alert.setHeaderText(String.format("Wine %s %d by %s has been added", new_wine.getName(),
-								new_wine.getYear(), new_wine.getProducer()));
+						if (new_wine.getProductId() != -1) {
+
+							alert.setTitle("Wine added!");
+							alert.setHeaderText(
+									String.format("Wine %s (%d) by %s has been added.\nID: %d", new_wine.getName(),
+											new_wine.getYear(), new_wine.getProducer(), new_wine.getProductId()));
+						} else {
+							alert.setTitle("Wine already inserted");
+							alert.setHeaderText("Wine is already present in the database.");
+						}
 						alert.showAndWait();
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}
-	
+
 					socket.close();
 				} else {
 					// user is not authorized to perform the action
