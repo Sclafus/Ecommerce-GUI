@@ -40,7 +40,7 @@ public class ControllerAddWine implements Controller {
 	 * Initialize {@code this.current_user} with the passed value.
 	 * This method is made to be called from another controller,
 	 * using the {@code load} method in {@code Loader} class.
-	 * @param user we want to pass. [User]
+	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */
 	public void initData(User user) {
