@@ -81,6 +81,14 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	private TextField yearboxName;
 
+	/**
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
+	 * @param user the {@code User} we want to pass. [User]
+	 * @see Loader
+	 */
 	public void initData(User user) {
 		this.current_user = user;
 		// TODO fill frontpage
@@ -120,7 +128,7 @@ public class ControllerHomepageUser implements Controller {
 	}
 
 	/**
-	 * Goes back to the cart page.
+	 * Goes to the cart page.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws IOException if the file can't be accessed.
@@ -129,13 +137,6 @@ public class ControllerHomepageUser implements Controller {
 	void showCart(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.current_user, this.rootPane);
 		loader.load("cart");
-	}
-
-	// ! To be removed
-	@FXML
-	void showNotifications(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./notifications.fxml"));
-		rootPane.getChildren().setAll(pane);
 	}
 
 	/**
