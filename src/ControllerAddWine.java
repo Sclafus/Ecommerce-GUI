@@ -77,28 +77,37 @@ public class ControllerAddWine implements Controller {
 				alert.setHeaderText("Please insert a valid year.");
 				alert.showAndWait();
 			} finally {
-				Socket socket = new Socket("localhost", 4316);
-
-				OutputStream outputStream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(outputStream);
-				String[] to_be_sent = { "add_wine", nam, yea_tmp, pro, gra, not };
-				out.writeObject(to_be_sent);
-
-				InputStream inputStream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(inputStream);
-
-				try {
-					Wine new_wine = (Wine) in.readObject();
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Wine added!");
-					alert.setHeaderText(String.format("Wine %s %d by %s has been added", new_wine.getName(),
-							new_wine.getYear(), new_wine.getProducer()));
+				if (this.current_user.getPermission() > 1){
+					//user is authorized to perform the action
+					Socket socket = new Socket("localhost", 4316);
+	
+					OutputStream outputStream = socket.getOutputStream();
+					ObjectOutputStream out = new ObjectOutputStream(outputStream);
+					String[] to_be_sent = { "add_wine", nam, yea_tmp, pro, gra, not };
+					out.writeObject(to_be_sent);
+	
+					InputStream inputStream = socket.getInputStream();
+					ObjectInputStream in = new ObjectInputStream(inputStream);
+	
+					try {
+						Wine new_wine = (Wine) in.readObject();
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Wine added!");
+						alert.setHeaderText(String.format("Wine %s %d by %s has been added", new_wine.getName(),
+								new_wine.getYear(), new_wine.getProducer()));
+						alert.showAndWait();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+	
+					socket.close();
+				} else {
+					// user is not authorized to perform the action
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Not authorized");
+					alert.setHeaderText("You are not allowed to perform this action.");
 					alert.showAndWait();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
 				}
-
-				socket.close();
 			}
 
 		}
