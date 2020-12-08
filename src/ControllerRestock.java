@@ -91,9 +91,4 @@ public class ControllerRestock implements Controller {
 		loader.load("homepage_employee");
 	}
 
-	@FXML
-	void setText(ActionEvent event) {
-		// TODO FIGURE OUT WHAT THIS IS
-	}
-
 }
