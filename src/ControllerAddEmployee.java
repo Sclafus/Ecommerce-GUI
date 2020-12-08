@@ -16,7 +16,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 
-public class ControllerAddEmployee  implements Controller {
+//TODO Javadoc
+public class ControllerAddEmployee implements Controller {
 
 	private User current_user;
 
@@ -34,18 +35,16 @@ public class ControllerAddEmployee  implements Controller {
 
 	@FXML
 	private PasswordField password;
-	
-//TODO CHECK IF JAVADOC IS NECESSARY
-	public void initData(User user){
-		current_user = user;
-		System.out.println(current_user.getEmail() + current_user.getPermission());
+
+	public void initData(User user) {
+		this.current_user = user;
 	}
 
 	/**
 	 * Checks if the provided String is an email or not. This method uses RegEx.
 	 * 
 	 * @param mail the mail when need to check. [String]
-	 * @return true if the string is an email, else false. [Boolean]
+	 * @return {@code true} if the string is an email, else {@code false}. [Boolean]
 	 * 
 	 * @see java.util.regex.Pattern
 	 * @see java.util.regex.Matcher
@@ -59,7 +58,7 @@ public class ControllerAddEmployee  implements Controller {
 
 	@FXML
 	void addEmployee(ActionEvent event) throws UnknownHostException, IOException {
-
+		// gets data
 		String nam = name.getText();
 		String sur = surname.getText();
 		String mail = email.getText();
@@ -67,6 +66,7 @@ public class ControllerAddEmployee  implements Controller {
 
 		if (nam.length() == 0 || sur.length() == 0 || mail.length() == 0 || pass.length() == 0) {
 
+			// all fields are required
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("All fields must be filled");
 			alert.setHeaderText("Please fill all the fields.");
@@ -74,6 +74,7 @@ public class ControllerAddEmployee  implements Controller {
 
 		} else if (!isMail(mail)) {
 
+			// email is not valid
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Email not valid");
 			alert.setHeaderText("The provided email is not valid, please retry.");
@@ -83,27 +84,49 @@ public class ControllerAddEmployee  implements Controller {
 
 			Socket socket = new Socket("localhost", 4316);
 
+			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = {"register", nam, sur, mail, pass};
+			String[] to_be_sent = { "register", nam, sur, mail, pass };
 			out.writeObject(to_be_sent);
 
+			// server -> client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 
 			try {
-				//TODO "in" is actually a User object, this is incorrect      
-				int permission = (int) in.readObject();
+				User new_employee = (User) in.readObject();
+				int permission = new_employee.getPermission();
+
+				if (permission < 1) {
+					// permission < 1 = nullUser => user is already registered.
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Already registered");
+					alert.setHeaderText("There is already an account with this email.");
+					alert.showAndWait();
+
+				} else if (permission == 2) {
+
+					// employee registered successfully
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Success");
+					alert.setHeaderText("Employee registered successfully.");
+					alert.showAndWait();
+
+				} else {
+
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Not authorized");
+					alert.setHeaderText("You are not allowed to perform this action.");
+					alert.showAndWait();
+
+				}
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 
 			socket.close();
-
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("New Employee added");
-			alert.setHeaderText("The new employee has been registered.");
-			alert.showAndWait();
 
 			AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
 			rootPane.getChildren().setAll(pane);
@@ -112,6 +135,7 @@ public class ControllerAddEmployee  implements Controller {
 
 	}
 
+	//TODO
 	@FXML
 	void back(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./homepage_admin.fxml"));
