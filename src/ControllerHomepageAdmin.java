@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -56,36 +58,50 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
-		Socket socket = new Socket("localhost", 4316);
 
-		// client -> server
-		OutputStream outputStream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "get_employees" };
-		out.writeObject(to_be_sent);
+		if (this.current_user.getPermission() > 2) {
 
-		// server -> client
-		InputStream inputStream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(inputStream);
+			// user is authorized to perform the action
+			Socket socket = new Socket("localhost", 4316);
 
-		try {
-			ArrayList<User> employees = (ArrayList<User>) in.readObject();
-			TreeItem<String> rootItem = new TreeItem<String>("Employees");
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "get_employees" };
+			out.writeObject(to_be_sent);
 
-			for (User employee : employees) {
-				TreeItem<String> rootEmployee = new TreeItem<String>(employee.getEmail());
-				TreeItem<String> name = new TreeItem<String>("Name: " + employee.getName());
-				TreeItem<String> surname = new TreeItem<String>("Surname: " + employee.getSurname());
-				rootEmployee.getChildren().addAll(name, surname);
-				rootItem.getChildren().add(rootEmployee);
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+
+			try {
+				ArrayList<User> employees = (ArrayList<User>) in.readObject();
+				TreeItem<String> rootItem = new TreeItem<String>("Employees");
+
+				for (User employee : employees) {
+					TreeItem<String> rootEmployee = new TreeItem<String>(employee.getEmail());
+					TreeItem<String> name = new TreeItem<String>("Name: " + employee.getName());
+					TreeItem<String> surname = new TreeItem<String>("Surname: " + employee.getSurname());
+					rootEmployee.getChildren().addAll(name, surname);
+					rootItem.getChildren().add(rootEmployee);
+				}
+				treeView.setRoot(rootItem);
+				treeView.setShowRoot(false);
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
-			treeView.setRoot(rootItem);
-			treeView.setShowRoot(false);
+			socket.close();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} else {
+
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
+
 		}
-		socket.close();
 	}
 
 	/**
@@ -100,46 +116,57 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayOrders(ActionEvent event) throws IOException {
-		Socket socket = new Socket("localhost", 4316);
 
-		// client -> server
-		OutputStream outputStream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "get_orders" };
-		out.writeObject(to_be_sent);
+		if (this.current_user.getPermission() > 2) {
+			// user is authorized to perform the action
+			Socket socket = new Socket("localhost", 4316);
 
-		// server ->client
-		InputStream inputStream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(inputStream);
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "get_orders" };
+			out.writeObject(to_be_sent);
 
-		try {
-			ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
-			TreeItem<String> rootItem = new TreeItem<String>("Orders");
+			// server ->client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			for (Order order : orders) {
-				TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
-				TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
-				TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
-				TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+			try {
+				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
+				TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
-				for (Wine wine : order.getWines()) {
-					TreeItem<String> rootProduct = new TreeItem<String>(
-							String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
-					TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
-					rootProduct.getChildren().add(quantity);
-					rootOrder.getChildren().add(rootProduct);
+				for (Order order : orders) {
+					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
+					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
+					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+
+					for (Wine wine : order.getWines()) {
+						TreeItem<String> rootProduct = new TreeItem<String>(
+								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
+						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
+						rootProduct.getChildren().add(quantity);
+						rootOrder.getChildren().add(rootProduct);
+					}
+
+					rootOrder.getChildren().addAll(id, status, customer);
+					rootItem.getChildren().add(rootOrder);
 				}
+				treeView.setRoot(rootItem);
+				treeView.setShowRoot(false);
 
-				rootOrder.getChildren().addAll(id, status, customer);
-				rootItem.getChildren().add(rootOrder);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
-			treeView.setRoot(rootItem);
-			treeView.setShowRoot(false);
+			socket.close();
+		} else {
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
 		}
-		socket.close();
 	}
 
 	/**
@@ -154,36 +181,47 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
-		Socket socket = new Socket("localhost", 4316);
 
-		// client -> server
-		OutputStream outputStream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "get_users" };
-		out.writeObject(to_be_sent);
+		if (this.current_user.getPermission() > 2) {
+			// user is authorized to perform the action
+			Socket socket = new Socket("localhost", 4316);
 
-		// server -> client
-		InputStream inputStream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(inputStream);
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "get_users" };
+			out.writeObject(to_be_sent);
 
-		try {
-			ArrayList<User> users = (ArrayList<User>) in.readObject();
-			TreeItem<String> rootItem = new TreeItem<String>("Users");
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			for (User user : users) {
-				TreeItem<String> rootUser = new TreeItem<String>(user.getEmail());
-				TreeItem<String> name = new TreeItem<String>("Name: " + user.getName());
-				TreeItem<String> surname = new TreeItem<String>("Surname: " + user.getSurname());
-				rootUser.getChildren().addAll(name, surname);
-				rootItem.getChildren().add(rootUser);
+			try {
+				ArrayList<User> users = (ArrayList<User>) in.readObject();
+				TreeItem<String> rootItem = new TreeItem<String>("Users");
+
+				for (User user : users) {
+					TreeItem<String> rootUser = new TreeItem<String>(user.getEmail());
+					TreeItem<String> name = new TreeItem<String>("Name: " + user.getName());
+					TreeItem<String> surname = new TreeItem<String>("Surname: " + user.getSurname());
+					rootUser.getChildren().addAll(name, surname);
+					rootItem.getChildren().add(rootUser);
+				}
+				treeView.setRoot(rootItem);
+				treeView.setShowRoot(false);
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
-			treeView.setRoot(rootItem);
-			treeView.setShowRoot(false);
+			socket.close();
+		} else {
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
 		}
-		socket.close();
 	}
 
 	/**
@@ -198,42 +236,54 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
-		Socket socket = new Socket("localhost", 4316);
 
-		// client -> server
-		OutputStream outputStream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "get_wines" };
-		out.writeObject(to_be_sent);
+		if (this.current_user.getPermission() > 2) {
+			//user is authorized to perform the action
+			Socket socket = new Socket("localhost", 4316);
 
-		// server -> client
-		InputStream inputStream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(inputStream);
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "get_wines" };
+			out.writeObject(to_be_sent);
 
-		try {
-			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
-			TreeItem<String> rootItem = new TreeItem<String>("Wines");
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			for (Wine wine : wines) {
-				TreeItem<String> rootWine = new TreeItem<String>(wine.getName());
-				TreeItem<String> product_id = new TreeItem<String>(
-						"Product ID: " + Integer.toString(wine.getProductId()));
-				TreeItem<String> producer = new TreeItem<String>("Producer: " + wine.getProducer());
-				TreeItem<String> year = new TreeItem<String>("Year: " + Integer.toString(wine.getYear()));
-				TreeItem<String> grapes = new TreeItem<String>("Grapewines: " + wine.getGrapewines());
-				TreeItem<String> notes = new TreeItem<String>("Notes: " + wine.getNotes());
-				TreeItem<String> quantity = new TreeItem<String>("Quantity: " + Integer.toString(wine.getQuantity()));
+			try {
+				ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
+				TreeItem<String> rootItem = new TreeItem<String>("Wines");
 
-				rootWine.getChildren().addAll(product_id, producer, year, grapes, notes, quantity);
-				rootItem.getChildren().add(rootWine);
+				for (Wine wine : wines) {
+					TreeItem<String> rootWine = new TreeItem<String>(wine.getName());
+					TreeItem<String> product_id = new TreeItem<String>(
+							"Product ID: " + Integer.toString(wine.getProductId()));
+					TreeItem<String> producer = new TreeItem<String>("Producer: " + wine.getProducer());
+					TreeItem<String> year = new TreeItem<String>("Year: " + Integer.toString(wine.getYear()));
+					TreeItem<String> grapes = new TreeItem<String>("Grapewines: " + wine.getGrapewines());
+					TreeItem<String> notes = new TreeItem<String>("Notes: " + wine.getNotes());
+					TreeItem<String> quantity = new TreeItem<String>(
+							"Quantity: " + Integer.toString(wine.getQuantity()));
+
+					rootWine.getChildren().addAll(product_id, producer, year, grapes, notes, quantity);
+					rootItem.getChildren().add(rootWine);
+				}
+				treeView.setRoot(rootItem);
+				treeView.setShowRoot(false);
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
 			}
-			treeView.setRoot(rootItem);
-			treeView.setShowRoot(false);
+			socket.close();
+		} else {
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
 		}
-		socket.close();
 
 	}
 
@@ -259,7 +309,6 @@ public class ControllerHomepageAdmin implements Controller {
 	void loadUser(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.current_user, this.rootPane);
 		loader.load("homepage_user");
-
 	}
 
 	/**
