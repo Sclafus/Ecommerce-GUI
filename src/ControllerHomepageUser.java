@@ -7,6 +7,8 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +16,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+<<<<<<< HEAD
 import javafx.scene.control.Alert.AlertType;
+=======
+import javafx.scene.control.cell.PropertyValueFactory;
+>>>>>>> 388333ff8221e95d12df9725a629f58e29812283
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -67,6 +73,23 @@ public class ControllerHomepageUser implements Controller {
 		// TODO fill frontpage
 	}
 
+		//TODO fill homepage
+	}    
+	
+	public void addToTable(ArrayList<Wine> wines){
+		//set up the columns in the table
+		name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
+		year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
+		producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
+		grapes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Grapes"));
+		notes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Notes"));
+
+		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
+		
+		//load data
+		tableView.setItems(oListWine);
+
+	}
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
@@ -138,10 +161,13 @@ public class ControllerHomepageUser implements Controller {
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
+
+		addToTable(search_result);
+		/*
 		System.out.println("search result:");
 		for (Wine wine : search_result) {
 			System.out.println(wine.getName() + "  " + wine.getYear());
-		}
+		}*/
 		socket.close();
 
 	}
