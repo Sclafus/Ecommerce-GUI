@@ -51,7 +51,7 @@ public class ControllerCart implements Controller {
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
 	 *                              determined.
-	 * @throws IOException if an I/O error occurs when creating the socket.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
 	@FXML
@@ -80,7 +80,8 @@ public class ControllerCart implements Controller {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			
+
+			socket.close();
 
 		} else {
 
@@ -89,7 +90,7 @@ public class ControllerCart implements Controller {
 			alert.setTitle("Not authorized");
 			alert.setHeaderText("You are not allowed to perform this action.");
 			alert.showAndWait();
-		}  
+		}
 	}
 
 }

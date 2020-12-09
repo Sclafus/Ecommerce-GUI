@@ -238,7 +238,7 @@ public class ControllerHomepageAdmin implements Controller {
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 
 		if (this.current_user.getPermission() > 2) {
-			//user is authorized to perform the action
+			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server

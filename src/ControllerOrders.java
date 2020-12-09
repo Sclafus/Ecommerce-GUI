@@ -15,10 +15,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TreeItem;
 
-
 /**
- * Controller for Orders, page accessible by {@code User} 
- * with permission > 0 (aka everyone)
+ * Controller for Orders, page accessible by {@code User} with permission > 0
+ * (aka everyone)
  */
 public class ControllerOrders implements Controller {
 
@@ -38,7 +37,7 @@ public class ControllerOrders implements Controller {
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */
-	public void initData(User user){
+	public void initData(User user) {
 		this.current_user = user;
 		try {
 			fillTreeView();
@@ -70,7 +69,7 @@ public class ControllerOrders implements Controller {
 	 */
 	@SuppressWarnings("unchecked")
 	public void fillTreeView() throws UnknownHostException, IOException {
-		
+
 		if (this.current_user.getPermission() > 0) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -85,7 +84,7 @@ public class ControllerOrders implements Controller {
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			try{
+			try {
 				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
 				TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
