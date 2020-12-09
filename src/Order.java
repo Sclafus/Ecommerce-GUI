@@ -26,15 +26,17 @@ public class Order {
 	 * @param wines the wines the {@code User} wants to buy. [ArrayList<Wine>]
 	 * @param id of the {@code Order}. [Int]
 	 * @param customer email of the {@code User} who placed the {@code Order}. [String]
+	 * @param ship {@code true} if the order has been shipped, otherwise {@code false}. [Boolean]
 	 * @see Wine
 	 * @see User
 	 */
-	public Order(final int id, final String cust, final ArrayList<Wine> wines){
+	public Order(final int id, Boolean ship, final String cust, final ArrayList<Wine> wines){
 		this.id = id;
-		this.shipped = false;
+		this.shipped = ship;
 		this.customer = cust;
 		this.items = wines;
 	}
+
 
 	/**
 	 * Gets the email of the customer of the selected {@code Order}.
