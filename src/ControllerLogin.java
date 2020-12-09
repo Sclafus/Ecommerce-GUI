@@ -18,11 +18,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Controller for Login, page accessible by {@code User} 
- * with permission > 0 (aka everyone)
+ * Controller for Login, page accessible by {@code User} with permission > 0
+ * (aka everyone)
  */
 public class ControllerLogin {
-	
+
 	private User current_user;
 
 	@FXML
@@ -63,8 +63,10 @@ public class ControllerLogin {
 	}
 
 	/**
-	 * Login with the data provided by the user. Server responds with the correct 
-	 * {@code User} (permission>=1) else it will respond with {@code nullUser} (permission=0)
+	 * Login with the data provided by the user. Server responds with the correct
+	 * {@code User} (permission>=1) else it will respond with {@code nullUser}
+	 * (permission=0)
+	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws IOException if an I/O error occurs when creating the socket.
 	 * @see User
@@ -86,7 +88,7 @@ public class ControllerLogin {
 
 					OutputStream outputStream = socket.getOutputStream();
 					ObjectOutputStream out = new ObjectOutputStream(outputStream);
-					String[] to_be_sent = {"login", mail, pass};
+					String[] to_be_sent = { "login", mail, pass };
 					out.writeObject(to_be_sent);
 
 					// server -> client
@@ -110,7 +112,7 @@ public class ControllerLogin {
 							break;
 
 						default:
-							//notifies the user if a wrong email or password are inserted
+							// notifies the user if a wrong email or password are inserted
 							Alert alert = new Alert(AlertType.WARNING);
 							alert.setTitle("Wrong login");
 							alert.setHeaderText("Email or password are wrong. Please retry.");
@@ -121,14 +123,14 @@ public class ControllerLogin {
 
 					socket.close();
 				} else {
-					//notifies the user if the email is not valid
+					// notifies the user if the email is not valid
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle("Email not valid");
 					alert.setHeaderText("The provided email is not valid, please retry.");
 					alert.showAndWait();
 				}
 			} else {
-				//notifies if some fields are not filled
+				// notifies if some fields are not filled
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("All fields must be filled");
 				alert.setHeaderText("Please fill all the fields");
@@ -136,7 +138,7 @@ public class ControllerLogin {
 			}
 
 		} catch (ConnectException e) {
-			//notifies if the server can not be reached
+			// notifies if the server can not be reached
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Cannot connect to server");
 			alert.setHeaderText("Server is unreachable. Try again later.");
@@ -147,4 +149,3 @@ public class ControllerLogin {
 
 	}
 }
-

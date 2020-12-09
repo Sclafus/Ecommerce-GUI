@@ -18,9 +18,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+
 /**
- * Controller for Register, page accessible by {@code User} 
- * with permission > 0 (aka everyone)
+ * Controller for Register, page accessible by {@code User} with permission > 0
+ * (aka everyone)
  */
 public class ControllerRegister implements Controller {
 
@@ -52,7 +53,7 @@ public class ControllerRegister implements Controller {
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */
-	public void initData(User user){
+	public void initData(User user) {
 		this.current_user = user;
 	}
 
@@ -97,14 +98,14 @@ public class ControllerRegister implements Controller {
 
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = {"register_user", nam, sur, mail, pass};
+			String[] to_be_sent = { "register_user", nam, sur, mail, pass };
 			out.writeObject(to_be_sent);
 
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
-			
+
 			this.current_user = (User) in.readObject();
-			
+
 			Loader loader = new Loader(this.current_user, this.rootPane);
 			loader.load("homepage_user");
 			socket.close();

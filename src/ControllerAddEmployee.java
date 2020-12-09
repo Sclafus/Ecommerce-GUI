@@ -16,8 +16,8 @@ import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 
 /**
- * Controller for Add Employee, page accessible by {@code User} 
- * with permission > 2 (aka administrators)
+ * Controller for Add Employee, page accessible by {@code User} with permission
+ * > 2 (aka administrators)
  */
 public class ControllerAddEmployee implements Controller {
 
@@ -39,9 +39,10 @@ public class ControllerAddEmployee implements Controller {
 	private PasswordField password;
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value.
-	 * This method is made to be called from another controller,
-	 * using the {@code load} method in {@code Loader} class.
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */

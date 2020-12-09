@@ -1,8 +1,11 @@
 import java.util.ArrayList;
+
 /**
- * Abstraction of a determined Order. Every order has an id, an email which relates 
- * the order to the {@code User} who placed it, a status (true if the order has been shipped, 
- * false otherwise) and the list of {@code Wine} that the {@code User} has ordered.
+ * Abstraction of a determined Order. Every order has an id, an email which
+ * relates the order to the {@code User} who placed it, a status (true if the
+ * order has been shipped, false otherwise) and the list of {@code Wine} that
+ * the {@code User} has ordered.
+ * 
  * @see Wine
  * @see
  */
@@ -16,65 +19,73 @@ public class Order {
 	/**
 	 * {@code Order} class constructor.
 	 */
-	public Order(){
+	public Order() {
 		this.shipped = false;
 	}
 
 	/**
 	 * {@code Order} class constructor.
-	 * @param wines the wines the {@code User} wants to buy. [ArrayList<Wine>]
-	 * @param id of the {@code Order}. [Int]
-	 * @param customer email of the {@code User} who placed the {@code Order}. [String]
-	 * @param ship {@code true} if the order has been shipped, otherwise {@code false}. [Boolean]
+	 * 
+	 * @param wines    the wines the {@code User} wants to buy. [ArrayList<Wine>]
+	 * @param id       of the {@code Order}. [Int]
+	 * @param customer email of the {@code User} who placed the {@code Order}.
+	 *                 [String]
+	 * @param ship     {@code true} if the order has been shipped, otherwise
+	 *                 {@code false}. [Boolean]
 	 * @see Wine
 	 * @see User
 	 */
-	public Order(final int id, Boolean ship, final String cust, final ArrayList<Wine> wines){
+	public Order(final int id, Boolean ship, final String cust, final ArrayList<Wine> wines) {
 		this.id = id;
 		this.shipped = ship;
 		this.customer = cust;
 		this.items = wines;
 	}
 
-
 	/**
 	 * Gets the email of the customer of the selected {@code Order}.
+	 * 
 	 * @return customer's email. [String]
 	 * @see User
 	 */
-	public String getCustomer(){
+	public String getCustomer() {
 		return this.customer;
 	}
-	
+
 	/**
 	 * Gets the id of the selected {@code Order}.
+	 * 
 	 * @return the id of the {@code Order}. [int]
 	 */
-	public int getId(){
+	public int getId() {
 		return this.id;
 	}
 
 	/**
-	 * Gets the status of the selected {@code Order}. 
-	 * @return {@code true} if the order has been shipped, else {@code false}. [Boolean]
+	 * Gets the status of the selected {@code Order}.
+	 * 
+	 * @return {@code true} if the order has been shipped, else {@code false}.
+	 *         [Boolean]
 	 */
-	public Boolean getStatus(){
+	public Boolean getStatus() {
 		return this.shipped;
 	}
 
 	/**
 	 * Gets the wines from the selected {@code Order}.
+	 * 
 	 * @return the wines of the {@code Order}. [ArrayList<Wine>]
 	 * @see Wine
 	 */
-	public ArrayList<Wine> getWines(){
+	public ArrayList<Wine> getWines() {
 		return this.items;
 	}
-	
+
 	/**
-	 * Changes the status of the selected {@code Order} to {@code true} once the order has been shipped.
+	 * Changes the status of the selected {@code Order} to {@code true} once the
+	 * order has been shipped.
 	 */
-	public void ship(){
+	public void ship() {
 		this.shipped = true;
 	}
 }

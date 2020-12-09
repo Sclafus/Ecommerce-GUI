@@ -14,8 +14,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Controller for Restock, page accessible by {@code User} 
- * with permission > 1 (aka employees and administrators)
+ * Controller for Restock, page accessible by {@code User} with permission > 1
+ * (aka employees and administrators)
  */
 public class ControllerRestock implements Controller {
 
@@ -42,7 +42,8 @@ public class ControllerRestock implements Controller {
 		this.current_user = user;
 	}
 
-	@FXML @SuppressWarnings("unused")
+	@FXML
+	@SuppressWarnings("unused")
 	void restockWine(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.current_user.getPermission() > 1) {
 			// user is authorized to perform the action
