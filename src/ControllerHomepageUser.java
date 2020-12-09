@@ -75,7 +75,7 @@ public class ControllerHomepageUser implements Controller {
 		name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
 		year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
 		producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
-		grapes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Grapes"));
+		grapes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Grapewines"));
 		notes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Notes"));
 
 		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
