@@ -60,7 +60,7 @@ public class ControllerOrders implements Controller {
 	}
 
 	/**
-	 * Displays all the employees in the TreeView.
+	 * Fills the TreeView with the orders made by the {@code User}.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
