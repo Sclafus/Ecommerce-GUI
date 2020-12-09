@@ -62,9 +62,10 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	public void initData(User user) {
 		this.current_user = user;
-		// TODO fill frontpage
+		addToTable();
 	}    
 	
+	public void addToTable(){}
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
@@ -103,7 +104,7 @@ public class ControllerHomepageUser implements Controller {
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
 
-
+		addToTable(search_result);
 		System.out.println("search result:");
 		for (Wine wine : search_result) {
 			System.out.println(wine.getName() + "  " + wine.getYear());
