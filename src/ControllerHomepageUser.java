@@ -44,13 +44,8 @@ public class ControllerHomepageUser implements Controller {
     private TableColumn<Wine, String> grapes_column;
 
     @FXML
-<<<<<<< HEAD
-	private TableView<String> tableView;
-
-=======
     private TableColumn<Wine, String> notes_column;
 	
->>>>>>> 7ed72d339edf7692ff4d4a3497f1b4a507ca1aec
     @FXML
     private TextField quantity;
 
