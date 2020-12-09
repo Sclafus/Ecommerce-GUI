@@ -62,7 +62,7 @@ public class ControllerOrders implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
-	public void fillTreeView(ActionEvent event) throws IOException, UnknownHostException{
+	public void fillTreeView() throws UnknownHostException, IOException {
 		
 		if (this.current_user.getPermission() > 0) {
 			// user is authorized to perform the action
