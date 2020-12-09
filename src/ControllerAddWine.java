@@ -15,8 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Controller for Add Wine, page accessible by {@code uSER} 
- * with permission = 1 (aka employee)
+ * Controller for Add Wine, page accessible by {@code User} 
+ * with permission > 1 (aka employees and administrators)
  */
 public class ControllerAddWine implements Controller {
 

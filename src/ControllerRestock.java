@@ -12,7 +12,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-//TODO JAVADOC
+
+/**
+ * Controller for Restock, page accessible by {@code User} 
+ * with permission > 1 (aka employees and administrators)
+ */
 public class ControllerRestock implements Controller {
 
 	private User current_user;
@@ -26,6 +30,14 @@ public class ControllerRestock implements Controller {
 	@FXML
 	private TextField quantity;
 
+	/**
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
+	 * @param user the {@code User} we want to pass. [User]
+	 * @see Loader
+	 */
 	public void initData(User user) {
 		this.current_user = user;
 	}

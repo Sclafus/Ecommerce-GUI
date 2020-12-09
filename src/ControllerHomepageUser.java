@@ -13,7 +13,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-//TODO javadoc
+/**
+ * Controller for the User Homepage.
+ */
 public class ControllerHomepageUser implements Controller {
 
 	private User current_user;

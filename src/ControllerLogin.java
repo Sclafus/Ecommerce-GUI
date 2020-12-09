@@ -18,7 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Controller for lOGIN, page accessible by {@code User} 
+ * Controller for Login, page accessible by {@code User} 
  * with permission > 0 (aka everyone)
  */
 public class ControllerLogin {

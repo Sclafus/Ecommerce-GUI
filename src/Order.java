@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-//TODO javadoc (!!FIX THE OLD ONES) I THINK I DID BUT IDK
 /**
  * Abstraction of a determined Order. Every order has an id, an email which relates 
  * the order to the {@code User} who placed it, a status (true if the order has been shipped, 
