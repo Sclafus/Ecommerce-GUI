@@ -140,6 +140,7 @@ public class ControllerHomepageAdmin implements Controller {
 					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
 					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
 					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+					rootOrder.getChildren().addAll(id, status, customer);
 
 					for (Wine wine : order.getWines()) {
 						TreeItem<String> rootProduct = new TreeItem<String>(
@@ -149,7 +150,6 @@ public class ControllerHomepageAdmin implements Controller {
 						rootOrder.getChildren().add(rootProduct);
 					}
 
-					rootOrder.getChildren().addAll(id, status, customer);
 					rootItem.getChildren().add(rootOrder);
 				}
 				treeView.setRoot(rootItem);
