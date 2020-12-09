@@ -65,6 +65,7 @@ public class ControllerHomepageUser implements Controller {
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */
+	@SuppressWarnings("unchecked")
 	public void initData(User user) {
 		this.current_user = user;
 		try {
@@ -110,7 +111,7 @@ public class ControllerHomepageUser implements Controller {
 	 * @see User
 	 */
 	@FXML
-	// @SuppressWarnings("unchecked")
+	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 		int quantity = Integer.parseInt(this.quantity.getText());
