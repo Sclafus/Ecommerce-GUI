@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TreeItem;
 
 
 /**
@@ -26,7 +28,24 @@ public class ControllerOrders implements Controller {
 	private AnchorPane rootPane;
 
 	@FXML
-	private TreeView<String> treeview;
+	private TreeView<String> treeView;
+
+	/**
+	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * made to be called from another controller, using the {@code load} method in
+	 * {@code Loader} class.
+	 * 
+	 * @param user the {@code User} we want to pass. [User]
+	 * @see Loader
+	 */
+	public void initData(User user){
+		this.current_user = user;
+		try {
+			fillTreeView();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Goes back to the user homepage.
@@ -41,20 +60,7 @@ public class ControllerOrders implements Controller {
 	}
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value. This method is
-	 * made to be called from another controller, using the {@code load} method in
-	 * {@code Loader} class.
-	 * 
-	 * @param user the {@code User} we want to pass. [User]
-	 * @see Loader
-	 */
-	public void initData(User user){
-		this.current_user = user;
-		fillTreeView();
-	}
-
-	/**
-	 * Displays all the employees in the TreeView.
+	 * Fills the TreeView with the orders made by the {@code User}.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
@@ -62,6 +68,7 @@ public class ControllerOrders implements Controller {
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
+	@SuppressWarnings("unchecked")
 	public void fillTreeView() throws UnknownHostException, IOException {
 		
 		if (this.current_user.getPermission() > 0) {
@@ -79,8 +86,29 @@ public class ControllerOrders implements Controller {
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 
 			try{
+				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
+				TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
-			}catch (ClassNotFoundException e) {
+				for (Order order : orders) {
+					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
+					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
+					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+
+					for (Wine wine : order.getWines()) {
+						TreeItem<String> rootProduct = new TreeItem<String>(
+								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
+						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
+						rootProduct.getChildren().add(quantity);
+						rootOrder.getChildren().add(rootProduct);
+					}
+
+					rootOrder.getChildren().addAll(id, status, customer);
+					rootItem.getChildren().add(rootOrder);
+				}
+				treeView.setRoot(rootItem);
+				treeView.setShowRoot(false);
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			socket.close();

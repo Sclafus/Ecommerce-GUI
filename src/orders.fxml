@@ -15,6 +15,6 @@
 				<Image url="@img/wine.png" />
 			</image>
 		</ImageView>
-		<TreeView fx:id="treeview" layoutX="96.0" layoutY="55.0" prefHeight="266.0" prefWidth="409.0" />
+		<TreeView fx:id="treeView" layoutX="96.0" layoutY="55.0" prefHeight="266.0" prefWidth="409.0" />
 	</children>
 </AnchorPane>

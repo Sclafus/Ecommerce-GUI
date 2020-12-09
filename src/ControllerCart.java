@@ -1,4 +1,10 @@
 import java.io.IOException;
+import java.net.UnknownHostException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,10 +13,9 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
-
 /**
- * Controller for Cart, page accessible by {@code User} 
- * with permission > 0 (aka everyone)
+ * Controller for Cart, page accessible by {@code User} with permission > 0 (aka
+ * everyone)
  */
 public class ControllerCart implements Controller {
 
@@ -40,13 +45,51 @@ public class ControllerCart implements Controller {
 		loader.load("homepage_user");
 	}
 
+	/**
+	 * Allows the {@code User} to buy the items in his cart.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException if an I/O error occurs when creating the socket.
+	 * @see User
+	 */
 	@FXML
-	void buy(ActionEvent event) {
-		// TODO
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Order submitted!");
-		alert.setHeaderText("Your order has been placed!");
-		alert.showAndWait();
+	void buy(ActionEvent event) throws IOException, UnknownHostException {
+
+		if (this.current_user.getPermission() > 0) {
+			// user is authorized to perform the action
+			Socket socket = new Socket("localhost", 4316);
+
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "new_order", this.current_user.getEmail() };
+			out.writeObject(to_be_sent);
+
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+			Order new_order;
+			try {
+				new_order = (Order) in.readObject();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Order submitted!");
+				alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", new_order.getId()));
+				alert.showAndWait();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+
+		} else {
+
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
+		}  
 	}
 
 }
