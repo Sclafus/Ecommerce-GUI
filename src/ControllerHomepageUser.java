@@ -4,14 +4,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -21,36 +24,35 @@ public class ControllerHomepageUser implements Controller {
 
 	private User current_user;
 
-    @FXML
-    private AnchorPane rootPane;
+	@FXML
+	private AnchorPane rootPane;
 
-    @FXML
-    private TextField searchboxName;
+	@FXML
+	private TextField searchboxName;
 
-    @FXML
-    private TextField yearboxName;
+	@FXML
+	private TextField yearboxName;
 
+	@FXML
+	private TableView<Wine> tableView;
 
-    @FXML
-    private TableView<Wine> tableView;
+	@FXML
+	private TableColumn<Wine, String> name_column;
 
-    @FXML
-    private TableColumn<Wine, String> name_column;
+	@FXML
+	private TableColumn<Wine, Integer> year_column;
 
-    @FXML
-    private TableColumn<Wine, Integer> year_column;
+	@FXML
+	private TableColumn<Wine, String> producer_column;
 
-    @FXML
-    private TableColumn<Wine, String> producer_column;
+	@FXML
+	private TableColumn<Wine, String> grapes_column;
 
-    @FXML
-    private TableColumn<Wine, String> grapes_column;
+	@FXML
+	private TableColumn<Wine, String> notes_column;
 
-    @FXML
-    private TableColumn<Wine, String> notes_column;
-	
-    @FXML
-    private TextField quantity;
+	@FXML
+	private TextField quantity;
 
 	/**
 	 * Initialize {@code this.current_user} with the passed value. This method is
@@ -63,8 +65,8 @@ public class ControllerHomepageUser implements Controller {
 	public void initData(User user) {
 		this.current_user = user;
 		// TODO fill frontpage
-	}    
-	
+	}
+
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
@@ -75,9 +77,43 @@ public class ControllerHomepageUser implements Controller {
 	 * @see User
 	 */
 	@FXML
-    void addToCart(ActionEvent event) {
+	// @SuppressWarnings("unchecked")
+	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
+		Socket socket = new Socket("localhost", 4316);
+		int quantity = Integer.parseInt(this.quantity.getText());
+		//getting selection of the treeview
+		Wine wine = tableView.getSelectionModel().getSelectedItem();
+		// client -> server
+		OutputStream outputStream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()), this.quantity.getText() };
+		out.writeObject(to_be_sent);
 
-    }
+		// server -> client
+		InputStream inputStream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(inputStream);
+
+		try {
+			Boolean add_result = (Boolean) in.readObject();
+			if(add_result){
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle(String.format("Added to cart"));
+				alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle(String.format("Select a wine"));
+				alert.setHeaderText("You have to click on a Wine, enter the quantity and then Add.");
+				alert.showAndWait();
+
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		socket.close();
+
+	}
 
 	/**
 	 * Allows anyone to search for wines.
@@ -102,8 +138,6 @@ public class ControllerHomepageUser implements Controller {
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
-
-
 		System.out.println("search result:");
 		for (Wine wine : search_result) {
 			System.out.println(wine.getName() + "  " + wine.getYear());
