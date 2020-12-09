@@ -12,7 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-
+//TODO JAVADOC
 public class ControllerRestock implements Controller {
 
 	private User current_user;

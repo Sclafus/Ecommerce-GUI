@@ -1,4 +1,3 @@
-//TODO JAVADOC DONE
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -17,7 +16,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-//TODO class javadoc
+
+/**
+ * Controller for lOGIN, page accessible by {@code User} 
+ * with permission > 0 (aka everyone)
+ */
 public class ControllerLogin {
 	
 	private User current_user;

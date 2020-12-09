@@ -18,7 +18,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-//TODO javadoc
+/**
+ * Controller for Register, page accessible by {@code User} 
+ * with permission > 0 (aka everyone)
+ */
 public class ControllerRegister implements Controller {
 
 	private User current_user;

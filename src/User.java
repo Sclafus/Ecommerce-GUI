@@ -1,4 +1,3 @@
-//TODO JAVADOC DONE
 import java.io.Serializable;
 
 /**

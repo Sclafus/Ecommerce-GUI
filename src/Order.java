@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
-//TODO javadoc (!!FIX THE OLD ONES)
+//TODO javadoc (!!FIX THE OLD ONES) I THINK I DID BUT IDK
+/**
+ * Abstraction of a determined Order. Every order has an id, an email which relates 
+ * the order to the {@code User} who placed it, a status (true if the order has been shipped, 
+ * false otherwise) and the list of {@code Wine} that the {@code User} has ordered.
+ * @see Wine.
+ */
 public class Order {
 
 	private ArrayList<Wine> items = new ArrayList<Wine>();
@@ -17,7 +23,7 @@ public class Order {
 
 	/**
 	 * {@code Order} class constructor.
-	 * @param wines the wines the {@code People} wants to buy. [Wine Array]
+	 * @param wines the wines the {@code User} wants to buy. [Wine Array]
 	 * @see Wine
 	 * @see User
 	 */

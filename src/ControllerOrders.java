@@ -4,7 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-//TODO javadoc
+
+/**
+ * Controller for Orders, page accessible by {@code User} 
+ * with permission > 0 (aka everyone)
+ */
 public class ControllerOrders implements Controller {
 
 	private User current_user;
