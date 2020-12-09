@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -29,8 +30,21 @@ public class ControllerHomepageUser implements Controller {
     @FXML
     private TextField yearboxName;
 
+
     @FXML
-	private TableView<String> tableView;
+    private TableView<String> tableView;
+
+    @FXML
+    private TableColumn<Wine, String> name_year_column;
+
+    @FXML
+    private TableColumn<Wine, String> producer_column;
+
+    @FXML
+    private TableColumn<Wine, String> grapes_column;
+
+    @FXML
+    private TableColumn<Wine, String> notes_column;
 	
     @FXML
     private TextField quantity;
