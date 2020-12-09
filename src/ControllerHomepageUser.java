@@ -124,7 +124,7 @@ public class ControllerHomepageUser implements Controller {
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
 			String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
 					this.quantity.getText() };
-			out.writeObject(to_be_sent);
+			out.writeObject(to_be_sent); 
 
 			// server -> client
 			InputStream inputStream = socket.getInputStream();
