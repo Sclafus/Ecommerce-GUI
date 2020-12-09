@@ -67,7 +67,23 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	public void initData(User user) {
 		this.current_user = user;
-		// TODO fill frontpage
+		try {
+			Socket socket = new Socket("localhost", 4316);
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "get_wines" };
+			out.writeObject(to_be_sent);
+
+			//server ->client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+			ArrayList<Wine> wines = (ArrayList<Wine>)in.readObject();
+			socket.close();
+			addToTable(wines);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}    
 	
 	public void addToTable(ArrayList<Wine> wines){
