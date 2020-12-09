@@ -34,9 +34,10 @@
       		</MenuButton>
          </children>
       </HBox>
-      <TableView fx:id="tableView" layoutX="89.0" layoutY="86.0" prefHeight="241.0" prefWidth="420.0">
+      <TableView fx:id="tableView" layoutX="64.0" layoutY="87.0" prefHeight="241.0" prefWidth="472.0">
         <columns>
-          <TableColumn fx:id="name_year_column" editable="false" prefWidth="75.0" sortable="false" text="Name &amp; Year" />
+          <TableColumn fx:id="name_column" editable="false" prefWidth="75.0" sortable="false" text="Name" />
+            <TableColumn fx:id="year_column" editable="false" prefWidth="75.0" sortable="false" text="Year" />
             <TableColumn fx:id="producer_column" editable="false" prefWidth="75.0" sortable="false" text="Producer" />
           <TableColumn fx:id="grapes_column" editable="false" prefWidth="75.0" sortable="false" text="Grapes" />
             <TableColumn fx:id="notes_column" editable="false" prefWidth="75.0" sortable="false" text="Notes" />

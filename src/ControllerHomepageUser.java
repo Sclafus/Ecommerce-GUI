@@ -32,10 +32,13 @@ public class ControllerHomepageUser implements Controller {
 
 
     @FXML
-    private TableView<String> tableView;
+    private TableView<Wine> tableView;
 
     @FXML
-    private TableColumn<Wine, String> name_year_column;
+    private TableColumn<Wine, String> name_column;
+
+    @FXML
+    private TableColumn<Wine, Integer> year_column;
 
     @FXML
     private TableColumn<Wine, String> producer_column;
@@ -144,4 +147,5 @@ public class ControllerHomepageUser implements Controller {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
+
 }
