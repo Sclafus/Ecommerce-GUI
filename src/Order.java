@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 //TODO javadoc (!!FIX THE OLD ONES) I THINK I DID BUT IDK
 /**
  * Abstraction of a determined Order. Every order has an id, an email which relates 
@@ -27,11 +26,11 @@ public class Order {
 	 * @see Wine
 	 * @see User
 	 */
-	public Order(int id, Boolean ship, String cust, final Wine[] wines){
+	public Order(final int id, final String cust, final ArrayList<Wine> wines){
 		this.id = id;
-		this.shipped = ship;
+		this.shipped = false;
 		this.customer = cust;
-		Collections.addAll(items, wines);
+		this.items = wines;
 	}
 
 	/**
@@ -61,19 +60,17 @@ public class Order {
 
 	/**
 	 * Gets the wines from the selected {@code Order}.
-	 * @return the wines of the {@code Order}. [Wine Array]
+	 * @return the wines of the {@code Order}. [ArrayList<Wine>]
 	 * @see Wine
 	 */
-	public Wine[] getWines(){
-		Wine[] wines_arr = new Wine[items.size()]; 
-		wines_arr = items.toArray(wines_arr);
-		return wines_arr;
+	public ArrayList<Wine> getWines(){
+		return this.items;
 	}
 	
 	/**
 	 * Changes the status of the selected {@code Order} to {@code true} once the order has been shipped.
 	 */
-	public void changeStatus(){
+	public void ship(){
 		this.shipped = true;
 	}
 }
