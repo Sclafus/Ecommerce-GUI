@@ -5,7 +5,8 @@ import java.util.Collections;
  * Abstraction of a determined Order. Every order has an id, an email which relates 
  * the order to the {@code User} who placed it, a status (true if the order has been shipped, 
  * false otherwise) and the list of {@code Wine} that the {@code User} has ordered.
- * @see Wine.
+ * @see Wine
+ * @see
  */
 public class Order {
 
@@ -23,7 +24,9 @@ public class Order {
 
 	/**
 	 * {@code Order} class constructor.
-	 * @param wines the wines the {@code User} wants to buy. [Wine Array]
+	 * @param wines the wines the {@code User} wants to buy. [ArrayList<Wine>]
+	 * @param id of the {@code Order}. [Int]
+	 * @param customer email of the {@code User} who placed the {@code Order}. [String]
 	 * @see Wine
 	 * @see User
 	 */
