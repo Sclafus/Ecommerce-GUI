@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -31,7 +32,7 @@ public class ControllerHomepageUser implements Controller {
 
     @FXML
 	private TableView<String> tableView;
-	
+
     @FXML
     private TextField quantity;
 
@@ -48,26 +49,45 @@ public class ControllerHomepageUser implements Controller {
 		// TODO fill frontpage
 	}    
 	
+	/**
+	 * Allows the {@code User} to add the wines to his cart.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 * @see User
+	 */
 	@FXML
     void addToCart(ActionEvent event) {
 
     }
 
+	/**
+	 * Allows anyone to search for wines.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 */
 	@FXML
 	@SuppressWarnings("unchecked")
 	void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
-
+		//client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
 		String[] to_be_sent = { "search", searchboxName.getText(), yearboxName.getText() };
 		out.writeObject(to_be_sent);
 
+		//server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
-		// TODO
+
+
 		System.out.println("search result:");
 		for (Wine wine : search_result) {
 			System.out.println(wine.getName() + "  " + wine.getYear());
