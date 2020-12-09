@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 /**
  * Controller for the User Homepage.
@@ -20,68 +20,17 @@ public class ControllerHomepageUser implements Controller {
 
 	private User current_user;
 
-	@FXML
-	private AnchorPane rootPane;
+    @FXML
+    private AnchorPane rootPane;
 
-	@FXML
-	private Text name1;
+    @FXML
+    private TextField searchboxName;
 
-	@FXML
-	private Text year1;
+    @FXML
+    private TextField yearboxName;
 
-	@FXML
-	private Text notes1;
-
-	@FXML
-	private Text name2;
-
-	@FXML
-	private Text year2;
-
-	@FXML
-	private Text notes2;
-
-	@FXML
-	private Text name3;
-
-	@FXML
-	private Text year3;
-
-	@FXML
-	private Text notes3;
-
-	@FXML
-	private Text name4;
-
-	@FXML
-	private Text year4;
-
-	@FXML
-	private Text notes4;
-
-	@FXML
-	private Text name5;
-
-	@FXML
-	private Text year5;
-
-	@FXML
-	private Text notes5;
-
-	@FXML
-	private Text name6;
-
-	@FXML
-	private Text year6;
-
-	@FXML
-	private Text notes6;
-
-	@FXML
-	private TextField searchboxName;
-
-	@FXML
-	private TextField yearboxName;
+    @FXML
+    private TableView<String> tableView;
 
 	/**
 	 * Initialize {@code this.current_user} with the passed value. This method is
@@ -94,17 +43,12 @@ public class ControllerHomepageUser implements Controller {
 	public void initData(User user) {
 		this.current_user = user;
 		// TODO fill frontpage
-	}
-
+	}    
+	
 	@FXML
-	void nextPage(ActionEvent event) {
-		// TODO
-	}
+    void addToCart(ActionEvent event) {
 
-	@FXML
-	void previousPage(ActionEvent event) {
-		// TODO
-	}
+    }
 
 	@FXML
 	@SuppressWarnings("unchecked")
