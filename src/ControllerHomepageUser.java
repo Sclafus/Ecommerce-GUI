@@ -76,19 +76,19 @@ public class ControllerHomepageUser implements Controller {
 			String[] to_be_sent = { "get_wines" };
 			out.writeObject(to_be_sent);
 
-			//server ->client
+			// server ->client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
-			ArrayList<Wine> wines = (ArrayList<Wine>)in.readObject();
+			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
 			socket.close();
 			addToTable(wines);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}    
-	
-	public void addToTable(ArrayList<Wine> wines){
-		//set up the columns in the table
+	}
+
+	public void addToTable(ArrayList<Wine> wines) {
+		// set up the columns in the table
 		name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
 		year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
 		producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
@@ -96,11 +96,12 @@ public class ControllerHomepageUser implements Controller {
 		notes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Notes"));
 
 		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
-		
-		//load data
+
+		// load data
 		tableView.setItems(oListWine);
 
 	}
+
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
@@ -114,22 +115,23 @@ public class ControllerHomepageUser implements Controller {
 	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
-		int quantity = Integer.parseInt(this.quantity.getText());
-		//getting selection of the treeview
-		Wine wine = tableView.getSelectionModel().getSelectedItem();
-		// client -> server
-		OutputStream outputStream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()), this.quantity.getText() };
-		out.writeObject(to_be_sent);
-
-		// server -> client
-		InputStream inputStream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(inputStream);
-
 		try {
+			int quantity = Integer.parseInt(this.quantity.getText());
+			// getting selection of the treeview
+			Wine wine = tableView.getSelectionModel().getSelectedItem();
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
+					this.quantity.getText() };
+			out.writeObject(to_be_sent);
+
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+
 			Boolean add_result = (Boolean) in.readObject();
-			if(add_result){
+			if (add_result) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle(String.format("Added to cart"));
 				alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
@@ -141,9 +143,15 @@ public class ControllerHomepageUser implements Controller {
 				alert.showAndWait();
 
 			}
-			
+
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (NumberFormatException e){
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle(String.format("Insert quantity"));
+			alert.setHeaderText("Please insert the quantity.");
+			alert.showAndWait();
+
 		}
 		socket.close();
 
@@ -161,13 +169,13 @@ public class ControllerHomepageUser implements Controller {
 	@SuppressWarnings("unchecked")
 	void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
-		//client -> server
+		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
 		String[] to_be_sent = { "search", searchboxName.getText(), yearboxName.getText() };
 		out.writeObject(to_be_sent);
 
-		//server -> client
+		// server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
@@ -175,10 +183,9 @@ public class ControllerHomepageUser implements Controller {
 
 		addToTable(search_result);
 		/*
-		System.out.println("search result:");
-		for (Wine wine : search_result) {
-			System.out.println(wine.getName() + "  " + wine.getYear());
-		}*/
+		 * System.out.println("search result:"); for (Wine wine : search_result) {
+		 * System.out.println(wine.getName() + "  " + wine.getYear()); }
+		 */
 		socket.close();
 
 	}
