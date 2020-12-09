@@ -30,7 +30,10 @@ public class ControllerHomepageUser implements Controller {
     private TextField yearboxName;
 
     @FXML
-    private TableView<String> tableView;
+	private TableView<String> tableView;
+	
+    @FXML
+    private TextField quantity;
 
 	/**
 	 * Initialize {@code this.current_user} with the passed value. This method is
