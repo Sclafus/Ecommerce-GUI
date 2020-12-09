@@ -16,11 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-<<<<<<< HEAD
 import javafx.scene.control.Alert.AlertType;
-=======
 import javafx.scene.control.cell.PropertyValueFactory;
->>>>>>> 388333ff8221e95d12df9725a629f58e29812283
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -71,9 +68,6 @@ public class ControllerHomepageUser implements Controller {
 	public void initData(User user) {
 		this.current_user = user;
 		// TODO fill frontpage
-	}
-
-		//TODO fill homepage
 	}    
 	
 	public void addToTable(ArrayList<Wine> wines){
