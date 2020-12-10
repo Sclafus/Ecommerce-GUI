@@ -69,7 +69,7 @@ public class ControllerHomepageUser implements Controller {
 	public void initData(User user) {
 		this.current_user = user;
 		try {
-			//Fill the frontpage with wines.
+			// Fill the frontpage with wines.
 
 			Socket socket = new Socket("localhost", 4316);
 			// client -> server
@@ -84,12 +84,12 @@ public class ControllerHomepageUser implements Controller {
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
 			addToTable(wines);
 
-			//Checks notifications.
-			//client -> server
-			String[] to_be_sent_notifications = { "get_notifications" };
+			// Checks notifications.
+			// client -> server
+			String[] to_be_sent_notifications = { "get_notifications", this.current_user.getEmail() };
 			out.writeObject(to_be_sent_notifications);
 
-			//server -> client
+			// server -> client
 			ArrayList<Wine> notification = (ArrayList<Wine>) in.readObject();
 			displayNotifications(notification);
 			socket.close();
@@ -113,12 +113,12 @@ public class ControllerHomepageUser implements Controller {
 
 	}
 
-	public void displayNotifications(ArrayList<Wine> wines){
+	public void displayNotifications(ArrayList<Wine> wines) {
 		Alert alert = new Alert(AlertType.NONE);
 		alert.setTitle("Some wines have been restocked");
 		alert.setHeaderText("These wines have been restocked:");
 		String wines_string = "";
-		for (Wine wine : wines){
+		for (Wine wine : wines) {
 			wines_string = wines_string + String.format("%s (%d)\n", wine.getName(), wine.getYear());
 		}
 		alert.setContentText(wines_string);
@@ -147,7 +147,7 @@ public class ControllerHomepageUser implements Controller {
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
 			String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
 					this.quantity.getText() };
-			out.writeObject(to_be_sent); 
+			out.writeObject(to_be_sent);
 
 			// server -> client
 			InputStream inputStream = socket.getInputStream();
@@ -169,7 +169,7 @@ public class ControllerHomepageUser implements Controller {
 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (NumberFormatException e){
+		} catch (NumberFormatException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle(String.format("Insert quantity"));
 			alert.setHeaderText("Please insert the quantity.");
