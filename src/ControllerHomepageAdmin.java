@@ -105,7 +105,7 @@ public class ControllerHomepageAdmin implements Controller {
 	}
 
 	/**
-	 * Displays all the employees in the TreeView.
+	 * Displays all the orders in the TreeView.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be

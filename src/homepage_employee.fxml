@@ -6,54 +6,54 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" fx:controller="ControllerHomepageEmployee" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerHomepageEmployee">
 	<children>
-		<TreeView fx:id="treeView" layoutX="333.0" layoutY="10.0" prefHeight="381.0" prefWidth="240.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="27.0" />
-		<VBox alignment="TOP_CENTER" layoutX="115.0" layoutY="47.0" prefHeight="321.0" prefWidth="138.0" spacing="30.0">
-			<children>
-				<Button mnemonicParsing="false" onAction="#loadRestockWine" prefHeight="77.0" prefWidth="134.0" text="Restock Wine">
-					<font>
-						<Font name="Cambria" size="15.0" />
-					</font>
-				</Button>
-				<Button mnemonicParsing="false" onAction="#loadAddWine" prefHeight="77.0" prefWidth="134.0" text="Add Wine">
-					<font>
-						<Font name="Cambria" size="15.0" />
-					</font>
-				</Button>
-				<Button mnemonicParsing="false" onAction="#loadShop" prefHeight="77.0" prefWidth="134.0" text="Go to Shop">
-					<font>
-						<Font name="Cambria" size="15.0" />
-					</font>
-				</Button>
-				<Button mnemonicParsing="false" onAction="#shipOrder" prefHeight="77.0" prefWidth="134.0" text="Ship Order">
-					<font>
-						<Font name="Cambria" size="15.0" />
-					</font>
-				</Button>
-				<TextField fx:id="searchID" prefHeight="25.0" prefWidth="107.0" promptText="Search by order ID" />
-			</children>
-		</VBox>
-		<ImageView fitHeight="58.0" fitWidth="58.0" layoutX="16.0" layoutY="10.0">
-			<image>
-				<Image url="@img/wine.png" />
-			</image>
-		</ImageView>
 		<ImageView fitHeight="45.0" fitWidth="45.0" layoutY="355.0">
 			<image>
 				<Image url="@img/avatar.png" />
 			</image>
 		</ImageView>
-		<Text fx:id="name" layoutX="45.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+      <HBox layoutX="36.0" layoutY="18.0" prefHeight="331.0" prefWidth="529.0" spacing="20.0">
+         <children>
+      		<VBox alignment="TOP_CENTER" prefHeight="321.0" prefWidth="138.0" spacing="30.0">
+      			<children>
+      				<Button mnemonicParsing="false" onAction="#loadRestockWine" prefHeight="77.0" prefWidth="134.0" text="Restock Wine">
+      					<font>
+      						<Font name="Cambria" size="15.0" />
+      					</font>
+      				</Button>
+      				<Button mnemonicParsing="false" onAction="#loadAddWine" prefHeight="77.0" prefWidth="134.0" text="Add Wine">
+      					<font>
+      						<Font name="Cambria" size="15.0" />
+      					</font>
+      				</Button>
+      				<Button mnemonicParsing="false" onAction="#loadShop" prefHeight="77.0" prefWidth="134.0" text="Go to Shop">
+      					<font>
+      						<Font name="Cambria" size="15.0" />
+      					</font>
+      				</Button>
+      				<Button mnemonicParsing="false" onAction="#shipOrder" prefHeight="77.0" prefWidth="134.0" text="Ship Order">
+      					<font>
+      						<Font name="Cambria" size="15.0" />
+      					</font>
+      				</Button>
+      				<TextField fx:id="searchID" prefHeight="25.0" prefWidth="107.0" promptText="Search by order ID" />
+      			</children>
+      		</VBox>
+      		<TreeView fx:id="treeView" prefHeight="286.0" prefWidth="354.0" />
+         </children>
+      </HBox>
+		<Button layoutX="497.0" layoutY="360.0" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="68.0" text="Logout" />
+		<Button layoutX="147.0" layoutY="365.0" mnemonicParsing="false" onAction="#search" text="🔍" />
+		<Text fx:id="name" layoutX="60.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
 			<font>
 				<Font name="Cambria" size="15.0" />
 			</font>
 		</Text>
-		<Button layoutX="259.0" layoutY="343.0" mnemonicParsing="false" onAction="#search" text="🔍" />
-		<Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
 	</children>
 </AnchorPane>
