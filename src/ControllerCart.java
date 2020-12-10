@@ -112,7 +112,6 @@ public class ControllerCart implements Controller {
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			
 			try {
-				initData(this.current_user);
 				Order new_order = (Order) in.readObject();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Order submitted!");
