@@ -47,6 +47,11 @@ public class ControllerHomepageEmployee implements Controller {
 	public void initData(User user) {
 		this.current_user = user;
 		name.setText(this.current_user.getName());
+		try {
+			displayOrders();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -98,15 +103,13 @@ public class ControllerHomepageEmployee implements Controller {
 	/**
 	 * Displays all the orders in the TreeView.
 	 * 
-	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
 	 *                              determined.
 	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see Order
 	 */
-	@FXML
 	@SuppressWarnings("unchecked")
-	void displayOrders(ActionEvent event) throws IOException {
+	void displayOrders() throws IOException {
 
 		if (this.current_user.getPermission() > 1) {
 			// user is authorized to perform the action
@@ -115,7 +118,7 @@ public class ControllerHomepageEmployee implements Controller {
 			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = { "get_orders" };
+			String[] to_be_sent = { "get_orders", this.current_user.getEmail() };
 			out.writeObject(to_be_sent);
 
 			// server ->client
