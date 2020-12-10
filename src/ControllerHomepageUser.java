@@ -82,20 +82,22 @@ public class ControllerHomepageUser implements Controller {
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
 			addToTable(wines);
+			socket.close();
 
 			// Checks notifications.
-			// client -> server
-			String[] to_be_sent_notifications = { "get_notifications", this.current_user.getEmail() };
-			out.writeObject(to_be_sent_notifications);
 
+			Socket socket2 = new Socket("localhost", 4316);
+			// client -> server
+			OutputStream outputStream2 = socket2.getOutputStream();
+			ObjectOutputStream out2 = new ObjectOutputStream(outputStream2);
+			String[] to_be_sent_notifications = { "get_notifications", this.current_user.getEmail() };
+			out2.writeObject(to_be_sent_notifications);
 			// server -> client
-			InputStream inputStream2 = socket.getInputStream();
+			InputStream inputStream2 = socket2.getInputStream();
 			ObjectInputStream in2 = new ObjectInputStream(inputStream2);
 			ArrayList<Wine> notification = (ArrayList<Wine>) in2.readObject();
-			if(notification.size() > 0){
-				displayNotifications(notification);
-			}
-			socket.close();
+			displayNotifications(notification);
+			socket2.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -117,11 +119,12 @@ public class ControllerHomepageUser implements Controller {
 	}
 
 	public void displayNotifications(ArrayList<Wine> wines) {
-		Alert alert = new Alert(AlertType.NONE);
+		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Some wines have been restocked");
 		alert.setHeaderText("These wines have been restocked:");
 		String wines_string = "";
 		for (Wine wine : wines) {
+			System.out.println(wine.getName());
 			wines_string = wines_string + String.format("%s (%d)\n", wine.getName(), wine.getYear());
 		}
 		alert.setContentText(wines_string);
