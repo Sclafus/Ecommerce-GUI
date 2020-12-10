@@ -189,7 +189,7 @@ public class ControllerCart implements Controller {
 	 * @see User
 	 */
 	@FXML
-	@SuppressWarnings("unused")
+	
 	void removeFromCart(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 		try {
