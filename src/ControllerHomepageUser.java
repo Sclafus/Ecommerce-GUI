@@ -77,7 +77,6 @@ public class ControllerHomepageUser implements Controller {
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
 			String[] to_be_sent = { "get_wines" };
 			out.writeObject(to_be_sent);
-
 			// server ->client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
@@ -90,8 +89,12 @@ public class ControllerHomepageUser implements Controller {
 			out.writeObject(to_be_sent_notifications);
 
 			// server -> client
-			ArrayList<Wine> notification = (ArrayList<Wine>) in.readObject();
-			displayNotifications(notification);
+			InputStream inputStream2 = socket.getInputStream();
+			ObjectInputStream in2 = new ObjectInputStream(inputStream2);
+			ArrayList<Wine> notification = (ArrayList<Wine>) in2.readObject();
+			if(notification.size() > 0){
+				displayNotifications(notification);
+			}
 			socket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
