@@ -114,9 +114,17 @@ public class ControllerHomepageUser implements Controller {
 	}
 
 	public void displayNotifications(ArrayList<Wine> wines){
-
+		Alert alert = new Alert(AlertType.NONE);
+		alert.setTitle("Some wines have been restocked");
+		alert.setHeaderText("These wines have been restocked:");
+		String wines_string = "";
+		for (Wine wine : wines){
+			wines_string = wines_string + String.format("%s (%d)\n", wine.getName(), wine.getYear());
+		}
+		alert.setContentText(wines_string);
+		alert.showAndWait();
 	}
-	
+
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
