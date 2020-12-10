@@ -118,7 +118,7 @@ public class ControllerHomepageEmployee implements Controller {
 			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = { "get_orders", this.current_user.getEmail() };
+			String[] to_be_sent = { "get_orders_employee", this.current_user.getEmail() };
 			out.writeObject(to_be_sent);
 
 			// server ->client
