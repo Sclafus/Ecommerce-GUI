@@ -69,6 +69,8 @@ public class ControllerHomepageUser implements Controller {
 	public void initData(User user) {
 		this.current_user = user;
 		try {
+			//Fill the frontpage with wines.
+
 			Socket socket = new Socket("localhost", 4316);
 			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
@@ -80,8 +82,17 @@ public class ControllerHomepageUser implements Controller {
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
-			socket.close();
 			addToTable(wines);
+
+			//Checks notifications.
+			//client -> server
+			String[] to_be_sent_notifications = { "get_notifications" };
+			out.writeObject(to_be_sent_notifications);
+
+			//server -> client
+			ArrayList<Wine> notification = (ArrayList<Wine>) in.readObject();
+			displayNotifications(notification);
+			socket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -102,6 +113,10 @@ public class ControllerHomepageUser implements Controller {
 
 	}
 
+	public void displayNotifications(ArrayList<Wine> wines){
+
+	}
+	
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
