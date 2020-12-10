@@ -53,6 +53,7 @@ public class ControllerCart implements Controller {
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
 	 */
+	@SuppressWarnings("unchecked")
 	public void initData(User user) {
 		this.current_user = user;
 
