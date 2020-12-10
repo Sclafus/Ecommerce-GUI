@@ -207,6 +207,7 @@ public class ControllerCart implements Controller {
 
 			Boolean remove_result = (Boolean) in.readObject();
 			if (remove_result) {
+				initData(this.current_user);
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle(String.format("Removed from cart"));
 				alert.setHeaderText(String.format("Removed %s from cart.", wine.getName()));
