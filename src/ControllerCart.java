@@ -55,6 +55,27 @@ public class ControllerCart implements Controller {
 	 */
 	public void initData(User user) {
 		this.current_user = user;
+
+		try{
+			Socket socket = new Socket("localhost", 4316);
+
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "display_cart", this.current_user.getEmail()};
+			out.writeObject(to_be_sent);
+
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+
+			ArrayList<Wine> cart_result = (ArrayList<Wine>) in.readObject();
+			
+			addToTable(cart_result);
+			socket.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
@@ -143,7 +164,7 @@ public class ControllerCart implements Controller {
 		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] to_be_sent = { "display_cart", this.current_user.getEmail() };
+		String[] to_be_sent = { "display_cart", this.current_user.getEmail()};
 		out.writeObject(to_be_sent);
 
 		// server -> client
