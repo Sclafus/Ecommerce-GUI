@@ -70,9 +70,9 @@ public class ControllerCart implements Controller {
 			// server -> client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
-			Order new_order;
+			
 			try {
-				new_order = (Order) in.readObject();
+				Order new_order = (Order) in.readObject();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Order submitted!");
 				alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", new_order.getId()));
@@ -93,4 +93,5 @@ public class ControllerCart implements Controller {
 		}
 	}
 
+	
 }
