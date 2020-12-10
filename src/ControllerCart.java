@@ -156,4 +156,53 @@ public class ControllerCart implements Controller {
 		socket.close();
 
 	}
+
+
+	/**
+	 * Allows the {@code User} to remove the wines to his cart.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 * @see User
+	 */
+	@FXML
+	@SuppressWarnings("unused")
+	void removeFromCart(ActionEvent event) throws UnknownHostException, IOException {
+		Socket socket = new Socket("localhost", 4316);
+		try {
+			// getting selection of the tableview
+			Wine wine = tableView.getSelectionModel().getSelectedItem();
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "remove_from_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId())};
+			out.writeObject(to_be_sent);
+
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+
+			Boolean remove_result = (Boolean) in.readObject();
+			if (remove_result) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle(String.format("Removed from cart"));
+				alert.setHeaderText(String.format("Removed %s from cart.", wine.getName()));
+				alert.showAndWait();
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle(String.format("Select a wine"));
+				alert.setHeaderText("You have to click on a Wine and then Remove.");
+				alert.showAndWait();
+
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} 
+		socket.close();
+
+	}
+
 }
