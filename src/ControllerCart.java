@@ -137,10 +137,10 @@ public class ControllerCart implements Controller {
 
 	public void addToTable(ArrayList<Wine> wines) {
 		// set up the columns in the table
-		name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
-		year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
-		producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
-		quantity_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
+		this.name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
+		this.year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
+		this.producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
+		this.quantity_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
 		
 
 		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
