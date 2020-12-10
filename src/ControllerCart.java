@@ -1,17 +1,22 @@
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * Controller for Cart, page accessible by {@code User} with permission > 0 (aka
@@ -25,7 +30,20 @@ public class ControllerCart implements Controller {
 	private AnchorPane rootPane;
 
 	@FXML
-	private TreeView<String> treeview;
+	private TableView<Wine> tableView;
+
+	@FXML
+	private TableColumn<Wine, String> name_column;
+
+	@FXML
+	private TableColumn<Wine, Integer> year_column;
+
+	@FXML
+	private TableColumn<Wine, String> producer_column;
+
+	@FXML
+	private TableColumn<Wine, Integer> quantity_column;
+
 
 	/**
 	 * Initialize {@code this.current_user} with the passed value. This method is
@@ -93,5 +111,49 @@ public class ControllerCart implements Controller {
 		}
 	}
 
-	
+
+	public void addToTable(ArrayList<Wine> wines) {
+		// set up the columns in the table
+		name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
+		year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
+		producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
+		quantity_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
+		
+
+		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
+
+		// load data
+		tableView.setItems(oListWine);
+
+	}
+
+	/**
+	 * Allows anyone to search for wines.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 */
+	@FXML
+	@SuppressWarnings("unchecked")
+	void displayCart(ActionEvent event) throws IOException, ClassNotFoundException {
+		Socket socket = new Socket("localhost", 4316);
+
+		// client -> server
+		OutputStream outputStream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		String[] to_be_sent = { "display_cart", this.current_user.getEmail() };
+		out.writeObject(to_be_sent);
+
+		// server -> client
+		InputStream inputStream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(inputStream);
+
+		ArrayList<Wine> cart_result = (ArrayList<Wine>) in.readObject();
+		
+		addToTable(cart_result);
+		socket.close();
+
+	}
 }

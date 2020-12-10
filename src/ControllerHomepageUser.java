@@ -140,7 +140,7 @@ public class ControllerHomepageUser implements Controller {
 		Socket socket = new Socket("localhost", 4316);
 		try {
 			int quantity = Integer.parseInt(this.quantity.getText());
-			// getting selection of the treeview
+			// getting selection of the tableview
 			Wine wine = tableView.getSelectionModel().getSelectedItem();
 			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
