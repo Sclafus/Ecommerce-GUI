@@ -28,7 +28,7 @@
       		</Button>
       		<MenuButton mnemonicParsing="false" text="My Profile 🙍‍♂️">
       		  <items>
-      			 <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+      			 <MenuItem fx:id="menuItemLogout" mnemonicParsing="false" onAction="#logout" text="Back to Login" />
       		  </items>
       		</MenuButton>
          </children>
