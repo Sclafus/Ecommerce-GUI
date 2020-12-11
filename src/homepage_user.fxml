@@ -26,11 +26,11 @@
       				<Cursor fx:constant="HAND" />
       			</cursor>
       		</Button>
-      		<Button mnemonicParsing="false" onAction="#logout" text="Logout" />
-          <cursor>
-      				<Cursor fx:constant="HAND" />
-      			</cursor>
-      		</Button>
+      		<MenuButton mnemonicParsing="false" text="My Profile 🙍‍♂️">
+      		  <items>
+      			 <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+      		  </items>
+      		</MenuButton>
          </children>
       </HBox>
       <TableView fx:id="tableView" layoutX="64.0" layoutY="87.0" prefHeight="241.0" prefWidth="472.0">
@@ -46,10 +46,6 @@
          </columnResizePolicy>
       </TableView>
       <Button layoutX="464.0" layoutY="346.0" mnemonicParsing="false" onAction="#addToCart" text="Add to Cart🛒" />
-         <cursor>
-      				<Cursor fx:constant="HAND" />
-      			</cursor>
-      		</Button>
       <TextField fx:id="quantity" layoutX="370.0" layoutY="346.0" prefHeight="25.0" prefWidth="61.0" promptText="Quantity" />
 	</children>
 </AnchorPane>
