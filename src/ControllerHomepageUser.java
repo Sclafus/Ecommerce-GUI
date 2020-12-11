@@ -192,6 +192,10 @@ public class ControllerHomepageUser implements Controller {
 			}
 			socket.close();
 		} else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Please login");
+			alert.setHeaderText("You need to login to perform this action.");
+			alert.showAndWait();
 		}
 	}
 
