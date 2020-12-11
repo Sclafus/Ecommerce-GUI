@@ -42,14 +42,12 @@
       						<Font name="Cambria" size="15.0" />
       					</font>
       				</Button>
-      				<TextField fx:id="searchID" prefHeight="25.0" prefWidth="107.0" promptText="Search by order ID" />
       			</children>
       		</VBox>
       		<TreeView fx:id="treeView" prefHeight="286.0" prefWidth="354.0" />
          </children>
       </HBox>
 		<Button layoutX="497.0" layoutY="360.0" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="68.0" text="Logout" />
-		<Button layoutX="147.0" layoutY="365.0" mnemonicParsing="false" onAction="#search" text="🔍" />
 		<Text fx:id="name" layoutX="60.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
 			<font>
 				<Font name="Cambria" size="15.0" />
