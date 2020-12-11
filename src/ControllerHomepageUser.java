@@ -150,7 +150,7 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
-		if(this.current_user.getPermission()!=0){
+		if (this.current_user.getPermission() > 0) {
 			Socket socket = new Socket("localhost", 4316);
 			try {
 				int quantity = Integer.parseInt(this.quantity.getText());
@@ -159,8 +159,8 @@ public class ControllerHomepageUser implements Controller {
 				// client -> server
 				OutputStream output_stream = socket.getOutputStream();
 				ObjectOutputStream out = new ObjectOutputStream(output_stream);
-				String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
-						this.quantity.getText() };
+				String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(),
+						String.valueOf(wine.getProductId()), this.quantity.getText() };
 				out.writeObject(to_be_sent);
 
 				// server -> client
@@ -191,7 +191,8 @@ public class ControllerHomepageUser implements Controller {
 
 			}
 			socket.close();
-		} else{}	
+		} else {
+		}
 	}
 
 	/**
@@ -234,6 +235,11 @@ public class ControllerHomepageUser implements Controller {
 		if (this.current_user.getPermission() > 0) {
 			Loader loader = new Loader(this.current_user, this.rootPane);
 			loader.load("cart");
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Please login");
+			alert.setHeaderText("You need to login to perform this action.");
+			alert.showAndWait();
 		}
 	}
 
