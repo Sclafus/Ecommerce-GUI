@@ -1,5 +1,5 @@
 import java.io.Serializable;
-
+// TODO import the server one
 /**
  * Abstraction of a determined User. Every user has a name, a surname, an email
  * and a password to login and a permission which states whenever the user is a

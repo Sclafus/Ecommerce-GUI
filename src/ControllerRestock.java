@@ -22,7 +22,7 @@ public class ControllerRestock implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; // TODO Fix this
 
 	@FXML
 	private TextField id;
@@ -42,6 +42,7 @@ public class ControllerRestock implements Controller {
 		this.current_user = user;
 	}
 
+	//TODO javadoc
 	@FXML
 	@SuppressWarnings("unused")
 	void restockWine(ActionEvent event) throws UnknownHostException, IOException {
@@ -54,14 +55,14 @@ public class ControllerRestock implements Controller {
 
 				// client -> server
 				Socket socket = new Socket("localhost", 4316);
-				OutputStream outputStream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(outputStream);
+				OutputStream output_stream = socket.getOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(output_stream);
 				String[] to_be_sent = { "restock_wine", id.getText(), quantity.getText() };
 				out.writeObject(to_be_sent);
 
 				// server -> client
-				InputStream inputStream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(inputStream);
+				InputStream input_stream = socket.getInputStream();
+				ObjectInputStream in = new ObjectInputStream(input_stream);
 				Boolean restocked = (Boolean) in.readObject();
 
 				if (restocked) {
@@ -97,7 +98,8 @@ public class ControllerRestock implements Controller {
 			alert.showAndWait();
 		}
 	}
-
+	
+	//TODO javadoc
 	@FXML
 	void back(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.current_user, this.rootPane);

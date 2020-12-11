@@ -37,6 +37,7 @@ public class ControllerHomepageEmployee implements Controller {
 	@FXML
 	private Text name;
 
+	 //TODO Fix javadoc
 	/**
 	 * Initialize {@code this.current_user} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
@@ -89,7 +90,7 @@ public class ControllerHomepageEmployee implements Controller {
 
 			TreeItem<String> selected_item = treeView.getSelectionModel().getSelectedItem();
 			if (selected_item != null) {
-				while (selected_item.getParent() != treeView.getRoot()) {
+				while (selected_item.getParent() != treeView.getRoot()) { //TODO Fix this
 					selected_item = selected_item.getParent();
 				}
 			} else {
@@ -112,6 +113,7 @@ public class ControllerHomepageEmployee implements Controller {
 			InputStream input_stream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(input_stream);
 			try {
+				//TODO add comments
 				Boolean shipped = (Boolean) in.readObject();
 				if (shipped) {
 					Alert alert = new Alert(AlertType.INFORMATION);
@@ -177,6 +179,7 @@ public class ControllerHomepageEmployee implements Controller {
 			InputStream input_stream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(input_stream);
 
+			//TODO add comments
 			try {
 				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
 				TreeItem<String> root_item = new TreeItem<String>("Orders");
@@ -199,8 +202,8 @@ public class ControllerHomepageEmployee implements Controller {
 
 					root_item.getChildren().add(root_order);
 				}
-				treeView.setRoot(root_item);
-				treeView.setShowRoot(false);
+				treeView.setRoot(root_item); //TODO Fix this
+				treeView.setShowRoot(false); //TODO Fix this
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

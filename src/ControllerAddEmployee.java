@@ -107,14 +107,14 @@ public class ControllerAddEmployee implements Controller {
 				Socket socket = new Socket("localhost", 4316);
 
 				// client -> server
-				OutputStream outputStream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(outputStream);
+				OutputStream output_stream = socket.getOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(output_stream);
 				String[] to_be_sent = { "register", nam, sur, mail, pass };
 				out.writeObject(to_be_sent);
 
 				// server -> client
-				InputStream inputStream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(inputStream);
+				InputStream input_stream = socket.getInputStream();
+				ObjectInputStream in = new ObjectInputStream(input_stream);
 
 				try {
 					User new_employee = (User) in.readObject();

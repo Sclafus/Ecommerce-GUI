@@ -28,7 +28,7 @@ public class ControllerRegister implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; // TODO Fix this
 
 	@FXML
 	private TextField name;
@@ -67,14 +67,13 @@ public class ControllerRegister implements Controller {
 	 * @see java.util.regex.Matcher
 	 */
 	public Boolean isMail(String mail) {
-
 		String mail_regex = "\\w+@\\w+\\.\\w+";
 		Pattern mail_validator = Pattern.compile(mail_regex);
 		Matcher mail_matcher = mail_validator.matcher(mail);
 		return mail_matcher.matches();
-
 	}
 
+	//TODO javadoc & comments
 	@FXML
 	void register(ActionEvent event) throws UnknownHostException, IOException, ClassNotFoundException {
 
@@ -96,13 +95,13 @@ public class ControllerRegister implements Controller {
 		} else {
 			Socket socket = new Socket("localhost", 4316);
 
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "register_user", nam, sur, mail, pass };
 			out.writeObject(to_be_sent);
 
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			this.current_user = (User) in.readObject();
 

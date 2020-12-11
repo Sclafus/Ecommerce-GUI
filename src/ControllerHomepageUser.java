@@ -28,16 +28,16 @@ public class ControllerHomepageUser implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; // TODO Fix this
 
 	@FXML
-	private TextField searchboxName;
+	private TextField searchboxName; // TODO Fix this
 
 	@FXML
-	private TextField yearboxName;
+	private TextField yearboxName; // TODO Fix this
 
 	@FXML
-	private TableView<Wine> tableView;
+	private TableView<Wine> tableView; // TODO Fix this
 
 	@FXML
 	private TableColumn<Wine, String> name_column;
@@ -57,6 +57,7 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	private TextField quantity;
 
+	// TODO Fix javadoc & comments
 	/**
 	 * Initialize {@code this.current_user} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
@@ -73,13 +74,13 @@ public class ControllerHomepageUser implements Controller {
 
 			Socket socket = new Socket("localhost", 4316);
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "get_wines" };
 			out.writeObject(to_be_sent);
 			// server ->client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
 			addToTable(wines);
 			socket.close();
@@ -88,13 +89,13 @@ public class ControllerHomepageUser implements Controller {
 
 			Socket socket2 = new Socket("localhost", 4316);
 			// client -> server
-			OutputStream outputStream2 = socket2.getOutputStream();
-			ObjectOutputStream out2 = new ObjectOutputStream(outputStream2);
+			OutputStream output_stream2 = socket2.getOutputStream();
+			ObjectOutputStream out2 = new ObjectOutputStream(output_stream2);
 			String[] to_be_sent_notifications = { "get_notifications", this.current_user.getEmail() };
 			out2.writeObject(to_be_sent_notifications);
 			// server -> client
-			InputStream inputStream2 = socket2.getInputStream();
-			ObjectInputStream in2 = new ObjectInputStream(inputStream2);
+			InputStream input_stream2 = socket2.getInputStream();
+			ObjectInputStream in2 = new ObjectInputStream(input_stream2);
 			ArrayList<Wine> notification = (ArrayList<Wine>) in2.readObject();
 			displayNotifications(notification);
 			socket2.close();
@@ -103,6 +104,7 @@ public class ControllerHomepageUser implements Controller {
 		}
 	}
 
+	// TODO javadoc
 	public void addToTable(ArrayList<Wine> wines) {
 		// set up the columns in the table
 		name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
@@ -111,13 +113,14 @@ public class ControllerHomepageUser implements Controller {
 		grapes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Grapewines"));
 		notes_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Notes"));
 
-		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
+		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines); // TODO Fix this
 
 		// load data
-		tableView.setItems(oListWine);
+		tableView.setItems(oListWine); // TODO Fix this
 
 	}
 
+	// TODO javadoc
 	public void displayNotifications(ArrayList<Wine> wines) {
 		if (wines.size() > 0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -134,6 +137,7 @@ public class ControllerHomepageUser implements Controller {
 		}
 	}
 
+	// TODO comments
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
@@ -150,17 +154,17 @@ public class ControllerHomepageUser implements Controller {
 		try {
 			int quantity = Integer.parseInt(this.quantity.getText());
 			// getting selection of the tableview
-			Wine wine = tableView.getSelectionModel().getSelectedItem();
+			Wine wine = tableView.getSelectionModel().getSelectedItem(); // TODO Fix this
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
 					this.quantity.getText() };
 			out.writeObject(to_be_sent);
 
 			// server -> client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			Boolean add_result = (Boolean) in.readObject();
 			if (add_result) {
@@ -202,22 +206,18 @@ public class ControllerHomepageUser implements Controller {
 	void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
 		// client -> server
-		OutputStream outputStream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		OutputStream output_stream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(output_stream);
 		String[] to_be_sent = { "search", searchboxName.getText(), yearboxName.getText() };
 		out.writeObject(to_be_sent);
 
 		// server -> client
-		InputStream inputStream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(inputStream);
+		InputStream input_stream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(input_stream);
 
 		ArrayList<Wine> search_result = (ArrayList<Wine>) in.readObject();
 
 		addToTable(search_result);
-		/*
-		 * System.out.println("search result:"); for (Wine wine : search_result) {
-		 * System.out.println(wine.getName() + "  " + wine.getYear()); }
-		 */
 		socket.close();
 
 	}

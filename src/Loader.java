@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class Loader {
 
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; // TODO Fix this
 	private User current_user;
 
 	/**
@@ -17,8 +17,8 @@ public class Loader {
 	 * @param current_user the User that needs to be passed. [User]
 	 * @param rootPane     rootpane of the FXML scene. [AnchorPane]
 	 */
-	public Loader(User current_user, AnchorPane rootPane) {
-		this.rootPane = rootPane;
+	public Loader(User current_user, AnchorPane rootPane) {// TODO Fix this
+		this.rootPane = rootPane;// TODO Fix this
 		this.current_user = current_user;
 	}
 
@@ -38,6 +38,6 @@ public class Loader {
 
 		Controller controller = loader.getController();
 		controller.initData(this.current_user);
-		this.rootPane.getChildren().setAll(parent);
+		this.rootPane.getChildren().setAll(parent);// TODO Fix this
 	}
 }

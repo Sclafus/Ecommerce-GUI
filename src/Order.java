@@ -1,6 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-
+// TODO import the server one
 /**
  * Abstraction of a determined Order. Every order has an id, an email which
  * relates the order to the {@code User} who placed it, a status (true if the

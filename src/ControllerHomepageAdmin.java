@@ -25,10 +25,10 @@ public class ControllerHomepageAdmin implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; //TODO Fix this
 
 	@FXML
-	private TreeView<String> treeView;
+	private TreeView<String> treeView; //TODO Fix this
 
 	@FXML
 	private Text name;
@@ -65,28 +65,28 @@ public class ControllerHomepageAdmin implements Controller {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "get_employees" };
 			out.writeObject(to_be_sent);
 
 			// server -> client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			try {
 				ArrayList<User> employees = (ArrayList<User>) in.readObject();
-				TreeItem<String> rootItem = new TreeItem<String>("Employees");
+				TreeItem<String> rootItem = new TreeItem<String>("Employees"); //TODO Fix this
 
 				for (User employee : employees) {
-					TreeItem<String> rootEmployee = new TreeItem<String>(employee.getEmail());
+					TreeItem<String> rootEmployee = new TreeItem<String>(employee.getEmail()); //TODO Fix this
 					TreeItem<String> name = new TreeItem<String>("Name: " + employee.getName());
 					TreeItem<String> surname = new TreeItem<String>("Surname: " + employee.getSurname());
-					rootEmployee.getChildren().addAll(name, surname);
-					rootItem.getChildren().add(rootEmployee);
+					rootEmployee.getChildren().addAll(name, surname); //TODO Fix this
+					rootItem.getChildren().add(rootEmployee); //TODO Fix this
 				}
-				treeView.setRoot(rootItem);
-				treeView.setShowRoot(false);
+				treeView.setRoot(rootItem); //TODO Fix this
+				treeView.setShowRoot(false); //TODO Fix this
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -122,35 +122,35 @@ public class ControllerHomepageAdmin implements Controller {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "get_orders" };
 			out.writeObject(to_be_sent);
 
 			// server ->client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			try {
 				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
-				TreeItem<String> rootItem = new TreeItem<String>("Orders");
+				TreeItem<String> rootItem = new TreeItem<String>("Orders"); //TODO Fix this
 
 				for (Order order : orders) {
-					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId())); //TODO Fix this
 					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
 					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
 					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
-					rootOrder.getChildren().addAll(id, status, customer);
+					rootOrder.getChildren().addAll(id, status, customer); //TODO Fix this
 
 					for (Wine wine : order.getWines()) {
 						TreeItem<String> rootProduct = new TreeItem<String>(
-								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
+								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear())); //TODO Fix this
 						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
-						rootProduct.getChildren().add(quantity);
-						rootOrder.getChildren().add(rootProduct);
+						rootProduct.getChildren().add(quantity); //TODO Fix this
+						rootOrder.getChildren().add(rootProduct); //TODO Fix this
 					}
 
-					rootItem.getChildren().add(rootOrder);
+					rootItem.getChildren().add(rootOrder); //TODO Fix this
 				}
 				treeView.setRoot(rootItem);
 				treeView.setShowRoot(false);
@@ -187,28 +187,28 @@ public class ControllerHomepageAdmin implements Controller {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "get_users" };
 			out.writeObject(to_be_sent);
 
 			// server -> client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			try {
 				ArrayList<User> users = (ArrayList<User>) in.readObject();
-				TreeItem<String> rootItem = new TreeItem<String>("Users");
+				TreeItem<String> rootItem = new TreeItem<String>("Users"); //TODO Fix this
 
 				for (User user : users) {
-					TreeItem<String> rootUser = new TreeItem<String>(user.getEmail());
+					TreeItem<String> rootUser = new TreeItem<String>(user.getEmail()); //TODO Fix this
 					TreeItem<String> name = new TreeItem<String>("Name: " + user.getName());
 					TreeItem<String> surname = new TreeItem<String>("Surname: " + user.getSurname());
-					rootUser.getChildren().addAll(name, surname);
-					rootItem.getChildren().add(rootUser);
+					rootUser.getChildren().addAll(name, surname); //TODO Fix this
+					rootItem.getChildren().add(rootUser); //TODO Fix this
 				}
-				treeView.setRoot(rootItem);
-				treeView.setShowRoot(false);
+				treeView.setRoot(rootItem); //TODO Fix this
+				treeView.setShowRoot(false); //TODO Fix this
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -242,21 +242,21 @@ public class ControllerHomepageAdmin implements Controller {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "get_wines" };
 			out.writeObject(to_be_sent);
 
 			// server -> client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			try {
 				ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
-				TreeItem<String> rootItem = new TreeItem<String>("Wines");
+				TreeItem<String> rootItem = new TreeItem<String>("Wines"); //TODO Fix this
 
 				for (Wine wine : wines) {
-					TreeItem<String> rootWine = new TreeItem<String>(wine.getName());
+					TreeItem<String> rootWine = new TreeItem<String>(wine.getName()); //TODO Fix this
 					TreeItem<String> product_id = new TreeItem<String>(
 							"Product ID: " + Integer.toString(wine.getProductId()));
 					TreeItem<String> producer = new TreeItem<String>("Producer: " + wine.getProducer());
@@ -266,11 +266,11 @@ public class ControllerHomepageAdmin implements Controller {
 					TreeItem<String> quantity = new TreeItem<String>(
 							"Quantity: " + Integer.toString(wine.getQuantity()));
 
-					rootWine.getChildren().addAll(product_id, producer, year, grapes, notes, quantity);
-					rootItem.getChildren().add(rootWine);
+					rootWine.getChildren().addAll(product_id, producer, year, grapes, notes, quantity); //TODO Fix this
+					rootItem.getChildren().add(rootWine); //TODO Fix this
 				}
-				treeView.setRoot(rootItem);
-				treeView.setShowRoot(false);
+				treeView.setRoot(rootItem); //TODO Fix this
+				treeView.setShowRoot(false); //TODO Fix this
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();

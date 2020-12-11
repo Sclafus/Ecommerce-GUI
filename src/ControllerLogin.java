@@ -26,7 +26,7 @@ public class ControllerLogin {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane;// TODO Fix this
 
 	@FXML
 	private TextField email;
@@ -83,21 +83,21 @@ public class ControllerLogin {
 			// client -> server
 			Socket socket = new Socket("localhost", 4316);
 			if (mail.length() > 0 && pass.length() > 0) {
-
+				//TODO add comments
 				if (isMail(mail)) {
 
-					OutputStream outputStream = socket.getOutputStream();
-					ObjectOutputStream out = new ObjectOutputStream(outputStream);
+					OutputStream output_stream = socket.getOutputStream();
+					ObjectOutputStream out = new ObjectOutputStream(output_stream);
 					String[] to_be_sent = { "login", mail, pass };
 					out.writeObject(to_be_sent);
 
 					// server -> client
-					InputStream inputStream = socket.getInputStream();
-					ObjectInputStream in = new ObjectInputStream(inputStream);
+					InputStream input_stream = socket.getInputStream();
+					ObjectInputStream in = new ObjectInputStream(input_stream);
 					User user = (User) in.readObject();
 					int permission = user.getPermission();
 					this.current_user = user;
-					Loader loader = new Loader(current_user, rootPane); 
+					Loader loader = new Loader(current_user, rootPane);
 					switch (permission) {
 						case 1:
 							loader.load("homepage_user");

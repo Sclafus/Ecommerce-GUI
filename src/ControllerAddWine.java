@@ -23,7 +23,7 @@ public class ControllerAddWine implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; // TODO Fix this
 
 	@FXML
 	private TextField name;
@@ -87,13 +87,13 @@ public class ControllerAddWine implements Controller {
 					// user is authorized to perform the action
 					Socket socket = new Socket("localhost", 4316);
 
-					OutputStream outputStream = socket.getOutputStream();
-					ObjectOutputStream out = new ObjectOutputStream(outputStream);
+					OutputStream outputStream = socket.getOutputStream(); //TODO Fix this
+					ObjectOutputStream out = new ObjectOutputStream(outputStream); //TODO Fix this
 					String[] to_be_sent = { "add_wine", nam, yea_tmp, pro, gra, not };
 					out.writeObject(to_be_sent);
 
-					InputStream inputStream = socket.getInputStream();
-					ObjectInputStream in = new ObjectInputStream(inputStream);
+					InputStream inputStream = socket.getInputStream(); //TODO Fix this
+					ObjectInputStream in = new ObjectInputStream(inputStream); //TODO Fix this
 
 					try {
 						Wine new_wine = (Wine) in.readObject();
