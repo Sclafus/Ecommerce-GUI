@@ -150,47 +150,48 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
-		Socket socket = new Socket("localhost", 4316);
-		try {
-			int quantity = Integer.parseInt(this.quantity.getText());
-			// getting selection of the tableview
-			Wine wine = tableView.getSelectionModel().getSelectedItem(); // TODO Fix this
-			// client -> server
-			OutputStream output_stream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(output_stream);
-			String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
-					this.quantity.getText() };
-			out.writeObject(to_be_sent);
+		if(this.current_user.getPermission()!=0){
+			Socket socket = new Socket("localhost", 4316);
+			try {
+				int quantity = Integer.parseInt(this.quantity.getText());
+				// getting selection of the tableview
+				Wine wine = tableView.getSelectionModel().getSelectedItem(); // TODO Fix this
+				// client -> server
+				OutputStream output_stream = socket.getOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(output_stream);
+				String[] to_be_sent = { "add_to_cart", this.current_user.getEmail(), String.valueOf(wine.getProductId()),
+						this.quantity.getText() };
+				out.writeObject(to_be_sent);
 
-			// server -> client
-			InputStream input_stream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(input_stream);
+				// server -> client
+				InputStream input_stream = socket.getInputStream();
+				ObjectInputStream in = new ObjectInputStream(input_stream);
 
-			Boolean add_result = (Boolean) in.readObject();
-			if (add_result) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle(String.format("Added to cart"));
-				alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
-				alert.showAndWait();
-			} else {
+				Boolean add_result = (Boolean) in.readObject();
+				if (add_result) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle(String.format("Added to cart"));
+					alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
+					alert.showAndWait();
+				} else {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle(String.format("Select a wine"));
+					alert.setHeaderText("You have to click on a Wine, enter the quantity and then Add.");
+					alert.showAndWait();
+
+				}
+
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle(String.format("Select a wine"));
-				alert.setHeaderText("You have to click on a Wine, enter the quantity and then Add.");
+				alert.setTitle(String.format("Insert quantity"));
+				alert.setHeaderText("Please insert the quantity.");
 				alert.showAndWait();
 
 			}
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (NumberFormatException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle(String.format("Insert quantity"));
-			alert.setHeaderText("Please insert the quantity.");
-			alert.showAndWait();
-
-		}
-		socket.close();
-
+			socket.close();
+		} else{}	
 	}
 
 	/**
