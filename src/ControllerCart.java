@@ -195,7 +195,7 @@ public class ControllerCart implements Controller {
 	}
 
 	/**
-	 * Allows the {@code User} to remove the wines to his cart.
+	 * Allows the {@code User} to remove wines from his cart.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
@@ -209,6 +209,7 @@ public class ControllerCart implements Controller {
 		try {
 			// getting selection of the tableview
 			Wine wine = tableView.getSelectionModel().getSelectedItem();
+
 			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
@@ -219,16 +220,17 @@ public class ControllerCart implements Controller {
 			// server -> client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
-			// TODO Add comments
 			Boolean removeResult = (Boolean) in.readObject();
 
 			if (removeResult) {
+				//if result is true, the wine has been correctly removed from cart
 				initData(this.currentUser);
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle(String.format("Removed from cart"));
 				alert.setHeaderText(String.format("Removed %s from cart.", wine.getName()));
 				alert.showAndWait();
 			} else {
+				//else, the wine has not been correctly removed from cart
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle(String.format("Select a wine"));
 				alert.setHeaderText("You have to click on a Wine and then Remove.");
