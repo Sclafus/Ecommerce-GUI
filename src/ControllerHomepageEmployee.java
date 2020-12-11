@@ -65,14 +65,24 @@ public class ControllerHomepageEmployee implements Controller {
 		loader.load("add_wine");
 	}
 
-	// TODO javadoc
+	/**
+	 * Goes to page for shopping new {@code Wine}s.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file can't be accessed.
+	 */
 	@FXML
 	void loadShop(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_user");
 	}
 
-	// TODO javadoc
+	/**
+	 * Goes to page for restocking new {@code Wine}s.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file can't be accessed.
+	 */
 	@FXML
 	void loadRestockWine(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
