@@ -86,14 +86,14 @@ public class ControllerLogin {
 				//TODO add comments
 				if (isMail(mail)) {
 
-					OutputStream output_stream = socket.getOutputStream();
-					ObjectOutputStream out = new ObjectOutputStream(output_stream);
+					OutputStream outputStream = socket.getOutputStream();
+					ObjectOutputStream out = new ObjectOutputStream(outputStream);
 					String[] to_be_sent = { "login", mail, pass };
 					out.writeObject(to_be_sent);
 
 					// server -> client
-					InputStream input_stream = socket.getInputStream();
-					ObjectInputStream in = new ObjectInputStream(input_stream);
+					InputStream inputStream = socket.getInputStream();
+					ObjectInputStream in = new ObjectInputStream(inputStream);
 					User user = (User) in.readObject();
 					int permission = user.getPermission();
 					this.current_user = user;
@@ -176,7 +176,7 @@ public class ControllerLogin {
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			User user = (User) in.readObject();
 			this.current_user = user;
-			Loader loader = new Loader(current_user, rootPane); 
+			Loader loader = new Loader(this.current_user, this.rootPane); 
 			
 			loader.load("homepage_user");
 			socket.close();
