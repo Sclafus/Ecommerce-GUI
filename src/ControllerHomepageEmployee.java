@@ -33,14 +33,14 @@ public class ControllerHomepageEmployee implements Controller {
 	@FXML
 	private Text name;
 
-	// TODO Fix javadoc
 	/**
 	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
-	 * {@code Loader} class.
+	 * {@code Loader} class. It also displays the {@code Order}.
 	 * 
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
+	 * @see Order
 	 */
 	public void initData(User user) {
 		this.currentUser = user;
@@ -89,18 +89,29 @@ public class ControllerHomepageEmployee implements Controller {
 		loader.load("restock");
 	}
 
-	// TODO javadoc
+	/**
+	 * Allows the {@code User} with permission > 1 (employees and administrators)
+	 * to ship a {@code Order}.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 * @see User
+	 * @see Order
+	 */
 	@FXML
 	void shipOrder(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.currentUser.getPermission() > 1) {
 			// user is authorized to perform the action
 			TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
-
+			// the item is selected
 			if (selectedItem != null) {
 
 				while (selectedItem.getParent() != treeView.getRoot()) {
 					selectedItem = selectedItem.getParent();
 				}
+			// warning message if the item is not selected 
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Select an order");
@@ -120,14 +131,16 @@ public class ControllerHomepageEmployee implements Controller {
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			try {
-				// TODO add comments
+				// gets the message from the server
 				Boolean shipped = (Boolean) in.readObject();
+				// server's answer is true -> the order has been shipped correctly
 				if (shipped) {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Shipping successfull");
 					alert.setHeaderText(
 							String.format("Order %d has been shipped", Integer.parseInt(selectedItem.getValue())));
 					alert.showAndWait();
+				// server's answer is false -> the order has not been shipped correctly
 				} else {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Shipping failed.");
@@ -138,6 +151,8 @@ public class ControllerHomepageEmployee implements Controller {
 				e.printStackTrace();
 			}
 			socket.close();
+			// the page is refreshed and the orders are updated (only not shipped
+			// orders can be visualized by the employee)
 			initData(this.currentUser);
 		} else {
 
