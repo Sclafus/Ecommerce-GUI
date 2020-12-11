@@ -129,7 +129,7 @@ public class ControllerAddWine implements Controller {
 	 * Goes back to the employee homepage.
 	 * 
 	 * @param event GUI event. [ActionEvent]
-	 * @throws IOException if the filename cannot be read.
+	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
 	public void back(ActionEvent event) throws IOException {
