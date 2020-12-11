@@ -1,5 +1,5 @@
 import java.io.Serializable;
-//TODO import server one
+
 /**
  * Abstraction of a determined Wine. Every wine has a name, a producer, the year
  * of production, some notes that may be useful for the customers, a string
@@ -10,7 +10,7 @@ public class Wine implements Serializable {
 
 	private static final long serialVersionUID = 1727284212719259730L;
 	private String name;
-	private int product_id;
+	private int productId;
 	private String producer;
 	private int year;
 	private String notes;
@@ -23,7 +23,7 @@ public class Wine implements Serializable {
 	public Wine() {
 		this.name = "";
 		this.producer = "";
-		this.product_id = -1;
+		this.productId = -1;
 		this.year = -1;
 		this.notes = "";
 		this.grapes = "";
@@ -33,13 +33,13 @@ public class Wine implements Serializable {
 	/**
 	 * {@code Wine} class constructor.
 	 * 
-	 * @param name       name of the wine. [String]
-	 * @param producer   producer of the wine. [String]
-	 * @param year       year of production of the wine. [int]
-	 * @param notes      notes for the wine. [String]
-	 * @param product_id unique id of the wine. [int]
-	 * @param quantity   quantity of the wine. [int]
-	 * @param grapes     list of the grapes. [String]
+	 * @param id         product id of the {@code Wine}.[int]
+	 * @param name       name of the {@code Wine}. [String]
+	 * @param producer   producer of the {@code Wine}. [String]
+	 * @param year       year of production of the {@code Wine}. [int]
+	 * @param notes      notes for the {@code Wine}. [String]
+	 * @param quantity   quantity of the {@code Wine}. [int]
+	 * @param grapes     list of the grapes of the {@code Wine}. [String]
 	 */
 	public Wine(final int id, final String name, final String producer, final int year, final String notes,
 			final int quantity, final String grapes) {
@@ -48,7 +48,7 @@ public class Wine implements Serializable {
 		this.producer = producer;
 		this.year = year;
 		this.notes = notes;
-		this.product_id = id;
+		this.productId = id;
 		this.quantity = quantity;
 		this.grapes = grapes;
 	}
@@ -113,7 +113,7 @@ public class Wine implements Serializable {
 	 * @return the product id of the {@code Wine}. [int]
 	 */
 	public int getProductId() {
-		return this.product_id;
+		return this.productId;
 	}
 
 	/**

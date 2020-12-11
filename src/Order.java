@@ -1,6 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-// TODO import the server one
+
 /**
  * Abstraction of a determined Order. Every order has an id, an email which
  * relates the order to the {@code User} who placed it, a status (true if the
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * the {@code User} has ordered.
  * 
  * @see Wine
- * @see
+ * @see User
  */
 public class Order implements Serializable{
 
@@ -22,26 +22,25 @@ public class Order implements Serializable{
 	 * {@code Order} class constructor.
 	 */
 	public Order() {
-		this.id = 0;
 		this.shipped = false;
 	}
 
 	/**
 	 * {@code Order} class constructor.
 	 * 
-	 * @param wines    the wines the {@code User} wants to buy. [ArrayList<Wine>]
 	 * @param id       of the {@code Order}. [Int]
-	 * @param customer email of the {@code User} who placed the {@code Order}.
-	 *                 [String]
 	 * @param ship     {@code true} if the order has been shipped, otherwise
 	 *                 {@code false}. [Boolean]
+	 * @param customer email of the {@code User} who placed the {@code Order}.
+	 *                 [String]
+	 * @param wines    the wines the {@code User} wants to buy. [ArrayList of Wine]
 	 * @see Wine
 	 * @see User
 	 */
-	public Order(final int id, Boolean ship, final String cust, final ArrayList<Wine> wines) {
+	public Order(final int id, final Boolean ship, final String customer, final ArrayList<Wine> wines) {
 		this.id = id;
 		this.shipped = ship;
-		this.customer = cust;
+		this.customer = customer;
 		this.items = wines;
 	}
 
@@ -77,7 +76,7 @@ public class Order implements Serializable{
 	/**
 	 * Gets the wines from the selected {@code Order}.
 	 * 
-	 * @return the wines of the {@code Order}. [ArrayList<Wine>]
+	 * @return the wines of the {@code Order}. [ArrayList of Wine]
 	 * @see Wine
 	 */
 	public ArrayList<Wine> getWines() {

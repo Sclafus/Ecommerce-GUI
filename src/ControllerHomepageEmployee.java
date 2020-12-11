@@ -185,18 +185,21 @@ public class ControllerHomepageEmployee implements Controller {
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			// TODO add comments
 			try {
+				//receives the ArrayList of orders from the server
 				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
+				//creates the TreeView's root 
 				TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
 				for (Order order : orders) {
+					//fills the TreeView with the orders
 					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
 					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
 					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
 					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
 					rootOrder.getChildren().addAll(id, status, customer);
 
+					//for each order it displays every wine of the order
 					for (Wine wine : order.getWines()) {
 						TreeItem<String> rootProduct = new TreeItem<String>(
 								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
