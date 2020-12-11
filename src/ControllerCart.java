@@ -44,7 +44,13 @@ public class ControllerCart implements Controller {
 	@FXML
 	private TableColumn<Wine, Integer> quantityColumn;
 
-	// TODO javadoc
+	/**
+	 * Loads the specified ArrayList of Wines in the table view. This method will
+	 * override the previous content of the table.
+	 * 
+	 * @param wines the content that needs to be displayed on the table. [Arraylist of Wine]
+	 * @see Wine
+	 */
 	public void addToTable(ArrayList<Wine> wines) {
 		// set up the columns in the table
 		this.nameColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
@@ -89,7 +95,12 @@ public class ControllerCart implements Controller {
 		}
 	}
 
-	// TODO javadoc
+	/**
+	 * Goes back to the employee homepage.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the file can't be accessed.
+	 */
 	@FXML
 	void back(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
@@ -161,7 +172,7 @@ public class ControllerCart implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void displayCart(ActionEvent event) throws IOException, ClassNotFoundException {
+	void displayCart(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		// client -> server
@@ -174,8 +185,12 @@ public class ControllerCart implements Controller {
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 
-		ArrayList<Wine> cartResult = (ArrayList<Wine>) in.readObject();
-		addToTable(cartResult);
+		try {
+			ArrayList<Wine> cartResult = (ArrayList<Wine>) in.readObject();
+			addToTable(cartResult);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		socket.close();
 	}
 
