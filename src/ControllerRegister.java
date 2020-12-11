@@ -73,41 +73,58 @@ public class ControllerRegister implements Controller {
 		return mailMatcher.matches();
 	}
 
-	//TODO javadoc & comments
+	/**
+	 * Registers the user with the provided data to the ecommerce.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 * @see Order
+	 */
 	@FXML
-	void register(ActionEvent event) throws UnknownHostException, IOException, ClassNotFoundException {
+	void register(ActionEvent event) throws UnknownHostException, IOException {
 
+		// gets data from the page
 		String nam = name.getText();
 		String sur = surname.getText();
 		String mail = email.getText();
 		String pass = password.getText();
 
 		if (nam.length() == 0 || sur.length() == 0 || mail.length() == 0 || pass.length() == 0) {
+			// all fields are required
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("All fields must be filled");
 			alert.setHeaderText("Please fill all the fields");
 			alert.showAndWait();
 		} else if (!isMail(mail)) {
+			// checks if the email is valid
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Email not valid");
 			alert.setHeaderText("The provided email is not valid, please retry.");
 			alert.showAndWait();
 		} else {
+			// all the data is good
 			Socket socket = new Socket("localhost", 4316);
 
-			//client -> server
+			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
 			String[] toBeSent = { "register_user", nam, sur, mail, pass };
 			out.writeObject(toBeSent);
 
-			//server -> client
+			// server -> client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			this.currentUser = (User) in.readObject();
-			Loader loader = new Loader(this.currentUser, this.rootPane);
-			loader.load("homepage_user");
+			// loads the homepage
+			try {
+				this.currentUser = (User) in.readObject();
+				Loader loader = new Loader(this.currentUser, this.rootPane);
+				loader.load("homepage_user");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 			socket.close();
 		}
 	}
