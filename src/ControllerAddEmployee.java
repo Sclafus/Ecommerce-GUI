@@ -24,7 +24,7 @@ public class ControllerAddEmployee implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; //TODO Fix this
 
 	@FXML
 	private TextField name;

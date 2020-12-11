@@ -97,7 +97,7 @@ public class ControllerLogin {
 					User user = (User) in.readObject();
 					int permission = user.getPermission();
 					this.current_user = user;
-					Loader loader = new Loader(current_user, rootPane);
+					Loader loader = new Loader(current_user, rootPane); 
 					switch (permission) {
 						case 1:
 							loader.load("homepage_user");
