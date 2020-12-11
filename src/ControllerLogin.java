@@ -83,7 +83,7 @@ public class ControllerLogin {
 			// client -> server
 			Socket socket = new Socket("localhost", 4316);
 			if (mail.length() > 0 && pass.length() > 0) {
-				//TODO add comments
+				// TODO add comments
 				if (isMail(mail)) {
 
 					OutputStream outputStream = socket.getOutputStream();
@@ -149,11 +149,9 @@ public class ControllerLogin {
 
 	}
 
-
-
 	/**
 	 * Opens the user's homepage once somebody clicks on the "Continue as Guest"
-	 * button in the 
+	 * button in the
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws IOException if an I/O error occurs when creating the socket.
@@ -161,7 +159,7 @@ public class ControllerLogin {
 	 */
 	@FXML
 	private void guest(ActionEvent event) throws IOException {
-		
+
 		// socket stuff
 		try {
 			// client -> server
@@ -176,11 +174,11 @@ public class ControllerLogin {
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			User user = (User) in.readObject();
 			this.current_user = user;
-			Loader loader = new Loader(this.current_user, this.rootPane); 
-			
+			Loader loader = new Loader(this.current_user, this.rootPane);
+
 			loader.load("homepage_user");
 			socket.close();
-		
+
 		} catch (ConnectException e) {
 			// notifies if the server can not be reached
 			Alert alert = new Alert(AlertType.ERROR);

@@ -187,7 +187,6 @@ public class ControllerHomepageUser implements Controller {
 			alert.setTitle(String.format("Insert quantity"));
 			alert.setHeaderText("Please insert the quantity.");
 			alert.showAndWait();
-
 		}
 		socket.close();
 
@@ -233,6 +232,11 @@ public class ControllerHomepageUser implements Controller {
 		if (this.current_user.getPermission() > 0) {
 			Loader loader = new Loader(this.current_user, this.rootPane);
 			loader.load("cart");
+		} else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Please login");
+			alert.setHeaderText("You need to login to perform this action.");
+			alert.showAndWait();
 		}
 	}
 
