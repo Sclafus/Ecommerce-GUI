@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -83,9 +84,63 @@ public class ControllerHomepageEmployee implements Controller {
 		loader.load("restock");
 	}
 
+	// TODO javadoc
 	@FXML
-	void shipOrder(ActionEvent event) {
-		// TODO
+	void shipOrder(ActionEvent event) throws UnknownHostException, IOException {
+		if (this.current_user.getPermission() > 1) {
+			// user is authorized to perform the action
+
+			TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
+			if (selectedItem != null) {
+				while (selectedItem.getParent() != treeView.getRoot()) {
+					selectedItem = selectedItem.getParent();
+				}
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Select an order");
+				alert.setHeaderText("Please select an order.");
+				alert.showAndWait();
+				return;
+			}
+
+			Socket socket = new Socket("localhost", 4316);
+
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "ship_order", selectedItem.getValue() };
+			out.writeObject(to_be_sent);
+
+			// server ->client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+			try {
+				Boolean shipped = (Boolean) in.readObject();
+				if (shipped) {
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Shipping successfull");
+					alert.setHeaderText(
+							String.format("Order %d has been shipped", Integer.parseInt(selectedItem.getValue())));
+					alert.showAndWait();
+				} else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Shipping failed.");
+					alert.setHeaderText("Unable to ship order. Try again later.");
+					alert.showAndWait();
+				}
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			socket.close();
+			initData(this.current_user);
+		} else {
+
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
+		}
 	}
 
 	/**
@@ -130,18 +185,18 @@ public class ControllerHomepageEmployee implements Controller {
 				TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
 				for (Order order : orders) {
-						TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
-						TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
-						TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
-						TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
-						rootOrder.getChildren().addAll(id, status, customer);
+					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
+					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
+					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+					rootOrder.getChildren().addAll(id, status, customer);
 
-						for (Wine wine : order.getWines()) {
-							TreeItem<String> rootProduct = new TreeItem<String>(
-									String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
-							TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
-							rootProduct.getChildren().add(quantity);
-							rootOrder.getChildren().add(rootProduct);
+					for (Wine wine : order.getWines()) {
+						TreeItem<String> rootProduct = new TreeItem<String>(
+								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
+						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
+						rootProduct.getChildren().add(quantity);
+						rootOrder.getChildren().add(rootProduct);
 
 					}
 

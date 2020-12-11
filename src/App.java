@@ -30,6 +30,7 @@ public class App extends Application {
 
 	/**
 	 * Main method.
+	 * 
 	 * @param args argvs, actually not required for our use.
 	 */
 	public static void main(String[] args) {
