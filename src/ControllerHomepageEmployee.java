@@ -26,13 +26,13 @@ public class ControllerHomepageEmployee implements Controller {
 	private User current_user;
 
 	@FXML
-	private AnchorPane rootPane;
+	private AnchorPane rootPane; // TODO Fix this
 
 	@FXML
-	private TreeView<String> treeView;
+	private TreeView<String> treeView; // TODO Fix this
 
 	@FXML
-	private TextField searchID;
+	private TextField searchID; // TODO Fix this
 
 	@FXML
 	private Text name;
@@ -63,24 +63,21 @@ public class ControllerHomepageEmployee implements Controller {
 	 */
 	@FXML
 	void loadAddWine(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.current_user, this.rootPane); // TODO Fix this
 		loader.load("add_wine");
 	}
 
-	@FXML
-	void search(ActionEvent event) {
-		// TODO (use "search_order" as msg[0]")
-	}
-
+	//TODO javadoc
 	@FXML
 	void loadShop(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.current_user, this.rootPane); // TODO Fix this
 		loader.load("homepage_user");
 	}
 
+	// TODO javadoc
 	@FXML
 	void loadRestockWine(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.current_user, this.rootPane); // TODO Fix this
 		loader.load("restock");
 	}
 
@@ -90,10 +87,10 @@ public class ControllerHomepageEmployee implements Controller {
 		if (this.current_user.getPermission() > 1) {
 			// user is authorized to perform the action
 
-			TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
-			if (selectedItem != null) {
-				while (selectedItem.getParent() != treeView.getRoot()) {
-					selectedItem = selectedItem.getParent();
+			TreeItem<String> selected_item = treeView.getSelectionModel().getSelectedItem();
+			if (selected_item != null) {
+				while (selected_item.getParent() != treeView.getRoot()) {
+					selected_item = selected_item.getParent();
 				}
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
@@ -106,21 +103,21 @@ public class ControllerHomepageEmployee implements Controller {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = { "ship_order", selectedItem.getValue() };
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
+			String[] to_be_sent = { "ship_order", selected_item.getValue() };
 			out.writeObject(to_be_sent);
 
 			// server ->client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 			try {
 				Boolean shipped = (Boolean) in.readObject();
 				if (shipped) {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Shipping successfull");
 					alert.setHeaderText(
-							String.format("Order %d has been shipped", Integer.parseInt(selectedItem.getValue())));
+							String.format("Order %d has been shipped", Integer.parseInt(selected_item.getValue())));
 					alert.showAndWait();
 				} else {
 					Alert alert = new Alert(AlertType.ERROR);
@@ -152,7 +149,7 @@ public class ControllerHomepageEmployee implements Controller {
 	@FXML
 	void logout(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-		this.rootPane.getChildren().setAll(pane);
+		this.rootPane.getChildren().setAll(pane); // TODO Fix this
 	}
 
 	/**
@@ -171,38 +168,38 @@ public class ControllerHomepageEmployee implements Controller {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			OutputStream output_stream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(output_stream);
 			String[] to_be_sent = { "get_orders_employee", this.current_user.getEmail() };
 			out.writeObject(to_be_sent);
 
 			// server ->client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+			InputStream input_stream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(input_stream);
 
 			try {
 				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
-				TreeItem<String> rootItem = new TreeItem<String>("Orders");
+				TreeItem<String> root_item = new TreeItem<String>("Orders");
 
 				for (Order order : orders) {
-					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+					TreeItem<String> root_order = new TreeItem<String>(Integer.toString(order.getId()));
 					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
 					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
 					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
-					rootOrder.getChildren().addAll(id, status, customer);
+					root_order.getChildren().addAll(id, status, customer);
 
 					for (Wine wine : order.getWines()) {
-						TreeItem<String> rootProduct = new TreeItem<String>(
+						TreeItem<String> root_product = new TreeItem<String>(
 								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
 						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
-						rootProduct.getChildren().add(quantity);
-						rootOrder.getChildren().add(rootProduct);
+						root_product.getChildren().add(quantity);
+						root_order.getChildren().add(root_product);
 
 					}
 
-					rootItem.getChildren().add(rootOrder);
+					root_item.getChildren().add(root_order);
 				}
-				treeView.setRoot(rootItem);
+				treeView.setRoot(root_item);
 				treeView.setShowRoot(false);
 
 			} catch (ClassNotFoundException e) {
