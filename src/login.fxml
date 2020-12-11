@@ -46,7 +46,7 @@
 				<Font name="Calibri" size="16.0" />
 			</font>
 		</Text>
-      <Button layoutX="321.0" layoutY="287.0" mnemonicParsing="false" onAction="#guest" text="Continue as Guest" />
+      <Button layoutX="321.0" layoutY="287.0" mnemonicParsing="false" onAction="#guestLogin" text="Continue as Guest" />
       <Text fill="#fcfafa" layoutX="292.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Or">
          <font>
             <Font name="System Bold" size="12.0" />

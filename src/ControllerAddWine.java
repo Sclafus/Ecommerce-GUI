@@ -20,10 +20,10 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ControllerAddWine implements Controller {
 
-	private User current_user;
+	private User currentUser;
 
 	@FXML
-	private AnchorPane rootPane; // TODO Fix this
+	private AnchorPane rootPane;
 
 	@FXML
 	private TextField name;
@@ -41,7 +41,7 @@ public class ControllerAddWine implements Controller {
 	private TextArea notes;
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
 	 * 
@@ -49,7 +49,7 @@ public class ControllerAddWine implements Controller {
 	 * @see Loader
 	 */
 	public void initData(User user) {
-		this.current_user = user;
+		this.currentUser = user;
 	}
 
 	/**
@@ -64,46 +64,47 @@ public class ControllerAddWine implements Controller {
 	public void addWine(ActionEvent event) throws UnknownHostException, IOException {
 		int yea = 0;
 		String nam = name.getText();
-		String yea_tmp = year.getText();
+		String yeaTmp = year.getText();
 		String pro = producer.getText();
 		String gra = grapes.getText();
 		String not = notes.getText();
 
-		if (nam.length() == 0 || yea_tmp.length() == 0 || pro.length() == 0 || gra.length() == 0 || not.length() == 0) {
+		if (nam.length() == 0 || yeaTmp.length() == 0 || pro.length() == 0 || gra.length() == 0 || not.length() == 0) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("All fields must be filled");
 			alert.setHeaderText("Please fill all the fields");
 			alert.showAndWait();
 		} else {
 			try {
-				yea = Integer.parseInt(yea_tmp);
+				yea = Integer.parseInt(yeaTmp);
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Invalid Year");
 				alert.setHeaderText("Please insert a valid year.");
 				alert.showAndWait();
 			} finally {
-				if (this.current_user.getPermission() > 1) {
+				if (this.currentUser.getPermission() > 1) {
 					// user is authorized to perform the action
 					Socket socket = new Socket("localhost", 4316);
 
-					OutputStream outputStream = socket.getOutputStream(); //TODO Fix this
-					ObjectOutputStream out = new ObjectOutputStream(outputStream); //TODO Fix this
-					String[] to_be_sent = { "add_wine", nam, yea_tmp, pro, gra, not };
-					out.writeObject(to_be_sent);
+					// client -> server
+					OutputStream outputStream = socket.getOutputStream();
+					ObjectOutputStream out = new ObjectOutputStream(outputStream);
+					String[] toBeSent = { "add_wine", nam, yeaTmp, pro, gra, not };
+					out.writeObject(toBeSent);
 
-					InputStream inputStream = socket.getInputStream(); //TODO Fix this
-					ObjectInputStream in = new ObjectInputStream(inputStream); //TODO Fix this
+					// server -> client
+					InputStream inputStream = socket.getInputStream();
+					ObjectInputStream in = new ObjectInputStream(inputStream);
 
 					try {
-						Wine new_wine = (Wine) in.readObject();
+						Wine newWine = (Wine) in.readObject();
 						Alert alert = new Alert(AlertType.INFORMATION);
-						if (new_wine.getProductId() != -1) {
-
+						if (newWine.getProductId() != -1) {
 							alert.setTitle("Wine added!");
 							alert.setHeaderText(
-									String.format("Wine %s (%d) by %s has been added.\nID: %d", new_wine.getName(),
-											new_wine.getYear(), new_wine.getProducer(), new_wine.getProductId()));
+									String.format("Wine %s (%d) by %s has been added.\nID: %d", newWine.getName(),
+											newWine.getYear(), newWine.getProducer(), newWine.getProductId()));
 						} else {
 							alert.setTitle("Wine already inserted");
 							alert.setHeaderText("Wine is already present in the database.");
@@ -112,7 +113,6 @@ public class ControllerAddWine implements Controller {
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}
-
 					socket.close();
 				} else {
 					// user is not authorized to perform the action
@@ -122,7 +122,6 @@ public class ControllerAddWine implements Controller {
 					alert.showAndWait();
 				}
 			}
-
 		}
 	}
 
@@ -134,7 +133,7 @@ public class ControllerAddWine implements Controller {
 	 */
 	@FXML
 	public void back(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_employee");
 	}
 

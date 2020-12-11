@@ -21,10 +21,10 @@ import java.util.regex.Matcher;
  */
 public class ControllerAddEmployee implements Controller {
 
-	private User current_user;
+	private User currentUser;
 
 	@FXML
-	private AnchorPane rootPane; //TODO Fix this
+	private AnchorPane rootPane;
 
 	@FXML
 	private TextField name;
@@ -39,7 +39,7 @@ public class ControllerAddEmployee implements Controller {
 	private PasswordField password;
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
 	 * 
@@ -47,7 +47,7 @@ public class ControllerAddEmployee implements Controller {
 	 * @see Loader
 	 */
 	public void initData(User user) {
-		this.current_user = user;
+		this.currentUser = user;
 	}
 
 	/**
@@ -60,10 +60,10 @@ public class ControllerAddEmployee implements Controller {
 	 * @see java.util.regex.Matcher
 	 */
 	public Boolean isMail(String mail) {
-		String mail_regex = "\\w+@\\w+\\.\\w+";
-		Pattern mail_validator = Pattern.compile(mail_regex);
-		Matcher mail_matcher = mail_validator.matcher(mail);
-		return mail_matcher.matches();
+		String mailRegex = "\\w+@\\w+\\.\\w+";
+		Pattern mailValidator = Pattern.compile(mailRegex);
+		Matcher mailMatcher = mailValidator.matcher(mail);
+		return mailMatcher.matches();
 	}
 
 	/**
@@ -84,41 +84,35 @@ public class ControllerAddEmployee implements Controller {
 		String pass = password.getText();
 
 		if (nam.length() == 0 || sur.length() == 0 || mail.length() == 0 || pass.length() == 0) {
-
 			// all fields are required
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("All fields must be filled");
 			alert.setHeaderText("Please fill all the fields.");
 			alert.showAndWait();
-
 		} else if (!isMail(mail)) {
-
 			// email is not valid
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Email not valid");
 			alert.setHeaderText("The provided email is not valid, please retry.");
 			alert.showAndWait();
-
 		} else {
 			// inserted data is ok
-
-			if (this.current_user.getPermission() > 2) {
+			if (this.currentUser.getPermission() > 2) {
 				// user is autorized to perform the action
 				Socket socket = new Socket("localhost", 4316);
 
 				// client -> server
-				OutputStream output_stream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(output_stream);
-				String[] to_be_sent = { "register", nam, sur, mail, pass };
-				out.writeObject(to_be_sent);
+				OutputStream outputStream = socket.getOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(outputStream);
+				String[] toBeSent = { "register", nam, sur, mail, pass };
+				out.writeObject(toBeSent);
 
 				// server -> client
-				InputStream input_stream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(input_stream);
-
+				InputStream inputStream = socket.getInputStream();
+				ObjectInputStream in = new ObjectInputStream(inputStream);
 				try {
-					User new_employee = (User) in.readObject();
-					int permission = new_employee.getPermission();
+					User newEmployee = (User) in.readObject();
+					int permission = newEmployee.getPermission();
 
 					if (permission < 1) {
 						// permission < 1 = nullUser => user is already registered.
@@ -126,18 +120,14 @@ public class ControllerAddEmployee implements Controller {
 						alert.setTitle("Already registered");
 						alert.setHeaderText("There is already an account with this email.");
 						alert.showAndWait();
-
 					} else {
-
 						// employee registered successfully
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Success");
 						alert.setHeaderText("Employee registered successfully.");
 						alert.showAndWait();
-
 					}
 					socket.close();
-
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -149,10 +139,9 @@ public class ControllerAddEmployee implements Controller {
 				alert.showAndWait();
 			}
 
-			Loader loader = new Loader(this.current_user, this.rootPane);
+			Loader loader = new Loader(this.currentUser, this.rootPane);
 			loader.load("homepage_admin");
 		}
-
 	}
 
 	/**
@@ -163,7 +152,7 @@ public class ControllerAddEmployee implements Controller {
 	 */
 	@FXML
 	void back(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_admin");
 	}
 }

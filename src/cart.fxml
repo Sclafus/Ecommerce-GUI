@@ -24,10 +24,10 @@
       </HBox>
 	   <TableView fx:id="tableView" layoutX="64.0" layoutY="87.0" prefHeight="241.0" prefWidth="472.0">
         <columns>
-          <TableColumn fx:id="name_column" editable="false" prefWidth="75.0" sortable="false" text="Name" />
-            <TableColumn fx:id="year_column" editable="false" prefWidth="75.0" sortable="false" text="Year" />
-			<TableColumn fx:id="producer_column" editable="false" prefWidth="75.0" sortable="false" text="Producer" />
-            <TableColumn fx:id="quantity_column" editable="false" prefWidth="75.0" sortable="false" text="Quantity" />
+          <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" sortable="false" text="Name" />
+            <TableColumn fx:id="yearColumn" editable="false" prefWidth="75.0" sortable="false" text="Year" />
+			<TableColumn fx:id="producerColumn" editable="false" prefWidth="75.0" sortable="false" text="Producer" />
+            <TableColumn fx:id="quantityColumn" editable="false" prefWidth="75.0" sortable="false" text="Quantity" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

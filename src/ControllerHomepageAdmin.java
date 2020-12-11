@@ -58,7 +58,6 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
-
 		if (this.currentUser.getPermission() > 2) {
 
 			// user is authorized to perform the action
@@ -87,20 +86,16 @@ public class ControllerHomepageAdmin implements Controller {
 				}
 				treeView.setRoot(rootItem);
 				treeView.setShowRoot(false);
-
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			socket.close();
-
 		} else {
-
 			// user is not authorized to perform the action
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Not authorized");
 			alert.setHeaderText("You are not allowed to perform this action.");
 			alert.showAndWait();
-
 		}
 	}
 
@@ -116,7 +111,6 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayOrders(ActionEvent event) throws IOException {
-
 		if (this.currentUser.getPermission() > 2) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -149,18 +143,15 @@ public class ControllerHomepageAdmin implements Controller {
 						rootProduct.getChildren().add(quantity);
 						rootOrder.getChildren().add(rootProduct);
 					}
-
 					rootItem.getChildren().add(rootOrder);
 				}
 				treeView.setRoot(rootItem);
 				treeView.setShowRoot(false);
-
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			socket.close();
 		} else {
-
 			// user is not authorized to perform the action
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Not authorized");
@@ -181,7 +172,6 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
-
 		if (this.currentUser.getPermission() > 2) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -209,7 +199,6 @@ public class ControllerHomepageAdmin implements Controller {
 				}
 				treeView.setRoot(rootItem);
 				treeView.setShowRoot(false);
-
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -235,7 +224,6 @@ public class ControllerHomepageAdmin implements Controller {
 	@FXML
 	@SuppressWarnings("unchecked")
 	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
-
 		if (this.currentUser.getPermission() > 2) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -264,13 +252,11 @@ public class ControllerHomepageAdmin implements Controller {
 					TreeItem<String> notes = new TreeItem<String>("Notes: " + wine.getNotes());
 					TreeItem<String> quantity = new TreeItem<String>(
 							"Quantity: " + Integer.toString(wine.getQuantity()));
-
 					rootWine.getChildren().addAll(productId, producer, year, grapes, notes, quantity);
 					rootItem.getChildren().add(rootWine);
 				}
 				treeView.setRoot(rootItem);
 				treeView.setShowRoot(false);
-
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -282,7 +268,6 @@ public class ControllerHomepageAdmin implements Controller {
 			alert.setHeaderText("You are not allowed to perform this action.");
 			alert.showAndWait();
 		}
-
 	}
 
 	/**

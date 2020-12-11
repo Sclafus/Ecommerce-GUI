@@ -25,10 +25,10 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class ControllerRegister implements Controller {
 
-	private User current_user;
+	private User currentUser;
 
 	@FXML
-	private AnchorPane rootPane; // TODO Fix this
+	private AnchorPane rootPane;
 
 	@FXML
 	private TextField name;
@@ -46,7 +46,7 @@ public class ControllerRegister implements Controller {
 	private Text message;
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
 	 * 
@@ -54,7 +54,7 @@ public class ControllerRegister implements Controller {
 	 * @see Loader
 	 */
 	public void initData(User user) {
-		this.current_user = user;
+		this.currentUser = user;
 	}
 
 	/**
@@ -67,10 +67,10 @@ public class ControllerRegister implements Controller {
 	 * @see java.util.regex.Matcher
 	 */
 	public Boolean isMail(String mail) {
-		String mail_regex = "\\w+@\\w+\\.\\w+";
-		Pattern mail_validator = Pattern.compile(mail_regex);
-		Matcher mail_matcher = mail_validator.matcher(mail);
-		return mail_matcher.matches();
+		String mailRegex = "\\w+@\\w+\\.\\w+";
+		Pattern mailValidator = Pattern.compile(mailRegex);
+		Matcher mailMatcher = mailValidator.matcher(mail);
+		return mailMatcher.matches();
 	}
 
 	//TODO javadoc & comments
@@ -95,20 +95,20 @@ public class ControllerRegister implements Controller {
 		} else {
 			Socket socket = new Socket("localhost", 4316);
 
-			OutputStream output_stream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(output_stream);
-			String[] to_be_sent = { "register_user", nam, sur, mail, pass };
-			out.writeObject(to_be_sent);
+			//client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] toBeSent = { "register_user", nam, sur, mail, pass };
+			out.writeObject(toBeSent);
 
-			InputStream input_stream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(input_stream);
+			//server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			this.current_user = (User) in.readObject();
-
-			Loader loader = new Loader(this.current_user, this.rootPane);
+			this.currentUser = (User) in.readObject();
+			Loader loader = new Loader(this.currentUser, this.rootPane);
 			loader.load("homepage_user");
 			socket.close();
 		}
-
 	}
 }

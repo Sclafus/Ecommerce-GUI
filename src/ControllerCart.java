@@ -24,28 +24,40 @@ import javafx.scene.control.TableView;
  */
 public class ControllerCart implements Controller {
 
-	private User current_user;
+	private User currentUser;
 
 	@FXML
-	private AnchorPane rootPane; //TODO Fix this
+	private AnchorPane rootPane;
 
 	@FXML
-	private TableView<Wine> tableView; //TODO Fix this
+	private TableView<Wine> tableView;
 
 	@FXML
-	private TableColumn<Wine, String> name_column;
+	private TableColumn<Wine, String> nameColumn;
 
 	@FXML
-	private TableColumn<Wine, Integer> year_column;
+	private TableColumn<Wine, Integer> yearColumn;
 
 	@FXML
-	private TableColumn<Wine, String> producer_column;
+	private TableColumn<Wine, String> producerColumn;
 
 	@FXML
-	private TableColumn<Wine, Integer> quantity_column;
+	private TableColumn<Wine, Integer> quantityColumn;
+
+	// TODO javadoc
+	public void addToTable(ArrayList<Wine> wines) {
+		// set up the columns in the table
+		this.nameColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
+		this.yearColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
+		this.producerColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
+		this.quantityColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
+		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
+		// load data
+		tableView.setItems(oListWine);
+	}
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
 	 * 
@@ -54,33 +66,33 @@ public class ControllerCart implements Controller {
 	 */
 	@SuppressWarnings("unchecked")
 	public void initData(User user) {
-		this.current_user = user;
+		this.currentUser = user;
 
 		try {
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream output_stream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(output_stream);
-			String[] to_be_sent = { "display_cart", this.current_user.getEmail() };
-			out.writeObject(to_be_sent);
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] toBeSent = { "display_cart", this.currentUser.getEmail() };
+			out.writeObject(toBeSent);
 
 			// server -> client
-			InputStream input_stream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(input_stream);
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			ArrayList<Wine> cart_result = (ArrayList<Wine>) in.readObject();
-
-			addToTable(cart_result);
+			ArrayList<Wine> cartResult = (ArrayList<Wine>) in.readObject();
+			addToTable(cartResult);
 			socket.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	// TODO javadoc
 	@FXML
 	void back(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_user");
 	}
 
@@ -95,25 +107,24 @@ public class ControllerCart implements Controller {
 	 */
 	@FXML
 	void buy(ActionEvent event) throws IOException, UnknownHostException {
-
-		if (this.current_user.getPermission() > 0) {
+		if (this.currentUser.getPermission() > 0) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
 
 			// client -> server
-			OutputStream output_stream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(output_stream);
-			String[] to_be_sent = { "new_order", this.current_user.getEmail() };
-			out.writeObject(to_be_sent);
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] toBeSent = { "new_order", this.currentUser.getEmail() };
+			out.writeObject(toBeSent);
 
 			// server -> client
-			InputStream input_stream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(input_stream);
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 
 			try {
-				Order new_order = (Order) in.readObject();
-				initData(this.current_user);
-				if (new_order.getId() == 0) {
+				Order newOrder = (Order) in.readObject();
+				initData(this.currentUser);
+				if (newOrder.getId() == 0) {
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle("Order failed!");
 					alert.setHeaderText(String.format(
@@ -122,7 +133,7 @@ public class ControllerCart implements Controller {
 				} else {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Order submitted!");
-					alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", new_order.getId()));
+					alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", newOrder.getId()));
 					alert.setContentText(
 							"(We are out of stock of the wines remaining in the cart or you are trying to order too many and we do not have enough, you will receive a notification once we restock!)");
 					alert.showAndWait();
@@ -130,31 +141,14 @@ public class ControllerCart implements Controller {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-
 			socket.close();
-
 		} else {
-
 			// user is not authorized to perform the action
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Not authorized");
 			alert.setHeaderText("You are not allowed to perform this action.");
 			alert.showAndWait();
 		}
-	}
-
-	public void addToTable(ArrayList<Wine> wines) {
-		// set up the columns in the table
-		this.name_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
-		this.year_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
-		this.producer_column.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
-		this.quantity_column.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
-
-		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines); // TODO Fix this
-
-		// load data
-		tableView.setItems(oListWine);
-
 	}
 
 	/**
@@ -171,20 +165,18 @@ public class ControllerCart implements Controller {
 		Socket socket = new Socket("localhost", 4316);
 
 		// client -> server
-		OutputStream output_stream = socket.getOutputStream();
-		ObjectOutputStream out = new ObjectOutputStream(output_stream);
-		String[] to_be_sent = { "display_cart", this.current_user.getEmail() };
-		out.writeObject(to_be_sent);
+		OutputStream outputStream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		String[] toBeSent = { "display_cart", this.currentUser.getEmail() };
+		out.writeObject(toBeSent);
 
 		// server -> client
-		InputStream input_stream = socket.getInputStream();
-		ObjectInputStream in = new ObjectInputStream(input_stream);
+		InputStream inputStream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(inputStream);
 
-		ArrayList<Wine> cart_result = (ArrayList<Wine>) in.readObject();
-
-		addToTable(cart_result);
+		ArrayList<Wine> cartResult = (ArrayList<Wine>) in.readObject();
+		addToTable(cartResult);
 		socket.close();
-
 	}
 
 	/**
@@ -197,26 +189,26 @@ public class ControllerCart implements Controller {
 	 * @see User
 	 */
 	@FXML
-
 	void removeFromCart(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 		try {
 			// getting selection of the tableview
-			Wine wine = tableView.getSelectionModel().getSelectedItem(); // TODO Fix this
+			Wine wine = tableView.getSelectionModel().getSelectedItem();
 			// client -> server
-			OutputStream output_stream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(output_stream);
-			String[] to_be_sent = { "remove_from_cart", this.current_user.getEmail(),
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] toBeSent = { "remove_from_cart", this.currentUser.getEmail(),
 					String.valueOf(wine.getProductId()) };
-			out.writeObject(to_be_sent);
+			out.writeObject(toBeSent);
 
 			// server -> client
-			InputStream input_stream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(input_stream);
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
 			// TODO Add comments
-			Boolean remove_result = (Boolean) in.readObject();
-			if (remove_result) {
-				initData(this.current_user);
+			Boolean removeResult = (Boolean) in.readObject();
+
+			if (removeResult) {
+				initData(this.currentUser);
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle(String.format("Removed from cart"));
 				alert.setHeaderText(String.format("Removed %s from cart.", wine.getName()));
@@ -226,14 +218,10 @@ public class ControllerCart implements Controller {
 				alert.setTitle(String.format("Select a wine"));
 				alert.setHeaderText("You have to click on a Wine and then Remove.");
 				alert.showAndWait();
-
 			}
-
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		socket.close();
-
 	}
-
 }

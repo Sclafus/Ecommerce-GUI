@@ -5,7 +5,6 @@
  * @see Loader
  */
 public interface Controller {
-    
     /**
 	 * Initialize {@code this.current_user} with the passed value.
 	 * This method is made to be called from another controller,
@@ -14,5 +13,4 @@ public interface Controller {
 	 * @see Loader
 	 */
     void initData(User user);
-
 }

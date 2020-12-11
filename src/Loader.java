@@ -8,18 +8,18 @@ import javafx.scene.layout.AnchorPane;
  */
 public class Loader {
 
-	private AnchorPane rootPane; // TODO Fix this
-	private User current_user;
+	private AnchorPane rootPane;
+	private User currentUser;
 
 	/**
 	 * Loader constructor for helper class, used to pass data between FXML files.
 	 * 
-	 * @param current_user the User that needs to be passed. [User]
+	 * @param currentUser the User that needs to be passed. [User]
 	 * @param rootPane     rootpane of the FXML scene. [AnchorPane]
 	 */
-	public Loader(User current_user, AnchorPane rootPane) {// TODO Fix this
-		this.rootPane = rootPane;// TODO Fix this
-		this.current_user = current_user;
+	public Loader(User currentUser, AnchorPane rootPane) {
+		this.rootPane = rootPane;
+		this.currentUser = currentUser;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class Loader {
 		AnchorPane parent = loader.load();
 
 		Controller controller = loader.getController();
-		controller.initData(this.current_user);
-		this.rootPane.getChildren().setAll(parent);// TODO Fix this
+		controller.initData(this.currentUser);
+		this.rootPane.getChildren().setAll(parent);
 	}
 }

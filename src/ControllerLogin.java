@@ -23,16 +23,32 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ControllerLogin {
 
-	private User current_user;
+	private User currentUser;
 
 	@FXML
-	private AnchorPane rootPane;// TODO Fix this
+	private AnchorPane rootPane;
 
 	@FXML
 	private TextField email;
 
 	@FXML
 	private PasswordField password;
+	
+	/**
+	* Checks if the provided String is an email or not. This method uses RegEx.
+	* 
+	* @param mail the mail when need to check. [String]
+	* @return true if the string is an email, else false. [Boolean]
+	* 
+	* @see java.util.regex.Pattern
+	* @see java.util.regex.Matcher
+	*/
+   public Boolean isMail(String mail) {
+	   String mailRegex = "\\w+@\\w+\\.\\w+";
+	   Pattern mailValidator = Pattern.compile(mailRegex);
+	   Matcher mailMatcher = mailValidator.matcher(mail);
+	   return mailMatcher.matches();
+   }
 
 	/**
 	 * Goes to the register page.
@@ -44,22 +60,6 @@ public class ControllerLogin {
 	private void loadRegister(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./register.fxml"));
 		rootPane.getChildren().setAll(pane);
-	}
-
-	/**
-	 * Checks if the provided String is an email or not. This method uses RegEx.
-	 * 
-	 * @param mail the mail when need to check. [String]
-	 * @return true if the string is an email, else false. [Boolean]
-	 * 
-	 * @see java.util.regex.Pattern
-	 * @see java.util.regex.Matcher
-	 */
-	public Boolean isMail(String mail) {
-		String mail_regex = "\\w+@\\w+\\.\\w+";
-		Pattern mail_validator = Pattern.compile(mail_regex);
-		Matcher mail_matcher = mail_validator.matcher(mail);
-		return mail_matcher.matches();
 	}
 
 	/**
@@ -77,27 +77,27 @@ public class ControllerLogin {
 		String mail = email.getText();
 		String pass = password.getText();
 
-		// socket stuff
 		try {
-
-			// client -> server
 			Socket socket = new Socket("localhost", 4316);
-			if (mail.length() > 0 && pass.length() > 0) {
-				// TODO add comments
-				if (isMail(mail)) {
 
+			if (mail.length() > 0 && pass.length() > 0) { // TODO add comments
+
+				if (isMail(mail)) {
+					// client -> server
 					OutputStream outputStream = socket.getOutputStream();
 					ObjectOutputStream out = new ObjectOutputStream(outputStream);
-					String[] to_be_sent = { "login", mail, pass };
-					out.writeObject(to_be_sent);
+					String[] toBeSent = { "login", mail, pass };
+					out.writeObject(toBeSent);
 
 					// server -> client
 					InputStream inputStream = socket.getInputStream();
 					ObjectInputStream in = new ObjectInputStream(inputStream);
 					User user = (User) in.readObject();
+
 					int permission = user.getPermission();
-					this.current_user = user;
-					Loader loader = new Loader(current_user, rootPane);
+					this.currentUser = user;
+					Loader loader = new Loader(this.currentUser, this.rootPane);
+
 					switch (permission) {
 						case 1:
 							loader.load("homepage_user");
@@ -120,7 +120,6 @@ public class ControllerLogin {
 							password.clear();
 							break;
 					}
-
 					socket.close();
 				} else {
 					// notifies the user if the email is not valid
@@ -136,7 +135,6 @@ public class ControllerLogin {
 				alert.setHeaderText("Please fill all the fields");
 				alert.showAndWait();
 			}
-
 		} catch (ConnectException e) {
 			// notifies if the server can not be reached
 			Alert alert = new Alert(AlertType.ERROR);
@@ -146,7 +144,6 @@ public class ControllerLogin {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -158,27 +155,24 @@ public class ControllerLogin {
 	 * @see User
 	 */
 	@FXML
-	private void guest(ActionEvent event) throws IOException {
-
-		// socket stuff
+	private void guestLogin(ActionEvent event) throws IOException {
 		try {
 			// client -> server
 			Socket socket = new Socket("localhost", 4316);
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] to_be_sent = { "guest" };
-			out.writeObject(to_be_sent);
+			String[] toBeSent = { "guest" };
+			out.writeObject(toBeSent);
 
 			// server -> client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			User user = (User) in.readObject();
-			this.current_user = user;
-			Loader loader = new Loader(this.current_user, this.rootPane);
+			this.currentUser = user;
 
+			Loader loader = new Loader(this.currentUser, this.rootPane);
 			loader.load("homepage_user");
 			socket.close();
-
 		} catch (ConnectException e) {
 			// notifies if the server can not be reached
 			Alert alert = new Alert(AlertType.ERROR);

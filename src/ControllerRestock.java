@@ -19,10 +19,10 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ControllerRestock implements Controller {
 
-	private User current_user;
+	private User currentUser;
 
 	@FXML
-	private AnchorPane rootPane; // TODO Fix this
+	private AnchorPane rootPane;
 
 	@FXML
 	private TextField id;
@@ -31,7 +31,7 @@ public class ControllerRestock implements Controller {
 	private TextField quantity;
 
 	/**
-	 * Initialize {@code this.current_user} with the passed value. This method is
+	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
 	 * 
@@ -39,30 +39,29 @@ public class ControllerRestock implements Controller {
 	 * @see Loader
 	 */
 	public void initData(User user) {
-		this.current_user = user;
+		this.currentUser = user;
 	}
 
 	//TODO javadoc
 	@FXML
 	@SuppressWarnings("unused")
 	void restockWine(ActionEvent event) throws UnknownHostException, IOException {
-		if (this.current_user.getPermission() > 1) {
+		if (this.currentUser.getPermission() > 1) {
 			// user is authorized to perform the action
-
 			try {
-				int id_int = Integer.parseInt(id.getText());
-				int quantity_int = Integer.parseInt(quantity.getText());
+				int idInt = Integer.parseInt(id.getText());
+				int quantityInt = Integer.parseInt(quantity.getText());
 
 				// client -> server
 				Socket socket = new Socket("localhost", 4316);
-				OutputStream output_stream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(output_stream);
-				String[] to_be_sent = { "restock_wine", id.getText(), quantity.getText() };
-				out.writeObject(to_be_sent);
+				OutputStream outputStream = socket.getOutputStream();
+				ObjectOutputStream out = new ObjectOutputStream(outputStream);
+				String[] toBeSent = { "restock_wine", id.getText(), quantity.getText() };
+				out.writeObject(toBeSent);
 
 				// server -> client
-				InputStream input_stream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(input_stream);
+				InputStream inputStream = socket.getInputStream();
+				ObjectInputStream in = new ObjectInputStream(inputStream);
 				Boolean restocked = (Boolean) in.readObject();
 
 				if (restocked) {
@@ -79,17 +78,14 @@ public class ControllerRestock implements Controller {
 					alert.showAndWait();
 				}
 				socket.close();
-
 			} catch (NumberFormatException e) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Not authorized");
 				alert.setHeaderText("You are not allowed to perform this action.");
 				alert.showAndWait();
-
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-
 		} else {
 			// user is not authorized to perform the action
 			Alert alert = new Alert(AlertType.ERROR);
@@ -102,7 +98,7 @@ public class ControllerRestock implements Controller {
 	//TODO javadoc
 	@FXML
 	void back(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
+		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_employee");
 	}
 
