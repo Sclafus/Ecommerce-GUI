@@ -79,10 +79,11 @@ public class ControllerLogin {
 
 		try {
 			Socket socket = new Socket("localhost", 4316);
-
-			if (mail.length() > 0 && pass.length() > 0) { // TODO add comments
-
+			//checks if the email and the password have been inserted
+			if (mail.length() > 0 && pass.length() > 0) { 
+				//checks if the email is valid
 				if (isMail(mail)) {
+					//if the email is valid the client receives the object User from the server
 					// client -> server
 					OutputStream outputStream = socket.getOutputStream();
 					ObjectOutputStream out = new ObjectOutputStream(outputStream);
@@ -98,15 +99,19 @@ public class ControllerLogin {
 					this.currentUser = user;
 					Loader loader = new Loader(this.currentUser, this.rootPane);
 
+					//different cases are distinguished based on the User's permission
 					switch (permission) {
+						//permission = 1 ->it's a user and the user's homepage is loaded
 						case 1:
 							loader.load("homepage_user");
 							break;
 
+						//permission = 2 ->it's an employee and the employee's homepage is loaded
 						case 2:
 							loader.load("homepage_employee");
 							break;
 
+						//permission = 3 ->it's an admin and the admin's homepage is loaded
 						case 3:
 							loader.load("homepage_admin");
 							break;

@@ -153,6 +153,8 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
+		//checks the permission of the user, only User's with permission > 0 can add aWine to the cart
+		
 		if (this.currentUser.getPermission() > 0) {
 			Socket socket = new Socket("localhost", 4316);
 
