@@ -230,20 +230,10 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	@FXML
 	void showCart(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
-		loader.load("cart");
-	}
-
-	/**
-	 * Goes to the orders page.
-	 * 
-	 * @param event GUI event. [ActionEvent]
-	 * @throws IOException if the file can't be accessed.
-	 */
-	@FXML
-	void showOrders(ActionEvent event) throws IOException {
-		Loader loader = new Loader(this.current_user, this.rootPane);
-		loader.load("orders");
+		if (this.current_user.getPermission() > 0) {
+			Loader loader = new Loader(this.current_user, this.rootPane);
+			loader.load("cart");
+		}
 	}
 
 	/**
