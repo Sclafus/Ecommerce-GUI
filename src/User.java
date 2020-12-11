@@ -23,7 +23,7 @@ public class User implements Serializable {
 		this.surname = "";
 		this.email = "";
 		this.password = "";
-		this.permission = 1;
+		this.permission = 0;
 	}
 
 	/**
