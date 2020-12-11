@@ -48,7 +48,8 @@ public class ControllerCart implements Controller {
 	 * Loads the specified ArrayList of Wines in the table view. This method will
 	 * override the previous content of the table.
 	 * 
-	 * @param wines the content that needs to be displayed on the table. [Arraylist of Wine]
+	 * @param wines the content that needs to be displayed on the table. [Arraylist
+	 *              of Wine]
 	 * @see Wine
 	 */
 	public void addToTable(ArrayList<Wine> wines) {
@@ -223,14 +224,14 @@ public class ControllerCart implements Controller {
 			Boolean removeResult = (Boolean) in.readObject();
 
 			if (removeResult) {
-				//if result is true, the wine has been correctly removed from cart
+				// if result is true, the wine has been correctly removed from cart
 				initData(this.currentUser);
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle(String.format("Removed from cart"));
 				alert.setHeaderText(String.format("Removed %s from cart.", wine.getName()));
 				alert.showAndWait();
 			} else {
-				//else, the wine has not been correctly removed from cart
+				// else, the wine has not been correctly removed from cart
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle(String.format("Select a wine"));
 				alert.setHeaderText("You have to click on a Wine and then Remove.");

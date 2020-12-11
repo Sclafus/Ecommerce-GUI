@@ -60,9 +60,8 @@ public class ControllerHomepageUser implements Controller {
 	/**
 	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
-	 * {@code Loader} class.
-	 * It also adds all the wines to display to the TableView and handles the 
-	 * process to display the notifications.
+	 * {@code Loader} class. It also adds all the wines to display to the TableView
+	 * and handles the process to display the notifications.
 	 * 
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
@@ -73,21 +72,21 @@ public class ControllerHomepageUser implements Controller {
 		this.currentUser = user;
 
 		try {
-			//   Fill the frontpage with wines.
+			// Fill the frontpage with wines.
 			Socket socket = new Socket("localhost", 4316);
 
-			//   client -> server
+			// client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
 			String[] toBeSent = { "get_wines" };
 			out.writeObject(toBeSent);
 
-			//   server ->client
+			// server ->client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
 
-			// adds the wine of the shop to the TableView to be displayed 
+			// adds the wine of the shop to the TableView to be displayed
 			addToTable(wines);
 			socket.close();
 
@@ -113,20 +112,34 @@ public class ControllerHomepageUser implements Controller {
 		}
 	}
 
-	//   TODO javadoc
+	/**
+	 * Loads the specified ArrayList of Wines in the table view. This method will
+	 * override the previous content of the table.
+	 * 
+	 * @param wines the content that needs to be displayed on the table. [Arraylist
+	 *              of Wine]
+	 * @see Wine
+	 */
 	public void addToTable(ArrayList<Wine> wines) {
-		//   set up the columns in the table
+		// set up the columns in the table
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
 		yearColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
 		producerColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
 		grapesColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Grapewines"));
 		notesColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Notes"));
-		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines); 
-		//   load data
+		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
+		// load data
 		tableView.setItems(oListWine);
 	}
 
-	//   TODO javadoc
+	/**
+	 * Displays an alert when a wine is restocked, from an ArrayList of Wines. This method is
+	 * automatically called whenever the homepage of the user is loaded.
+	 * 
+	 * @param wines the content that needs to be displayed on the alert. [Arraylist
+	 *              of Wine]
+	 * @see Wine
+	 */
 	public void displayNotifications(ArrayList<Wine> wines) {
 		if (wines.size() > 0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -138,7 +151,6 @@ public class ControllerHomepageUser implements Controller {
 				winesSb.append(String.format("%s (%d)\n", wine.getName(), wine.getYear()));
 			}
 			String winesString = winesSb.toString();
-			System.out.format("'%s'", winesString);
 			alert.setContentText(winesString);
 			alert.showAndWait();
 		}
@@ -156,8 +168,7 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
-		// checks the permission of the user, only User's with permission > 0 can add aWine to the cart
-		// no guest users can add anything to the cart
+		//permission check, guests can't add to cart
 		if (this.currentUser.getPermission() > 0) {
 			Socket socket = new Socket("localhost", 4316);
 
@@ -170,15 +181,13 @@ public class ControllerHomepageUser implements Controller {
 				// client -> server
 				OutputStream outputStream = socket.getOutputStream();
 				ObjectOutputStream out = new ObjectOutputStream(outputStream);
-				String[] toBeSent = { "add_to_cart", this.currentUser.getEmail(),
-						String.valueOf(wine.getProductId()), this.quantity.getText() };
+				String[] toBeSent = { "add_to_cart", this.currentUser.getEmail(), String.valueOf(wine.getProductId()),
+						this.quantity.getText() };
 				out.writeObject(toBeSent);
 
 				// server -> client
 				InputStream inputStream = socket.getInputStream();
 				ObjectInputStream in = new ObjectInputStream(inputStream);
-				// receives the result from the server, true if the operation was successful
-				// false otherwise
 				Boolean addResult = (Boolean) in.readObject();
 
 				if (addResult) {
@@ -226,26 +235,27 @@ public class ControllerHomepageUser implements Controller {
 	@SuppressWarnings("unchecked")
 	void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
-		
-		//   client -> server
+
+		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
 		String[] toBeSent = { "search", searchboxName.getText(), yearboxName.getText() };
 		out.writeObject(toBeSent);
 
-		//   server -> client
+		// server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 		ArrayList<Wine> searchResult = (ArrayList<Wine>) in.readObject();
 
+		//displays the result in the tableview
 		addToTable(searchResult);
 		socket.close();
 	}
 
 	/**
 	 * Goes to the cart page. It also checks the permission of the {@code User},
-	 * onlu users with permission > 0 can access to the cart page (users, 
-	 * employees, administrators but not guests).
+	 * onlu users with permission > 0 can access to the cart page (users, employees,
+	 * administrators but not guests).
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws IOException if the file can't be accessed.
