@@ -22,6 +22,7 @@ public class Order implements Serializable{
 	 * {@code Order} class constructor.
 	 */
 	public Order() {
+		this.id = 0;
 		this.shipped = false;
 	}
 
