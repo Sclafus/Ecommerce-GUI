@@ -148,4 +148,48 @@ public class ControllerLogin {
 		}
 
 	}
+
+
+
+	/**
+	 * Opens the user's homepage once somebody clicks on the "Continue as Guest"
+	 * button in the 
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if an I/O error occurs when creating the socket.
+	 * @see User
+	 */
+	@FXML
+	private void guest(ActionEvent event) throws IOException {
+		
+		// socket stuff
+		try {
+			// client -> server
+			Socket socket = new Socket("localhost", 4316);
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] to_be_sent = { "guest" };
+			out.writeObject(to_be_sent);
+
+			// server -> client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+			User user = (User) in.readObject();
+			this.current_user = user;
+			Loader loader = new Loader(current_user, rootPane); 
+			
+			loader.load("homepage_user");
+			socket.close();
+		
+		} catch (ConnectException e) {
+			// notifies if the server can not be reached
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Cannot connect to server");
+			alert.setHeaderText("Server is unreachable. Try again later.");
+			alert.showAndWait();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
