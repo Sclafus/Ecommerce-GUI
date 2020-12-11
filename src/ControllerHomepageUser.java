@@ -57,34 +57,37 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	private TextField quantity;
 
-	// TODO Fix javadoc & comments
 	/**
 	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
+	 * It also adds all the wines to display to the TableView and handles the 
+	 * process to display the notifications.
 	 * 
 	 * @param user the {@code User} we want to pass. [User]
 	 * @see Loader
+	 * @see Wine
 	 */
 	@SuppressWarnings("unchecked")
 	public void initData(User user) {
 		this.currentUser = user;
 
 		try {
-			// Fill the frontpage with wines.
+			//   Fill the frontpage with wines.
 			Socket socket = new Socket("localhost", 4316);
 
-			// client -> server
+			//   client -> server
 			OutputStream outputStream = socket.getOutputStream();
 			ObjectOutputStream out = new ObjectOutputStream(outputStream);
 			String[] toBeSent = { "get_wines" };
 			out.writeObject(toBeSent);
 
-			// server ->client
+			//   server ->client
 			InputStream inputStream = socket.getInputStream();
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 			ArrayList<Wine> wines = (ArrayList<Wine>) in.readObject();
 
+			// adds the wine of the shop to the TableView to be displayed 
 			addToTable(wines);
 			socket.close();
 
@@ -102,6 +105,7 @@ public class ControllerHomepageUser implements Controller {
 			ObjectInputStream in2 = new ObjectInputStream(inputStream2);
 			ArrayList<Wine> notification = (ArrayList<Wine>) in2.readObject();
 
+			// displays the correct notification to the User
 			displayNotifications(notification);
 			socket2.close();
 		} catch (Exception e) {
@@ -109,20 +113,20 @@ public class ControllerHomepageUser implements Controller {
 		}
 	}
 
-	// TODO javadoc
+	//   TODO javadoc
 	public void addToTable(ArrayList<Wine> wines) {
-		// set up the columns in the table
+		//   set up the columns in the table
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
 		yearColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
 		producerColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
 		grapesColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Grapewines"));
 		notesColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Notes"));
 		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines); 
-		// load data
+		//   load data
 		tableView.setItems(oListWine);
 	}
 
-	// TODO javadoc
+	//   TODO javadoc
 	public void displayNotifications(ArrayList<Wine> wines) {
 		if (wines.size() > 0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -140,7 +144,6 @@ public class ControllerHomepageUser implements Controller {
 		}
 	}
 
-	// TODO comments
 	/**
 	 * Allows the {@code User} to add the wines to his cart.
 	 * 
@@ -153,12 +156,13 @@ public class ControllerHomepageUser implements Controller {
 	@FXML
 	@SuppressWarnings("unused")
 	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
-		//checks the permission of the user, only User's with permission > 0 can add aWine to the cart
-		
+		// checks the permission of the user, only User's with permission > 0 can add aWine to the cart
+		// no guest users can add anything to the cart
 		if (this.currentUser.getPermission() > 0) {
 			Socket socket = new Socket("localhost", 4316);
 
 			try {
+				// gets the quantity given by the User
 				int quantity = Integer.parseInt(this.quantity.getText());
 				// getting selection of the tableview
 				Wine wine = tableView.getSelectionModel().getSelectedItem();
@@ -173,14 +177,18 @@ public class ControllerHomepageUser implements Controller {
 				// server -> client
 				InputStream inputStream = socket.getInputStream();
 				ObjectInputStream in = new ObjectInputStream(inputStream);
+				// receives the result from the server, true if the operation was successful
+				// false otherwise
 				Boolean addResult = (Boolean) in.readObject();
 
 				if (addResult) {
+					// operation addToCart was successful
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle(String.format("Added to cart"));
 					alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
 					alert.showAndWait();
 				} else {
+					// operation addToCart was not successful
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle(String.format("Select a wine"));
 					alert.setHeaderText("You have to click on a Wine, enter the quantity and then Add.");
@@ -189,6 +197,7 @@ public class ControllerHomepageUser implements Controller {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e) {
+				// the quantity was non inserted correctly
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle(String.format("Insert quantity"));
 				alert.setHeaderText("Please insert the quantity.");
@@ -197,6 +206,7 @@ public class ControllerHomepageUser implements Controller {
 			}
 			socket.close();
 		} else {
+			// the User is a guest, so he needs to login first
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Please login");
 			alert.setHeaderText("You need to login to perform this action.");
@@ -217,13 +227,13 @@ public class ControllerHomepageUser implements Controller {
 	void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
 		
-		// client -> server
+		//   client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
 		String[] toBeSent = { "search", searchboxName.getText(), yearboxName.getText() };
 		out.writeObject(toBeSent);
 
-		// server -> client
+		//   server -> client
 		InputStream inputStream = socket.getInputStream();
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 		ArrayList<Wine> searchResult = (ArrayList<Wine>) in.readObject();
@@ -232,9 +242,10 @@ public class ControllerHomepageUser implements Controller {
 		socket.close();
 	}
 
-	//TODO fix javadoc
 	/**
-	 * Goes to the cart page.
+	 * Goes to the cart page. It also checks the permission of the {@code User},
+	 * onlu users with permission > 0 can access to the cart page (users, 
+	 * employees, administrators but not guests).
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws IOException if the file can't be accessed.
