@@ -116,14 +116,14 @@ public class ControllerCart implements Controller {
 				initData(this.current_user);
 				if(new_order.getId()==0){
 					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("Order submitted!");
-					alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", new_order.getId()));
+					alert.setTitle("Order failed!");
+					alert.setHeaderText(String.format("Your order has been not been placed!\nWe do not enough in stock. We will send a notification once we restock"));
 					alert.showAndWait();
 				} else {
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("Order submitted!");
 					alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", new_order.getId()));
-					alert.setContentText("(We are out of stock of the wines remaining in the cart or you are trying to order too many and we do not have enough)");
+					alert.setContentText("(We are out of stock of the wines remaining in the cart or you are trying to order too many and we do not have enough, you will receive a notification once we restock!)");
 					alert.showAndWait();
 				}
 			} catch (ClassNotFoundException e) {
