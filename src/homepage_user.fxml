@@ -23,7 +23,7 @@
                <font>
                   <Font name="Calibri" size="14.0" />
                </font></TextField>
-            <TextField fx:id="yearboxName" prefHeight="25.0" prefWidth="110.0" promptText="Year">
+            <TextField fx:id="searchboxYear" prefHeight="25.0" prefWidth="110.0" promptText="Year">
                <font>
                   <Font name="Calibri" size="14.0" />
                </font></TextField>

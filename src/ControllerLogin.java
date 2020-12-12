@@ -33,22 +33,22 @@ public class ControllerLogin {
 
 	@FXML
 	private PasswordField password;
-	
+
 	/**
-	* Checks if the provided String is an email or not. This method uses RegEx.
-	* 
-	* @param mail the mail when need to check. [String]
-	* @return true if the string is an email, else false. [Boolean]
-	* 
-	* @see java.util.regex.Pattern
-	* @see java.util.regex.Matcher
-	*/
-   public Boolean isMail(String mail) {
-	   String mailRegex = "\\w+@\\w+\\.\\w+";
-	   Pattern mailValidator = Pattern.compile(mailRegex);
-	   Matcher mailMatcher = mailValidator.matcher(mail);
-	   return mailMatcher.matches();
-   }
+	 * Checks if the provided String is an email or not. This method uses RegEx.
+	 * 
+	 * @param mail the mail when need to check. [String]
+	 * @return true if the string is an email, else false. [Boolean]
+	 * 
+	 * @see java.util.regex.Pattern
+	 * @see java.util.regex.Matcher
+	 */
+	public Boolean isMail(String mail) {
+		String mailRegex = "\\w+@\\w+\\.\\w+";
+		Pattern mailValidator = Pattern.compile(mailRegex);
+		Matcher mailMatcher = mailValidator.matcher(mail);
+		return mailMatcher.matches();
+	}
 
 	/**
 	 * Goes to the register page.
@@ -57,7 +57,7 @@ public class ControllerLogin {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	private void loadRegister(ActionEvent event) throws IOException {
+	public void loadRegister(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./register.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}
@@ -72,18 +72,18 @@ public class ControllerLogin {
 	 * @see User
 	 */
 	@FXML
-	private void login(ActionEvent event) throws IOException {
+	public void login(ActionEvent event) throws IOException {
 		// gets the informations
 		String mail = email.getText();
 		String pass = password.getText();
 
 		try {
 			Socket socket = new Socket("localhost", 4316);
-			//checks if the email and the password have been inserted
-			if (mail.length() > 0 && pass.length() > 0) { 
-				//checks if the email is valid
+			// checks if the email and the password have been inserted
+			if (mail.length() > 0 && pass.length() > 0) {
+				// checks if the email is valid
 				if (isMail(mail)) {
-					//if the email is valid the client receives the object User from the server
+					// if the email is valid the client receives the object User from the server
 					// client -> server
 					OutputStream outputStream = socket.getOutputStream();
 					ObjectOutputStream out = new ObjectOutputStream(outputStream);
@@ -99,19 +99,19 @@ public class ControllerLogin {
 					this.currentUser = user;
 					Loader loader = new Loader(this.currentUser, this.rootPane);
 
-					//different cases are distinguished based on the User's permission
+					// different cases are distinguished based on the User's permission
 					switch (permission) {
-						//permission = 1 ->it's a user and the user's homepage is loaded
+						// permission = 1 ->it's a user and the user's homepage is loaded
 						case 1:
 							loader.load("homepage_user");
 							break;
 
-						//permission = 2 ->it's an employee and the employee's homepage is loaded
+						// permission = 2 ->it's an employee and the employee's homepage is loaded
 						case 2:
 							loader.load("homepage_employee");
 							break;
 
-						//permission = 3 ->it's an admin and the admin's homepage is loaded
+						// permission = 3 ->it's an admin and the admin's homepage is loaded
 						case 3:
 							loader.load("homepage_admin");
 							break;
@@ -160,7 +160,7 @@ public class ControllerLogin {
 	 * @see User
 	 */
 	@FXML
-	private void guestLogin(ActionEvent event) throws IOException {
+	public void guestLogin(ActionEvent event) throws IOException {
 		try {
 			// client -> server
 			Socket socket = new Socket("localhost", 4316);

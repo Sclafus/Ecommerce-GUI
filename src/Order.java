@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @see Wine
  * @see User
  */
-public class Order implements Serializable{
+public class Order implements Serializable {
 
 	private static final long serialVersionUID = -2138142735104663987L;
 	private ArrayList<Wine> items = new ArrayList<Wine>();

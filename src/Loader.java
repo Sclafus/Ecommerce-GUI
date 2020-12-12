@@ -15,7 +15,7 @@ public class Loader {
 	 * Loader constructor for helper class, used to pass data between FXML files.
 	 * 
 	 * @param currentUser the User that needs to be passed. [User]
-	 * @param rootPane     rootpane of the FXML scene. [AnchorPane]
+	 * @param rootPane    rootpane of the FXML scene. [AnchorPane]
 	 */
 	public Loader(User currentUser, AnchorPane rootPane) {
 		this.rootPane = rootPane;

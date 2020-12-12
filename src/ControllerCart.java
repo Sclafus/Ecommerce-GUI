@@ -45,25 +45,6 @@ public class ControllerCart implements Controller {
 	private TableColumn<Wine, Integer> quantityColumn;
 
 	/**
-	 * Loads the specified ArrayList of Wines in the table view. This method will
-	 * override the previous content of the table.
-	 * 
-	 * @param wines the content that needs to be displayed on the table. [Arraylist
-	 *              of Wine]
-	 * @see Wine
-	 */
-	public void addToTable(ArrayList<Wine> wines) {
-		// set up the columns in the table
-		this.nameColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
-		this.yearColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
-		this.producerColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
-		this.quantityColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
-		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
-		// load data
-		tableView.setItems(oListWine);
-	}
-
-	/**
 	 * Initialize {@code this.currentUser} with the passed value. This method is
 	 * made to be called from another controller, using the {@code load} method in
 	 * {@code Loader} class.
@@ -97,13 +78,32 @@ public class ControllerCart implements Controller {
 	}
 
 	/**
+	 * Loads the specified ArrayList of Wines in the table view. This method will
+	 * override the previous content of the table.
+	 * 
+	 * @param wines the content that needs to be displayed on the table. [Arraylist
+	 *              of Wine]
+	 * @see Wine
+	 */
+	public void addToTable(ArrayList<Wine> wines) {
+		// set up the columns in the table
+		this.nameColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Name"));
+		this.yearColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Year"));
+		this.producerColumn.setCellValueFactory(new PropertyValueFactory<Wine, String>("Producer"));
+		this.quantityColumn.setCellValueFactory(new PropertyValueFactory<Wine, Integer>("Quantity"));
+		ObservableList<Wine> oListWine = FXCollections.observableArrayList(wines);
+		// load data
+		tableView.setItems(oListWine);
+	}
+
+	/**
 	 * Goes back to the employee homepage.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void back(ActionEvent event) throws IOException {
+	public void back(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_user");
 	}
@@ -118,7 +118,7 @@ public class ControllerCart implements Controller {
 	 * @see User
 	 */
 	@FXML
-	void buy(ActionEvent event) throws IOException, UnknownHostException {
+	public void buy(ActionEvent event) throws IOException, UnknownHostException {
 		if (this.currentUser.getPermission() > 0) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -173,7 +173,7 @@ public class ControllerCart implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void displayCart(ActionEvent event) throws IOException {
+	public void displayCart(ActionEvent event) throws IOException {
 		Socket socket = new Socket("localhost", 4316);
 
 		// client -> server
@@ -205,7 +205,7 @@ public class ControllerCart implements Controller {
 	 * @see User
 	 */
 	@FXML
-	void removeFromCart(ActionEvent event) throws UnknownHostException, IOException {
+	public void removeFromCart(ActionEvent event) throws UnknownHostException, IOException {
 		Socket socket = new Socket("localhost", 4316);
 		try {
 			// getting selection of the tableview

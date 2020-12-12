@@ -36,7 +36,7 @@ public class ControllerHomepageUser implements Controller {
 	private TextField searchboxName;
 
 	@FXML
-	private TextField yearboxName;
+	private TextField searchboxYear;
 
 	@FXML
 	private TreeView<String> treeView;
@@ -176,7 +176,7 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unused")
-	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
+	public void addToCart(ActionEvent event) throws UnknownHostException, IOException {
 		// permission check, guests can't add to cart
 		if (this.currentUser.getPermission() > 0) {
 			Socket socket = new Socket("localhost", 4316);
@@ -242,13 +242,13 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void search(ActionEvent event) throws IOException, ClassNotFoundException {
+	public void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
 
 		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] toBeSent = { "search", searchboxName.getText(), yearboxName.getText() };
+		String[] toBeSent = { "search", searchboxName.getText(), searchboxYear.getText() };
 		out.writeObject(toBeSent);
 
 		// server -> client
@@ -270,7 +270,7 @@ public class ControllerHomepageUser implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void showCart(ActionEvent event) throws IOException {
+	public void showCart(ActionEvent event) throws IOException {
 		if (this.currentUser.getPermission() > 0) {
 			Loader loader = new Loader(this.currentUser, this.rootPane);
 			loader.load("cart");
@@ -283,18 +283,6 @@ public class ControllerHomepageUser implements Controller {
 	}
 
 	/**
-	 * Goes back to the login page.
-	 * 
-	 * @param event GUI event. [ActionEvent]
-	 * @throws IOException if the filename cannot be read.
-	 */
-	@FXML
-	void logout(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-		rootPane.getChildren().setAll(pane);
-	}
-
-	/**
 	 * Displays all the orders made by the {@code User} in the TreeView.
 	 * 
 	 * @throws UnknownHostException if the IP address of the host could not be
@@ -304,7 +292,7 @@ public class ControllerHomepageUser implements Controller {
 	 * @see User
 	 */
 	@SuppressWarnings("unchecked")
-	void displayOrders() throws IOException {
+	public void displayOrders() throws IOException {
 		// user is authorized to perform the action
 		Socket socket = new Socket("localhost", 4316);
 
@@ -348,5 +336,17 @@ public class ControllerHomepageUser implements Controller {
 			e.printStackTrace();
 		}
 		socket.close();
+	}
+
+	/**
+	 * Goes back to the login page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the filename cannot be read.
+	 */
+	@FXML
+	public void logout(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 }

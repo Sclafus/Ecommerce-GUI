@@ -57,7 +57,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
+	public void displayEmployees(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.currentUser.getPermission() > 2) {
 
 			// user is authorized to perform the action
@@ -110,7 +110,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void displayOrders(ActionEvent event) throws IOException {
+	public void displayOrders(ActionEvent event) throws IOException {
 		if (this.currentUser.getPermission() > 2) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -171,7 +171,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
+	public void displayUsers(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.currentUser.getPermission() > 2) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -223,7 +223,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void displayWines(ActionEvent event) throws UnknownHostException, IOException {
+	public void displayWines(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.currentUser.getPermission() > 2) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -277,7 +277,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException if the file can't be read.
 	 */
 	@FXML
-	void loadEmployee(ActionEvent event) throws IOException {
+	public void loadEmployee(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_employee");
 	}
@@ -289,7 +289,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException if the file can't be read.
 	 */
 	@FXML
-	void loadUser(ActionEvent event) throws IOException {
+	public void loadUser(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_user");
 	}
@@ -301,7 +301,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException if the file can't be read.
 	 */
 	@FXML
-	void loadAddEmployee(ActionEvent event) throws IOException {
+	public void loadAddEmployee(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("add_employee");
 	}
@@ -313,7 +313,7 @@ public class ControllerHomepageAdmin implements Controller {
 	 * @throws IOException if the file can't be read.
 	 */
 	@FXML
-	void logout(ActionEvent event) throws IOException {
+	public void logout(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
 		rootPane.getChildren().setAll(pane);
 	}

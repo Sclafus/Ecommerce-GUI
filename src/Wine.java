@@ -33,13 +33,13 @@ public class Wine implements Serializable {
 	/**
 	 * {@code Wine} class constructor.
 	 * 
-	 * @param id         product id of the {@code Wine}.[int]
-	 * @param name       name of the {@code Wine}. [String]
-	 * @param producer   producer of the {@code Wine}. [String]
-	 * @param year       year of production of the {@code Wine}. [int]
-	 * @param notes      notes for the {@code Wine}. [String]
-	 * @param quantity   quantity of the {@code Wine}. [int]
-	 * @param grapes     list of the grapes of the {@code Wine}. [String]
+	 * @param id       product id of the {@code Wine}.[int]
+	 * @param name     name of the {@code Wine}. [String]
+	 * @param producer producer of the {@code Wine}. [String]
+	 * @param year     year of production of the {@code Wine}. [int]
+	 * @param notes    notes for the {@code Wine}. [String]
+	 * @param quantity quantity of the {@code Wine}. [int]
+	 * @param grapes   list of the grapes of the {@code Wine}. [String]
 	 */
 	public Wine(final int id, final String name, final String producer, final int year, final String notes,
 			final int quantity, final String grapes) {
