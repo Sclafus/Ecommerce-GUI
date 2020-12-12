@@ -115,22 +115,4 @@ public class Wine implements Serializable {
 	public int getProductId() {
 		return this.productId;
 	}
-
-	/**
-	 * Adds the specified quantity to the selected {@code Wine}.
-	 * 
-	 * @param quantity the quantity to add. [int]
-	 */
-	public void addQuantity(int quantity) {
-		this.quantity += quantity;
-	}
-
-	/**
-	 * Substracts the specified quantity to the selected {@code Wine}.
-	 * 
-	 * @param quantity the quantity to subtract. [int]
-	 */
-	public void subtractQuantity(int quantity) {
-		this.quantity -= quantity;
-	}
 }
