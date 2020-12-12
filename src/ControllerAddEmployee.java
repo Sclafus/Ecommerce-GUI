@@ -96,6 +96,7 @@ public class ControllerAddEmployee implements Controller {
 			alert.setHeaderText("The provided email is not valid, please retry.");
 			alert.showAndWait();
 		} else {
+			
 			// inserted data is ok
 			if (this.currentUser.getPermission() > 2) {
 				// user is autorized to perform the action
