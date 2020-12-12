@@ -7,22 +7,32 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerCart">
    <children>
-	  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
+	  <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="34.0" prefWidth="59.0" text="&lt; Back">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
 	  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true">
 		 <image>
 			<Image url="@img/wine.png" />
 		 </image>
 	  </ImageView>
-      <HBox layoutX="64.0" layoutY="346.0" prefHeight="25.0" prefWidth="472.0" spacing="200.0">
+      <HBox layoutX="120.0" layoutY="342.0" prefHeight="27.0" prefWidth="416.0" spacing="150.0">
          <children>
-      	  <Button mnemonicParsing="false" onAction="#removeFromCart" prefHeight="25.0" prefWidth="128.0" text="Remove from Cart🛒" />
-      	  <Button lineSpacing="20.0" mnemonicParsing="false" onAction="#buy" prefHeight="25.0" prefWidth="140.0" text="Buy💲" />
+      	  <Button mnemonicParsing="false" onAction="#removeFromCart" prefHeight="27.0" prefWidth="154.0" text="Remove from Cart🛒">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
+      	  <Button lineSpacing="20.0" mnemonicParsing="false" onAction="#buy" prefHeight="25.0" prefWidth="140.0" text="Buy💲">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
          </children>
       </HBox>
-	   <TableView fx:id="tableView" layoutX="64.0" layoutY="87.0" prefHeight="241.0" prefWidth="472.0">
+	   <TableView fx:id="tableView" layoutX="64.0" layoutY="65.0" prefHeight="241.0" prefWidth="472.0">
         <columns>
           <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" sortable="false" text="Name" />
             <TableColumn fx:id="yearColumn" editable="false" prefWidth="75.0" sortable="false" text="Year" />

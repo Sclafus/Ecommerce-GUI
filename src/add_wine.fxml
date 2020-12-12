@@ -19,15 +19,36 @@
 	  </Text>
 	  <VBox alignment="CENTER" layoutX="225.0" layoutY="96.0" prefHeight="278.0" prefWidth="149.0" spacing="15.0">
 		 <children>
-			<TextField fx:id="name" promptText="Name" />
-			<TextField fx:id="year" promptText="Year" />
-			<TextField fx:id="producer" promptText="Producer" />
-			<TextField fx:id="grapes" promptText="GrapeWines" />
-			<TextArea fx:id="notes" prefHeight="67.0" prefWidth="149.0" promptText="Notes" wrapText="true" />
-			<Button mnemonicParsing="false" onAction="#addWine" text="Add" />
+			<TextField fx:id="name" promptText="Name">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+			<TextField fx:id="year" promptText="Year">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+			<TextField fx:id="producer" promptText="Producer">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+			<TextField fx:id="grapes" promptText="GrapeWines">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+			<TextArea fx:id="notes" prefHeight="67.0" prefWidth="149.0" promptText="Notes" wrapText="true">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextArea>
+			<Button mnemonicParsing="false" onAction="#addWine" prefHeight="29.0" prefWidth="60.0" text="Add">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
 		 </children>
 	  </VBox>
-	  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
+	  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="34.0" prefWidth="59.0" text="&lt; Back">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
 	  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
 		 <image>
 			<Image url="@img/wine.png" />

@@ -11,10 +11,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" fx:controller="ControllerHomepageAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerHomepageAdmin">
    <children>
 	  <TreeView fx:id="treeView" layoutX="333.0" layoutY="10.0" prefHeight="381.0" prefWidth="240.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="27.0" />
-	  <ImageView fitHeight="58.0" fitWidth="58.0" layoutX="16.0" layoutY="10.0">
+	  <ImageView fitHeight="65.0" fitWidth="68.0" layoutX="16.0" layoutY="10.0">
 		 <image>
 			<Image url="@img/wine.png" />
 		 </image>
@@ -26,23 +26,38 @@
 	  </ImageView>
 	  <Text fx:id="name" layoutX="45.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
 		 <font>
-			<Font name="Cambria" size="15.0" />
+			<Font name="Calibri" size="18.0" />
 		 </font>
 	  </Text>
-	  <Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-	  <MenuButton layoutX="17.0" layoutY="120.0" mnemonicParsing="false" text="View">
+	  <Button layoutX="19.0" layoutY="80.0" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="68.0" text="Logout">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
+	  <MenuButton layoutX="19.0" layoutY="130.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="68.0" text="View">
 		<items>
 		  	<MenuItem mnemonicParsing="false" onAction="#displayOrders" text="Orders" />
 		  	<MenuItem mnemonicParsing="false" onAction="#displayEmployees" text="Employees" />
 			<MenuItem mnemonicParsing="false" onAction="#displayWines" text="Wines" />
 			<MenuItem mnemonicParsing="false" onAction="#displayUsers" text="Users" />
 		</items>
+         <font>
+            <Font name="Calibri" size="13.0" />
+         </font>
 	  </MenuButton>
-	  <VBox alignment="CENTER" layoutX="135.0" layoutY="27.0" prefHeight="313.0" prefWidth="101.0" spacing="40.0">
+	  <VBox alignment="CENTER" layoutX="135.0" layoutY="39.0" prefHeight="313.0" prefWidth="119.0" spacing="40.0">
 		 <children>
-			<Button mnemonicParsing="false" onAction="#loadAddEmployee" text="New Employee" />
-			<Button mnemonicParsing="false" onAction="#loadUser" text="Go to Shop" />
-			<Button mnemonicParsing="false" onAction="#loadEmployee" text="Go to Employee" />
+			<Button mnemonicParsing="false" onAction="#loadAddEmployee" prefHeight="77.0" prefWidth="134.0" text="New Employee">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
+			<Button mnemonicParsing="false" onAction="#loadUser" prefHeight="77.0" prefWidth="134.0" text="Go to Shop">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
+			<Button mnemonicParsing="false" onAction="#loadEmployee" prefHeight="77.0" prefWidth="134.0" text="Go to Employee">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
 		 </children>
 	  </VBox>
    </children>

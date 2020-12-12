@@ -7,33 +7,53 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerHomepageUser">
 	<children>
-      <HBox layoutX="37.0" layoutY="25.0" spacing="20.0">
+      <HBox layoutX="23.0" layoutY="25.0" spacing="20.0">
          <children>
-      		<TextField fx:id="searchboxName" prefHeight="25.0" prefWidth="110.0" promptText="Name" />
-            <TextField fx:id="yearboxName" prefHeight="25.0" prefWidth="110.0" promptText="Year" />
+      		<TextField fx:id="searchboxName" prefHeight="25.0" prefWidth="110.0" promptText="Name">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+            <TextField fx:id="yearboxName" prefHeight="25.0" prefWidth="110.0" promptText="Year">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
       		<Button defaultButton="true" mnemonicParsing="false" onAction="#search" text="Search 🔎">
       			<cursor>
       				<Cursor fx:constant="HAND" />
       			</cursor>
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
       		</Button>
       		<Button mnemonicParsing="false" onAction="#showCart" text="Cart 🛒">
       			<cursor>
       				<Cursor fx:constant="HAND" />
       			</cursor>
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
       		</Button>
       		<MenuButton mnemonicParsing="false" text="My Profile 🙍‍♂️">
       		  <items>
       			 <MenuItem fx:id="menuItemLogout" mnemonicParsing="false" onAction="#logout" text="Back to Login" />
-      		  </items>
+            </items>
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
       		</MenuButton>
          </children>
       </HBox>
-      <TableView fx:id="tableView" layoutX="64.0" layoutY="87.0" prefHeight="241.0" prefWidth="472.0">
+      <TableView fx:id="tableView" layoutX="64.0" layoutY="87.0" prefHeight="241.0" prefWidth="370.0">
         <columns>
           <TableColumn fx:id="nameColumn" editable="false" prefWidth="75.0" sortable="false" text="Name" />
             <TableColumn fx:id="yearColumn" editable="false" prefWidth="75.0" sortable="false" text="Year" />
@@ -45,7 +65,24 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="464.0" layoutY="346.0" mnemonicParsing="false" onAction="#addToCart" text="Add to Cart🛒" />
-      <TextField fx:id="quantity" layoutX="370.0" layoutY="346.0" prefHeight="25.0" prefWidth="61.0" promptText="Quantity" />
+      <Button layoutX="335.0" layoutY="346.0" mnemonicParsing="false" onAction="#addToCart" text="Add to Cart🛒">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
+      <TextField fx:id="quantity" layoutX="249.0" layoutY="346.0" prefHeight="27.0" prefWidth="69.0" promptText="Quantity">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></TextField>
+      <TreeView fx:id="treeView" layoutX="455.0" layoutY="111.0" prefHeight="217.0" prefWidth="121.0" />
+      <Text fill="WHITE" layoutX="481.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="My Orders">
+         <font>
+            <Font name="Calibri Bold" size="14.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="24.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/wine.png" />
+         </image>
+      </ImageView>
 	</children>
 </AnchorPane>

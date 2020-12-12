@@ -23,16 +23,28 @@
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
             </TextField>
             <TextField fx:id="quantity" accessibleRole="INCREMENT_BUTTON" prefHeight="25.0" prefWidth="109.0" promptText="Quantity">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
             </TextField>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#restockWine" text="Add" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#restockWine" prefHeight="34.0" prefWidth="59.0" text="Add">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
          </children>
       </VBox>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="34.0" prefWidth="59.0" text="&lt; Back">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/wine.png" />

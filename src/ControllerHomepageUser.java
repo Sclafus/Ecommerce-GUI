@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,6 +37,9 @@ public class ControllerHomepageUser implements Controller {
 
 	@FXML
 	private TextField yearboxName;
+
+	@FXML
+	private TreeView<String> treeView;
 
 	@FXML
 	private TableView<Wine> tableView;
@@ -107,6 +112,10 @@ public class ControllerHomepageUser implements Controller {
 			// displays the correct notification to the User
 			displayNotifications(notification);
 			socket2.close();
+
+			// displays the orders made by the User
+			displayOrders();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -283,5 +292,69 @@ public class ControllerHomepageUser implements Controller {
 	void logout(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
 		rootPane.getChildren().setAll(pane);
+	}
+
+	/**
+	 * Displays all the orders made by the {@code User} in the TreeView.
+	 * 
+	 * @throws UnknownHostException if the IP address of the host could not be
+	 *                              determined.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
+	 * @see Order
+	 * @see User
+	 */
+	@SuppressWarnings("unchecked")
+	void displayOrders() throws IOException {
+		if (this.currentUser.getPermission() > 0) {
+			// user is authorized to perform the action
+			Socket socket = new Socket("localhost", 4316);
+
+			// client -> server
+			OutputStream outputStream = socket.getOutputStream();
+			ObjectOutputStream out = new ObjectOutputStream(outputStream);
+			String[] toBeSent = { "get_orders_user", this.currentUser.getEmail() };
+			out.writeObject(toBeSent);
+
+			// server ->client
+			InputStream inputStream = socket.getInputStream();
+			ObjectInputStream in = new ObjectInputStream(inputStream);
+
+			try {
+				//receives the ArrayList of orders from the server
+				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
+				//creates the TreeView's root 
+				TreeItem<String> rootItem = new TreeItem<String>("Orders");
+
+				for (Order order : orders) {
+					//fills the TreeView with the orders
+					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
+					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
+					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+					rootOrder.getChildren().addAll(id, status, customer);
+
+					//for each order it displays each wine of the order
+					for (Wine wine : order.getWines()) {
+						TreeItem<String> rootProduct = new TreeItem<String>(
+								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
+						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
+						rootProduct.getChildren().add(quantity);
+						rootOrder.getChildren().add(rootProduct);
+					}
+					rootItem.getChildren().add(rootOrder);
+				}
+				treeView.setRoot(rootItem);
+				treeView.setShowRoot(false);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			socket.close();
+		} else {
+			// user is not authorized to perform the action
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Not authorized");
+			alert.setHeaderText("You are not allowed to perform this action.");
+			alert.showAndWait();
+		}
 	}
 }

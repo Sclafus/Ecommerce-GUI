@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -18,39 +17,47 @@
 				<Image url="@img/avatar.png" />
 			</image>
 		</ImageView>
-      <HBox layoutX="36.0" layoutY="18.0" prefHeight="331.0" prefWidth="529.0" spacing="20.0">
+      <HBox layoutX="36.0" layoutY="24.0" prefHeight="331.0" prefWidth="557.0" spacing="20.0">
          <children>
       		<VBox alignment="TOP_CENTER" prefHeight="321.0" prefWidth="138.0" spacing="30.0">
       			<children>
       				<Button mnemonicParsing="false" onAction="#loadRestockWine" prefHeight="77.0" prefWidth="134.0" text="Restock Wine">
       					<font>
-      						<Font name="Cambria" size="15.0" />
+      						<Font name="Calibri" size="14.0" />
       					</font>
       				</Button>
       				<Button mnemonicParsing="false" onAction="#loadAddWine" prefHeight="77.0" prefWidth="134.0" text="Add Wine">
       					<font>
-      						<Font name="Cambria" size="15.0" />
+      						<Font name="Calibri" size="14.0" />
       					</font>
       				</Button>
       				<Button mnemonicParsing="false" onAction="#loadShop" prefHeight="77.0" prefWidth="134.0" text="Go to Shop">
       					<font>
-      						<Font name="Cambria" size="15.0" />
+      						<Font name="Calibri" size="14.0" />
       					</font>
       				</Button>
       				<Button mnemonicParsing="false" onAction="#shipOrder" prefHeight="77.0" prefWidth="134.0" text="Ship Order">
       					<font>
-      						<Font name="Cambria" size="15.0" />
+      						<Font name="Calibri" size="14.0" />
       					</font>
       				</Button>
       			</children>
       		</VBox>
-      		<TreeView fx:id="treeView" prefHeight="286.0" prefWidth="354.0" />
+      		<TreeView fx:id="treeView" prefHeight="331.0" prefWidth="279.0" />
+            <ImageView fitHeight="65.0" fitWidth="68.0">
+               <image>
+                  <Image url="@img/wine.png" />
+               </image>
+            </ImageView>
          </children>
       </HBox>
-		<Button layoutX="497.0" layoutY="360.0" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="68.0" text="Logout" />
-		<Text fx:id="name" layoutX="60.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+		<Button layoutX="497.0" layoutY="360.0" mnemonicParsing="false" onAction="#logout" prefHeight="33.0" prefWidth="68.0" text="Logout">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
+		<Text fx:id="name" layoutX="45.0" layoutY="382.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
 			<font>
-				<Font name="Cambria" size="15.0" />
+				<Font name="Calibri" size="18.0" />
 			</font>
 		</Text>
 	</children>

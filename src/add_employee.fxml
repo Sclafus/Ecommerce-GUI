@@ -10,15 +10,30 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" fx:controller="ControllerAddEmployee" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #76162d;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerAddEmployee">
 	<children>
 		<VBox alignment="CENTER" layoutX="223.0" layoutY="143.0" prefHeight="133.0" prefWidth="154.0" spacing="15.0">
 			<children>
-				<TextField fx:id="name" promptText="Name" />
-				<TextField fx:id="surname" promptText="Surname" />
-				<TextField fx:id="email" promptText="Email" />
-				<PasswordField fx:id="password" prefHeight="70.0" prefWidth="194.0" promptText="Password" />
-				<Button defaultButton="true" mnemonicParsing="false" onAction="#addEmployee" text="Add" />
+				<TextField fx:id="name" promptText="Name">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+				<TextField fx:id="surname" promptText="Surname">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+				<TextField fx:id="email" promptText="Email">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></TextField>
+				<PasswordField fx:id="password" prefHeight="70.0" prefWidth="194.0" promptText="Password">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></PasswordField>
+				<Button defaultButton="true" mnemonicParsing="false" onAction="#addEmployee" text="Add">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font></Button>
 			</children>
 		</VBox>
 		<Text fill="WHITE" layoutX="63.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please fill the form to register a new employee">
@@ -31,6 +46,9 @@
 				<Image url="@img/wine.png" />
 			</image>
 		</ImageView>
-		<Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="&lt; Back" />
+		<Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="34.0" prefWidth="59.0" text="&lt; Back">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font></Button>
 	</children>
 </AnchorPane>
