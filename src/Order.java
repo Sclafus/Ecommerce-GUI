@@ -82,12 +82,4 @@ public class Order implements Serializable{
 	public ArrayList<Wine> getWines() {
 		return this.items;
 	}
-
-	/**
-	 * Changes the status of the selected {@code Order} to {@code true} once the
-	 * order has been shipped.
-	 */
-	public void ship() {
-		this.shipped = true;
-	}
 }
