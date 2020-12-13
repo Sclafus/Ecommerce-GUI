@@ -19,8 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Controller for Register, page accessible by {@code User} with permission > 0
- * (aka everyone)
+ * Controller for Register page.
  */
 public class ControllerRegister implements Controller {
 
