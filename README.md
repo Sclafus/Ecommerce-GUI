@@ -18,5 +18,5 @@ The Server application is available [here](https://github.com/Sclafus/Ecommerce-
 
 All the icons used in this project are taken from [icons8.com](https://www.icons8.com)
 
-UML Class Diagram
-![UML Class Diagram](UML/class_diagram.svg)
+### UML Class Diagram
+![UML Class Diagram](UML/ClassDiagram.svg)
