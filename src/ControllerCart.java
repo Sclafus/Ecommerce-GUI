@@ -147,7 +147,7 @@ public class ControllerCart implements Controller {
 					alert.setTitle("Order submitted!");
 					alert.setHeaderText(String.format("Your order has been placed!\nOrder ID: %d", newOrder.getId()));
 					alert.setContentText(
-							"(We are out of stock of the wines remaining in the cart or you are trying to order too many and we do not have enough, you will receive a notification once we restock!)");
+							"(If some wines are left in your cart we either are out of stock or they are not available in the desired quantity, you will receive a notification once we restock!)");
 					alert.showAndWait();
 				}
 			} catch (ClassNotFoundException e) {
