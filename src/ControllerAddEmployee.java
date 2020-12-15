@@ -76,7 +76,7 @@ public class ControllerAddEmployee implements Controller {
 	 * @see User
 	 */
 	@FXML
-	void addEmployee(ActionEvent event) throws UnknownHostException, IOException {
+	public void addEmployee(ActionEvent event) throws UnknownHostException, IOException {
 		// gets data
 		String nam = name.getText();
 		String sur = surname.getText();
@@ -96,7 +96,7 @@ public class ControllerAddEmployee implements Controller {
 			alert.setHeaderText("The provided email is not valid, please retry.");
 			alert.showAndWait();
 		} else {
-			
+
 			// inserted data is ok
 			if (this.currentUser.getPermission() > 2) {
 				// user is autorized to perform the action
@@ -152,7 +152,7 @@ public class ControllerAddEmployee implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void back(ActionEvent event) throws IOException {
+	public void back(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_admin");
 	}

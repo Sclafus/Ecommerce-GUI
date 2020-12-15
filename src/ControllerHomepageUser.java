@@ -36,7 +36,7 @@ public class ControllerHomepageUser implements Controller {
 	private TextField searchboxName;
 
 	@FXML
-	private TextField yearboxName;
+	private TextField searchboxYear;
 
 	@FXML
 	private TreeView<String> treeView;
@@ -115,7 +115,7 @@ public class ControllerHomepageUser implements Controller {
 
 			// displays the orders made by the User
 			displayOrders();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,8 +142,8 @@ public class ControllerHomepageUser implements Controller {
 	}
 
 	/**
-	 * Displays an alert when a wine is restocked, from an ArrayList of Wines. This method is
-	 * automatically called whenever the homepage of the user is loaded.
+	 * Displays an alert when a wine is restocked, from an ArrayList of Wines. This
+	 * method is automatically called whenever the homepage of the user is loaded.
 	 * 
 	 * @param wines the content that needs to be displayed on the alert. [Arraylist
 	 *              of Wine]
@@ -176,8 +176,8 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unused")
-	void addToCart(ActionEvent event) throws UnknownHostException, IOException {
-		//permission check, guests can't add to cart
+	public void addToCart(ActionEvent event) throws UnknownHostException, IOException {
+		// permission check, guests can't add to cart
 		if (this.currentUser.getPermission() > 0) {
 			Socket socket = new Socket("localhost", 4316);
 
@@ -242,13 +242,13 @@ public class ControllerHomepageUser implements Controller {
 	 */
 	@FXML
 	@SuppressWarnings("unchecked")
-	void search(ActionEvent event) throws IOException, ClassNotFoundException {
+	public void search(ActionEvent event) throws IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", 4316);
 
 		// client -> server
 		OutputStream outputStream = socket.getOutputStream();
 		ObjectOutputStream out = new ObjectOutputStream(outputStream);
-		String[] toBeSent = { "search", searchboxName.getText(), yearboxName.getText() };
+		String[] toBeSent = { "search", searchboxName.getText(), searchboxYear.getText() };
 		out.writeObject(toBeSent);
 
 		// server -> client
@@ -256,7 +256,7 @@ public class ControllerHomepageUser implements Controller {
 		ObjectInputStream in = new ObjectInputStream(inputStream);
 		ArrayList<Wine> searchResult = (ArrayList<Wine>) in.readObject();
 
-		//displays the result in the tableview
+		// displays the result in the tableview
 		addToTable(searchResult);
 		socket.close();
 	}
@@ -270,7 +270,7 @@ public class ControllerHomepageUser implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void showCart(ActionEvent event) throws IOException {
+	public void showCart(ActionEvent event) throws IOException {
 		if (this.currentUser.getPermission() > 0) {
 			Loader loader = new Loader(this.currentUser, this.rootPane);
 			loader.load("cart");
@@ -283,18 +283,6 @@ public class ControllerHomepageUser implements Controller {
 	}
 
 	/**
-	 * Goes back to the login page.
-	 * 
-	 * @param event GUI event. [ActionEvent]
-	 * @throws IOException if the filename cannot be read.
-	 */
-	@FXML
-	void logout(ActionEvent event) throws IOException {
-		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
-		rootPane.getChildren().setAll(pane);
-	}
-
-	/**
 	 * Displays all the orders made by the {@code User} in the TreeView.
 	 * 
 	 * @throws UnknownHostException if the IP address of the host could not be
@@ -304,57 +292,61 @@ public class ControllerHomepageUser implements Controller {
 	 * @see User
 	 */
 	@SuppressWarnings("unchecked")
-	void displayOrders() throws IOException {
-		if (this.currentUser.getPermission() > 0) {
-			// user is authorized to perform the action
-			Socket socket = new Socket("localhost", 4316);
+	public void displayOrders() throws IOException {
+		// user is authorized to perform the action
+		Socket socket = new Socket("localhost", 4316);
 
-			// client -> server
-			OutputStream outputStream = socket.getOutputStream();
-			ObjectOutputStream out = new ObjectOutputStream(outputStream);
-			String[] toBeSent = { "get_orders_user", this.currentUser.getEmail() };
-			out.writeObject(toBeSent);
+		// client -> server
+		OutputStream outputStream = socket.getOutputStream();
+		ObjectOutputStream out = new ObjectOutputStream(outputStream);
+		String[] toBeSent = { "get_orders_user", this.currentUser.getEmail() };
+		out.writeObject(toBeSent);
 
-			// server ->client
-			InputStream inputStream = socket.getInputStream();
-			ObjectInputStream in = new ObjectInputStream(inputStream);
+		// server ->client
+		InputStream inputStream = socket.getInputStream();
+		ObjectInputStream in = new ObjectInputStream(inputStream);
 
-			try {
-				//receives the ArrayList of orders from the server
-				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
-				//creates the TreeView's root 
-				TreeItem<String> rootItem = new TreeItem<String>("Orders");
+		try {
+			// receives the ArrayList of orders from the server
+			ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
+			// creates the TreeView's root
+			TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
-				for (Order order : orders) {
-					//fills the TreeView with the orders
-					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
-					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
-					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
-					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
-					rootOrder.getChildren().addAll(id, status, customer);
+			for (Order order : orders) {
+				// fills the TreeView with the orders
+				TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
+				TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
+				TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
+				TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
+				rootOrder.getChildren().addAll(id, status, customer);
 
-					//for each order it displays each wine of the order
-					for (Wine wine : order.getWines()) {
-						TreeItem<String> rootProduct = new TreeItem<String>(
-								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
-						TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
-						rootProduct.getChildren().add(quantity);
-						rootOrder.getChildren().add(rootProduct);
-					}
-					rootItem.getChildren().add(rootOrder);
+				// for each order it displays each wine of the order
+				for (Wine wine : order.getWines()) {
+					TreeItem<String> rootProduct = new TreeItem<String>(
+							String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));
+					TreeItem<String> quantity = new TreeItem<String>("Quantity: " + wine.getQuantity());
+					rootProduct.getChildren().add(quantity);
+					rootOrder.getChildren().add(rootProduct);
 				}
-				treeView.setRoot(rootItem);
-				treeView.setShowRoot(false);
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				rootItem.getChildren().add(rootOrder);
 			}
-			socket.close();
-		} else {
-			// user is not authorized to perform the action
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Not authorized");
-			alert.setHeaderText("You are not allowed to perform this action.");
-			alert.showAndWait();
+			treeView.setRoot(rootItem);
+			treeView.setShowRoot(false);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+		socket.close();
+	}
+
+	/**
+	 * Goes back to the login page.
+	 * 
+	 * @param event GUI event. [ActionEvent]
+	 * @throws IOException if the filename cannot be read.
+	 */
+	@FXML
+	public void logout(ActionEvent event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
+		rootPane.getChildren().setAll(pane);
 	}
 }

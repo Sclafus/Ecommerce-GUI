@@ -60,7 +60,7 @@ public class ControllerHomepageEmployee implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void loadAddWine(ActionEvent event) throws IOException {
+	public void loadAddWine(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("add_wine");
 	}
@@ -72,7 +72,7 @@ public class ControllerHomepageEmployee implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void loadShop(ActionEvent event) throws IOException {
+	public void loadShop(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_user");
 	}
@@ -84,14 +84,14 @@ public class ControllerHomepageEmployee implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void loadRestockWine(ActionEvent event) throws IOException {
+	public void loadRestockWine(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("restock");
 	}
 
 	/**
-	 * Allows the {@code User} with permission > 1 (employees and administrators)
-	 * to ship a {@code Order}.
+	 * Allows the {@code User} with permission > 1 (employees and administrators) to
+	 * ship a {@code Order}.
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
@@ -101,7 +101,7 @@ public class ControllerHomepageEmployee implements Controller {
 	 * @see Order
 	 */
 	@FXML
-	void shipOrder(ActionEvent event) throws UnknownHostException, IOException {
+	public void shipOrder(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.currentUser.getPermission() > 1) {
 			// user is authorized to perform the action
 			TreeItem<String> selectedItem = treeView.getSelectionModel().getSelectedItem();
@@ -111,7 +111,7 @@ public class ControllerHomepageEmployee implements Controller {
 				while (selectedItem.getParent() != treeView.getRoot()) {
 					selectedItem = selectedItem.getParent();
 				}
-			// warning message if the item is not selected 
+				// warning message if the item is not selected
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Select an order");
@@ -140,7 +140,7 @@ public class ControllerHomepageEmployee implements Controller {
 					alert.setHeaderText(
 							String.format("Order %d has been shipped", Integer.parseInt(selectedItem.getValue())));
 					alert.showAndWait();
-				// server's answer is false -> the order has not been shipped correctly
+					// server's answer is false -> the order has not been shipped correctly
 				} else {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Shipping failed.");
@@ -171,7 +171,7 @@ public class ControllerHomepageEmployee implements Controller {
 	 * @throws IOException if the filename cannot be read.
 	 */
 	@FXML
-	void logout(ActionEvent event) throws IOException {
+	public void logout(ActionEvent event) throws IOException {
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("./login.fxml"));
 		this.rootPane.getChildren().setAll(pane);
 	}
@@ -185,7 +185,7 @@ public class ControllerHomepageEmployee implements Controller {
 	 * @see Order
 	 */
 	@SuppressWarnings("unchecked")
-	void displayOrders() throws IOException {
+	public void displayOrders() throws IOException {
 		if (this.currentUser.getPermission() > 1) {
 			// user is authorized to perform the action
 			Socket socket = new Socket("localhost", 4316);
@@ -201,20 +201,20 @@ public class ControllerHomepageEmployee implements Controller {
 			ObjectInputStream in = new ObjectInputStream(inputStream);
 
 			try {
-				//receives the ArrayList of orders from the server
+				// receives the ArrayList of orders from the server
 				ArrayList<Order> orders = (ArrayList<Order>) in.readObject();
-				//creates the TreeView's root 
+				// creates the TreeView's root
 				TreeItem<String> rootItem = new TreeItem<String>("Orders");
 
 				for (Order order : orders) {
-					//fills the TreeView with the orders
+					// fills the TreeView with the orders
 					TreeItem<String> rootOrder = new TreeItem<String>(Integer.toString(order.getId()));
 					TreeItem<String> id = new TreeItem<String>("Order ID: " + order.getId());
 					TreeItem<String> status = new TreeItem<String>("Status: " + order.getStatus());
 					TreeItem<String> customer = new TreeItem<String>("Customer: " + order.getCustomer());
 					rootOrder.getChildren().addAll(id, status, customer);
 
-					//for each order it displays every wine of the order
+					// for each order it displays every wine of the order
 					for (Wine wine : order.getWines()) {
 						TreeItem<String> rootProduct = new TreeItem<String>(
 								String.format("%d - %s %s", wine.getProductId(), wine.getName(), wine.getYear()));

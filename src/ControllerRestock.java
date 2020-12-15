@@ -43,20 +43,20 @@ public class ControllerRestock implements Controller {
 	}
 
 	/**
-	 * Restocks a {@code Wine} of a given quantity (both the quantity and
-	 * the id of the {@code Wine} are chosen by the {@code User}). 
-	 * The restock operation can be done by all the {@code User} 
-	 * with permission > 1 (either the employees or the administrators).
+	 * Restocks a {@code Wine} of a given quantity (both the quantity and the id of
+	 * the {@code Wine} are chosen by the {@code User}). The restock operation can
+	 * be done by all the {@code User} with permission > 1 (either the employees or
+	 * the administrators).
 	 * 
 	 * @param event GUI event. [ActionEvent]
 	 * @throws UnknownHostException if the IP address of the host could not be
 	 *                              determined.
-	 * @throws IOException if an I/O error occurs when creating the socket.
+	 * @throws IOException          if an I/O error occurs when creating the socket.
 	 * @see User
 	 */
 	@FXML
 	@SuppressWarnings("unused")
-	void restockWine(ActionEvent event) throws UnknownHostException, IOException {
+	public void restockWine(ActionEvent event) throws UnknownHostException, IOException {
 		if (this.currentUser.getPermission() > 1) {
 			// user is authorized to perform the action
 			try {
@@ -105,7 +105,7 @@ public class ControllerRestock implements Controller {
 			alert.showAndWait();
 		}
 	}
-	
+
 	/**
 	 * Goes back to the employee's homepage.
 	 * 
@@ -113,7 +113,7 @@ public class ControllerRestock implements Controller {
 	 * @throws IOException if the file can't be accessed.
 	 */
 	@FXML
-	void back(ActionEvent event) throws IOException {
+	public void back(ActionEvent event) throws IOException {
 		Loader loader = new Loader(this.currentUser, this.rootPane);
 		loader.load("homepage_employee");
 	}

@@ -55,10 +55,5 @@
             <Font name="Calibri" size="25.0" />
          </font>
       </Text>
-      <Text fx:id="message" layoutX="282.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0">
-         <font>
-            <Font name="Calibri" size="20.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

@@ -13,15 +13,13 @@ import java.util.regex.Matcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 /**
- * Controller for Register, page accessible by {@code User} with permission > 0
- * (aka everyone)
+ * Controller for Register page.
  */
 public class ControllerRegister implements Controller {
 
@@ -41,9 +39,6 @@ public class ControllerRegister implements Controller {
 
 	@FXML
 	private PasswordField password;
-
-	@FXML
-	private Text message;
 
 	/**
 	 * Initialize {@code this.currentUser} with the passed value. This method is
@@ -83,7 +78,7 @@ public class ControllerRegister implements Controller {
 	 * @see Order
 	 */
 	@FXML
-	void register(ActionEvent event) throws UnknownHostException, IOException {
+	public void register(ActionEvent event) throws UnknownHostException, IOException {
 
 		// gets data from the page
 		String nam = name.getText();
