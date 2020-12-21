@@ -184,32 +184,42 @@ public class ControllerHomepageUser implements Controller {
 			try {
 				// gets the quantity given by the User
 				int quantity = Integer.parseInt(this.quantity.getText());
-				// getting selection of the tableview
-				Wine wine = tableView.getSelectionModel().getSelectedItem();
 
-				// client -> server
-				OutputStream outputStream = socket.getOutputStream();
-				ObjectOutputStream out = new ObjectOutputStream(outputStream);
-				String[] toBeSent = { "add_to_cart", this.currentUser.getEmail(), String.valueOf(wine.getProductId()),
-						this.quantity.getText() };
-				out.writeObject(toBeSent);
+				// quantity check
+				if (quantity > 0) {
 
-				// server -> client
-				InputStream inputStream = socket.getInputStream();
-				ObjectInputStream in = new ObjectInputStream(inputStream);
-				Boolean addResult = (Boolean) in.readObject();
+					// getting selection of the tableview
+					Wine wine = tableView.getSelectionModel().getSelectedItem();
 
-				if (addResult) {
-					// operation addToCart was successful
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle(String.format("Added to cart"));
-					alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
-					alert.showAndWait();
+					// client -> server
+					OutputStream outputStream = socket.getOutputStream();
+					ObjectOutputStream out = new ObjectOutputStream(outputStream);
+					String[] toBeSent = { "add_to_cart", this.currentUser.getEmail(),
+							String.valueOf(wine.getProductId()), this.quantity.getText() };
+					out.writeObject(toBeSent);
+
+					// server -> client
+					InputStream inputStream = socket.getInputStream();
+					ObjectInputStream in = new ObjectInputStream(inputStream);
+					Boolean addResult = (Boolean) in.readObject();
+
+					if (addResult) {
+						// operation addToCart was successful
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle(String.format("Added to cart"));
+						alert.setHeaderText(String.format("Added %s to cart.", wine.getName()));
+						alert.showAndWait();
+					} else {
+						// operation addToCart was not successful
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle(String.format("Select a wine"));
+						alert.setHeaderText("You have to click on a Wine, enter the quantity and then Add.");
+						alert.showAndWait();
+					}
 				} else {
-					// operation addToCart was not successful
 					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle(String.format("Select a wine"));
-					alert.setHeaderText("You have to click on a Wine, enter the quantity and then Add.");
+					alert.setTitle(String.format("Quantity not valid"));
+					alert.setHeaderText("Please insert a valid quantity.");
 					alert.showAndWait();
 				}
 			} catch (ClassNotFoundException e) {
@@ -220,7 +230,6 @@ public class ControllerHomepageUser implements Controller {
 				alert.setTitle(String.format("Insert quantity"));
 				alert.setHeaderText("Please insert the quantity.");
 				alert.showAndWait();
-
 			}
 			socket.close();
 		} else {
